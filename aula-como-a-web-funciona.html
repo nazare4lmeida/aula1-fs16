@@ -1,0 +1,3400 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Como a Web Funciona — Módulo 1 - Unidade 1 | Prof. Nazaré Almeida</title>
+    <style>
+      /* ── Reset & Base ── */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --bg: #ffffff;
+        --bg-alt: #f7f8fa;
+        --bg-sidebar: #f0f2f5;
+        --border: #e2e5ea;
+        --text: #1a1d23;
+        --text-muted: #6b7280;
+        --text-light: #9ca3af;
+        --accent: #2563eb;
+        --accent-soft: #eff4ff;
+        --accent-mid: #bfcffd;
+        --green: #16a34a;
+        --green-soft: #f0fdf4;
+        --green-mid: #bbf7d0;
+        --yellow: #d97706;
+        --yellow-soft: #fffbeb;
+        --yellow-mid: #fde68a;
+        --red: #dc2626;
+        --red-soft: #fef2f2;
+        --red-mid: #fecaca;
+        --purple: #7c3aed;
+        --purple-soft: #f5f3ff;
+        --purple-mid: #ddd6fe;
+        --sidebar-w: 260px;
+        --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+        --font-mono: "JetBrains Mono", "Fira Code", monospace;
+        --radius: 10px;
+        --shadow: 0 1px 4px rgba(0, 0, 0, 0.07);
+      }
+
+      [data-theme="dark"] {
+        --bg: #0f1117;
+        --bg-alt: #161b26;
+        --bg-sidebar: #111827;
+        --border: #1f2937;
+        --text: #f1f5f9;
+        --text-muted: #94a3b8;
+        --text-light: #475569;
+        --accent: #60a5fa;
+        --accent-soft: #1e2d4a;
+        --accent-mid: #1e3a6e;
+        --green-soft: #052e16;
+        --green-mid: #14532d;
+        --yellow-soft: #1c1007;
+        --yellow-mid: #451a03;
+        --red-soft: #1a0505;
+        --red-mid: #450a0a;
+        --purple-soft: #1a0e2e;
+        --purple-mid: #2e1a5c;
+        --shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+      }
+
+      html {
+        scroll-behavior: smooth;
+        font-size: 16px;
+      }
+
+      body {
+        font-family: var(--font-sans);
+        background: var(--bg);
+        color: var(--text);
+        display: flex;
+        min-height: 100vh;
+        transition:
+          background 0.25s,
+          color 0.25s;
+      }
+
+      /* ── Sidebar ── */
+      #sidebar {
+        width: var(--sidebar-w);
+        min-width: var(--sidebar-w);
+        background: var(--bg-sidebar);
+        border-right: 1px solid var(--border);
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        overflow-y: auto;
+        padding: 24px 0 48px;
+        z-index: 100;
+        transition: transform 0.3s;
+      }
+
+      .sidebar-logo {
+        padding: 0 20px 20px;
+        border-bottom: 1px solid var(--border);
+        margin-bottom: 16px;
+      }
+      .sidebar-logo .tag {
+        font-size: 0.65rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 4px;
+      }
+      .sidebar-logo h2 {
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: var(--text);
+        line-height: 1.4;
+      }
+      .sidebar-logo p {
+        font-size: 0.75rem;
+        color: var(--text-muted);
+        margin-top: 2px;
+      }
+
+      #sidebar nav a {
+        display: block;
+        padding: 7px 20px;
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        text-decoration: none;
+        border-left: 2px solid transparent;
+        transition: all 0.15s;
+        line-height: 1.4;
+      }
+      #sidebar nav a:hover,
+      #sidebar nav a.active {
+        color: var(--accent);
+        border-left-color: var(--accent);
+        background: var(--accent-soft);
+      }
+      #sidebar nav .nav-section {
+        font-size: 0.65rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--text-light);
+        padding: 18px 20px 6px;
+      }
+
+      /* ── Toggle sidebar (mobile) ── */
+      #menu-toggle {
+        display: none;
+        position: fixed;
+        top: 14px;
+        left: 14px;
+        z-index: 200;
+        background: var(--accent);
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        cursor: pointer;
+        font-size: 0.85rem;
+        font-weight: 600;
+      }
+
+      /* ── Main ── */
+      #main {
+        margin-left: var(--sidebar-w);
+        flex: 1;
+        max-width: 860px;
+        padding: 48px 56px 80px;
+      }
+
+      /* ── Dark mode toggle ── */
+      #theme-btn {
+        position: fixed;
+        top: 16px;
+        right: 20px;
+        z-index: 200;
+        background: var(--bg-alt);
+        border: 1px solid var(--border);
+        border-radius: 99px;
+        padding: 6px 14px;
+        font-size: 0.8rem;
+        cursor: pointer;
+        color: var(--text-muted);
+        transition: all 0.2s;
+      }
+      #theme-btn:hover {
+        color: var(--accent);
+        border-color: var(--accent);
+      }
+
+      /* ── Cover ── */
+      #cover {
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        background: linear-gradient(
+          135deg,
+          #1e3a8a 0%,
+          #1d4ed8 50%,
+          #2563eb 100%
+        );
+        color: #fff;
+        padding: 56px 48px;
+        margin-bottom: 56px;
+        position: relative;
+        overflow: hidden;
+      }
+      #cover::before {
+        content: "";
+        position: absolute;
+        top: -60px;
+        right: -60px;
+        width: 260px;
+        height: 260px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.06);
+      }
+      #cover::after {
+        content: "";
+        position: absolute;
+        bottom: -40px;
+        left: -40px;
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.04);
+      }
+      #cover .kicker {
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        opacity: 0.75;
+        margin-bottom: 14px;
+      }
+      #cover h1 {
+        font-size: 2.4rem;
+        font-weight: 800;
+        line-height: 1.2;
+        margin-bottom: 12px;
+      }
+      #cover .subtitle {
+        font-size: 1.05rem;
+        opacity: 0.85;
+        margin-bottom: 28px;
+        max-width: 480px;
+        line-height: 1.6;
+      }
+      .cover-meta {
+        display: flex;
+        gap: 24px;
+        flex-wrap: wrap;
+        margin-top: 8px;
+      }
+      .cover-meta span {
+        font-size: 0.8rem;
+        opacity: 0.8;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      /* ── Typography ── */
+      h1,
+      h2,
+      h3,
+      h4 {
+        color: var(--text);
+        line-height: 1.3;
+      }
+
+      .chapter-title {
+        font-size: 1.9rem;
+        font-weight: 800;
+        margin-bottom: 8px;
+        padding-top: 8px;
+      }
+      .chapter-sub {
+        font-size: 1rem;
+        color: var(--text-muted);
+        margin-bottom: 32px;
+        padding-bottom: 24px;
+        border-bottom: 1px solid var(--border);
+      }
+
+      h3 {
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin: 36px 0 14px;
+        color: var(--text);
+      }
+      h4 {
+        font-size: 1rem;
+        font-weight: 700;
+        margin: 24px 0 10px;
+        color: var(--text);
+      }
+
+      p {
+        font-size: 0.97rem;
+        line-height: 1.8;
+        color: var(--text);
+        margin-bottom: 16px;
+      }
+
+      section {
+        margin-bottom: 72px;
+        scroll-margin-top: 24px;
+      }
+
+      hr.divider {
+        border: none;
+        border-top: 1px solid var(--border);
+        margin: 40px 0;
+      }
+
+      /* ── Callout boxes ── */
+      .box {
+        border-radius: var(--radius);
+        padding: 18px 22px;
+        margin: 24px 0;
+        display: flex;
+        gap: 14px;
+        align-items: flex-start;
+        border: 1px solid;
+      }
+      .box .icon {
+        font-size: 1.3rem;
+        flex-shrink: 0;
+        margin-top: 1px;
+      }
+      .box-content {
+        flex: 1;
+      }
+      .box-content strong {
+        display: block;
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        margin-bottom: 6px;
+      }
+      .box-content p {
+        margin: 0;
+        font-size: 0.93rem;
+      }
+      .box-content p + p {
+        margin-top: 8px;
+      }
+
+      .box-blue {
+        background: var(--accent-soft);
+        border-color: var(--accent-mid);
+        color: var(--text);
+      }
+      .box-blue strong {
+        color: var(--accent);
+      }
+      .box-green {
+        background: var(--green-soft);
+        border-color: var(--green-mid);
+        color: var(--text);
+      }
+      .box-green strong {
+        color: var(--green);
+      }
+      .box-yellow {
+        background: var(--yellow-soft);
+        border-color: var(--yellow-mid);
+        color: var(--text);
+      }
+      .box-yellow strong {
+        color: var(--yellow);
+      }
+      .box-red {
+        background: var(--red-soft);
+        border-color: var(--red-mid);
+        color: var(--text);
+      }
+      .box-red strong {
+        color: var(--red);
+      }
+      .box-purple {
+        background: var(--purple-soft);
+        border-color: var(--purple-mid);
+        color: var(--text);
+      }
+      .box-purple strong {
+        color: var(--purple);
+      }
+
+      /* ── Cards grid ── */
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 16px;
+        margin: 24px 0;
+      }
+      .card {
+        background: var(--bg-alt);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 18px 20px;
+        box-shadow: var(--shadow);
+      }
+      .card .card-icon {
+        font-size: 1.6rem;
+        margin-bottom: 10px;
+      }
+      .card h4 {
+        font-size: 0.9rem;
+        font-weight: 700;
+        margin: 0 0 6px;
+      }
+      .card p {
+        font-size: 0.83rem;
+        color: var(--text-muted);
+        margin: 0;
+        line-height: 1.55;
+      }
+
+      /* ── Code / mono ── */
+      code {
+        font-family: var(--font-mono);
+        background: var(--bg-alt);
+        border: 1px solid var(--border);
+        border-radius: 5px;
+        padding: 2px 7px;
+        font-size: 0.83rem;
+        color: var(--accent);
+      }
+      pre {
+        background: #0f1117;
+        color: #e2e8f0;
+        border-radius: var(--radius);
+        padding: 20px 24px;
+        overflow-x: auto;
+        font-family: var(--font-mono);
+        font-size: 0.83rem;
+        line-height: 1.7;
+        margin: 20px 0;
+        border: 1px solid #1f2937;
+      }
+      pre .c {
+        color: #6b7280;
+      }
+      pre .k {
+        color: #93c5fd;
+      }
+      pre .s {
+        color: #6ee7b7;
+      }
+      pre .n {
+        color: #fde68a;
+      }
+
+      /* ── URL anatomy ── */
+      .url-box {
+        background: #0f1117;
+        border-radius: var(--radius);
+        padding: 20px 24px;
+        margin: 20px 0;
+        overflow-x: auto;
+      }
+      .url-line {
+        font-family: var(--font-mono);
+        font-size: 1rem;
+        color: #e2e8f0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0;
+      }
+      .url-part {
+        padding: 2px 0;
+        cursor: default;
+      }
+      .url-part:hover .url-label {
+        opacity: 1;
+      }
+      .up-proto {
+        color: #93c5fd;
+      }
+      .up-domain {
+        color: #6ee7b7;
+      }
+      .up-port {
+        color: #fde68a;
+      }
+      .up-path {
+        color: #f9a8d4;
+      }
+      .up-query {
+        color: #fca5a5;
+      }
+      .up-frag {
+        color: #c4b5fd;
+      }
+
+      .url-legend {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 14px;
+      }
+      .url-legend span {
+        font-size: 0.77rem;
+        font-family: var(--font-mono);
+        padding: 3px 10px;
+        border-radius: 99px;
+        font-weight: 600;
+      }
+      .ul-proto {
+        background: rgba(147, 197, 253, 0.15);
+        color: #93c5fd;
+      }
+      .ul-domain {
+        background: rgba(110, 231, 183, 0.15);
+        color: #6ee7b7;
+      }
+      .ul-port {
+        background: rgba(253, 230, 138, 0.15);
+        color: #fde68a;
+      }
+      .ul-path {
+        background: rgba(249, 168, 212, 0.15);
+        color: #f9a8d4;
+      }
+      .ul-query {
+        background: rgba(252, 165, 165, 0.15);
+        color: #fca5a5;
+      }
+      .ul-frag {
+        background: rgba(196, 181, 253, 0.15);
+        color: #c4b5fd;
+      }
+
+      /* ── Flow diagram ── */
+      .flow {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+        margin: 24px 0;
+        padding: 24px;
+        background: var(--bg-alt);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+      }
+      .flow-step {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 10px 0;
+      }
+      .flow-badge {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: var(--accent);
+        color: #fff;
+        font-size: 0.78rem;
+        font-weight: 800;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .flow-step-body h4 {
+        margin: 0 0 2px;
+        font-size: 0.9rem;
+      }
+      .flow-step-body p {
+        margin: 0;
+        font-size: 0.82rem;
+        color: var(--text-muted);
+      }
+      .flow-arrow {
+        margin-left: 18px;
+        color: var(--text-light);
+        font-size: 1.1rem;
+        line-height: 1;
+      }
+
+      /* ── Status codes table ── */
+      .status-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        font-size: 0.88rem;
+      }
+      .status-table th {
+        text-align: left;
+        padding: 10px 14px;
+        background: var(--bg-alt);
+        border: 1px solid var(--border);
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+      }
+      .status-table td {
+        padding: 10px 14px;
+        border: 1px solid var(--border);
+        vertical-align: top;
+        line-height: 1.5;
+      }
+      .status-table tr:nth-child(even) td {
+        background: var(--bg-alt);
+      }
+      .badge {
+        display: inline-block;
+        padding: 2px 9px;
+        border-radius: 99px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        font-family: var(--font-mono);
+      }
+      .b-200 {
+        background: #dcfce7;
+        color: #166534;
+      }
+      .b-3xx {
+        background: #fef9c3;
+        color: #854d0e;
+      }
+      .b-4xx {
+        background: #fee2e2;
+        color: #991b1b;
+      }
+      .b-5xx {
+        background: #f3e8ff;
+        color: #6b21a8;
+      }
+
+      [data-theme="dark"] .b-200 {
+        background: #052e16;
+        color: #6ee7b7;
+      }
+      [data-theme="dark"] .b-3xx {
+        background: #1c1303;
+        color: #fde68a;
+      }
+      [data-theme="dark"] .b-4xx {
+        background: #1a0505;
+        color: #fca5a5;
+      }
+      [data-theme="dark"] .b-5xx {
+        background: #1a0e2e;
+        color: #c4b5fd;
+      }
+
+      /* ── Methods table ── */
+      .methods {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin: 20px 0;
+      }
+      .method-row {
+        display: flex;
+        gap: 14px;
+        align-items: flex-start;
+        padding: 14px 16px;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        background: var(--bg-alt);
+      }
+      .method-badge {
+        font-family: var(--font-mono);
+        font-size: 0.78rem;
+        font-weight: 700;
+        padding: 3px 10px;
+        border-radius: 6px;
+        white-space: nowrap;
+        flex-shrink: 0;
+        min-width: 68px;
+        text-align: center;
+      }
+      .m-get {
+        background: #dcfce7;
+        color: #166534;
+      }
+      .m-post {
+        background: #dbeafe;
+        color: #1e3a8a;
+      }
+      .m-put {
+        background: #fef9c3;
+        color: #854d0e;
+      }
+      .m-patch {
+        background: #f3e8ff;
+        color: #6b21a8;
+      }
+      .m-delete {
+        background: #fee2e2;
+        color: #991b1b;
+      }
+      [data-theme="dark"] .m-get {
+        background: #052e16;
+        color: #6ee7b7;
+      }
+      [data-theme="dark"] .m-post {
+        background: #1e2d4a;
+        color: #93c5fd;
+      }
+      [data-theme="dark"] .m-put {
+        background: #1c1303;
+        color: #fde68a;
+      }
+      [data-theme="dark"] .m-patch {
+        background: #1a0e2e;
+        color: #c4b5fd;
+      }
+      [data-theme="dark"] .m-delete {
+        background: #1a0505;
+        color: #fca5a5;
+      }
+      .method-row p {
+        margin: 0;
+        font-size: 0.88rem;
+        line-height: 1.5;
+      }
+
+      /* ── QA list ── */
+      .qa-list {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        margin: 20px 0;
+      }
+      .qa-item {
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        overflow: hidden;
+      }
+      .qa-q {
+        background: var(--bg-alt);
+        padding: 12px 18px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        display: flex;
+        gap: 10px;
+        align-items: baseline;
+      }
+      .qa-q::before {
+        content: "P";
+        font-weight: 800;
+        color: var(--accent);
+        flex-shrink: 0;
+      }
+      .qa-a {
+        padding: 12px 18px;
+        font-size: 0.88rem;
+        line-height: 1.7;
+        color: var(--text);
+        display: flex;
+        gap: 10px;
+        align-items: baseline;
+      }
+      .qa-a::before {
+        content: "R";
+        font-weight: 800;
+        color: var(--green);
+        flex-shrink: 0;
+      }
+
+      /* ── Exercise list ── */
+      .ex-list {
+        counter-reset: ex;
+      }
+      .ex-item {
+        counter-increment: ex;
+        padding: 14px 18px 14px 48px;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        margin-bottom: 10px;
+        font-size: 0.9rem;
+        line-height: 1.6;
+        position: relative;
+        background: var(--bg-alt);
+      }
+      .ex-item::before {
+        content: counter(ex);
+        position: absolute;
+        left: 16px;
+        top: 14px;
+        width: 22px;
+        height: 22px;
+        background: var(--accent);
+        color: #fff;
+        border-radius: 50%;
+        font-size: 0.72rem;
+        font-weight: 800;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* ── Glossary ── */
+      .glossary {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .gl-item {
+        display: flex;
+        gap: 14px;
+        align-items: baseline;
+        padding: 12px 16px;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        background: var(--bg-alt);
+      }
+      .gl-term {
+        font-family: var(--font-mono);
+        font-size: 0.82rem;
+        font-weight: 700;
+        color: var(--accent);
+        min-width: 120px;
+        flex-shrink: 0;
+      }
+      .gl-def {
+        font-size: 0.88rem;
+        line-height: 1.55;
+      }
+
+      /* ── TCP vs UDP ── */
+      .compare {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin: 20px 0;
+      }
+      .compare-col {
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 18px 20px;
+        background: var(--bg-alt);
+      }
+      .compare-col h4 {
+        font-size: 0.9rem;
+        margin: 0 0 10px;
+      }
+      .compare-col ul {
+        list-style: none;
+        padding: 0;
+      }
+      .compare-col ul li {
+        font-size: 0.85rem;
+        padding: 4px 0;
+        color: var(--text-muted);
+        display: flex;
+        gap: 8px;
+        align-items: baseline;
+        line-height: 1.5;
+      }
+      .compare-col ul li::before {
+        content: "→";
+        color: var(--accent);
+        flex-shrink: 0;
+      }
+
+      /* ── Responsive ── */
+      @media (max-width: 900px) {
+        #sidebar {
+          transform: translateX(-100%);
+        }
+        #sidebar.open {
+          transform: translateX(0);
+        }
+        #main {
+          margin-left: 0;
+          padding: 24px 20px 60px;
+        }
+        #menu-toggle {
+          display: block;
+        }
+        #cover h1 {
+          font-size: 1.7rem;
+        }
+        .compare {
+          grid-template-columns: 1fr;
+        }
+        .cards {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+      @media (max-width: 520px) {
+        .cards {
+          grid-template-columns: 1fr;
+        }
+        #cover {
+          padding: 32px 24px;
+        }
+        #main {
+          padding: 20px 14px 60px;
+        }
+      }
+
+      /* ── Print ── */
+      @media print {
+        #sidebar,
+        #theme-btn,
+        #menu-toggle {
+          display: none;
+        }
+        #main {
+          margin-left: 0;
+          max-width: 100%;
+          padding: 0;
+        }
+        .box,
+        .card,
+        pre {
+          break-inside: avoid;
+        }
+        body {
+          font-size: 13px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <button
+      id="menu-toggle"
+      onclick="document.getElementById('sidebar').classList.toggle('open')"
+    >
+      ☰ Menu
+    </button>
+    <button id="theme-btn" onclick="toggleTheme()">🌙 Modo escuro</button>
+
+    <!-- ══ SIDEBAR ══ -->
+    <nav id="sidebar">
+      <div class="sidebar-logo">
+        <div class="tag">Módulo 1 · Unidade 1</div>
+        <h2>Introdução ao Desenvolvimento Web</h2>
+        <p>Prof. Nazaré Almeida</p>
+      </div>
+      <div class="nav-section">Fundamentos</div>
+      <a href="#cap1">1. Como a Web Funciona</a>
+      <a href="#cap2">2. Hardware</a>
+      <a href="#cap3">3. Software</a>
+      <a href="#cap4">4. Redes de Computadores</a>
+      <div class="nav-section">Comunicação</div>
+      <a href="#cap5">5. Endereço IP</a>
+      <a href="#cap6">6. URL</a>
+      <a href="#cap7">7. DNS</a>
+      <a href="#cap8">8. HTTP e Protocolos</a>
+      <a href="#cap9">9. TCP/IP e Parâmetros de Rede</a>
+      <div class="nav-section">Arquitetura</div>
+      <a href="#cap10">10. Cache</a>
+      <a href="#cap11">11. Cliente × Servidor</a>
+      <a href="#cap12">12. Como Tudo se Conecta</a>
+      <div class="nav-section">Referência</div>
+      <a href="#exercicios">Exercícios</a>
+      <a href="#faq">Perguntas Frequentes</a>
+      <a href="#glossario">Glossário</a>
+    </nav>
+
+    <!-- ══ MAIN ══ -->
+    <main id="main">
+      <!-- CAPA -->
+      <div id="cover">
+        <div class="kicker">
+          Curso de Desenvolvimento Web Fullstack · Módulo 1 · Unidade 1
+        </div>
+        <h1>Como a Web Funciona</h1>
+        <p class="subtitle">
+          Uma jornada completa do hardware ao protocolo HTTP — para quem está
+          começando do zero e quer entender de verdade.
+        </p>
+        <div class="cover-meta">
+          <span>👨‍🏫 Prof. Nazaré Almeida</span>
+          <span>⏱ 3h30 de aula</span>
+          <span>🗓 Segunda aula do curso </span>
+          <span>👥 Turma FS16</span>
+        </div>
+      </div>
+
+      <!-- ══ CAP 1: COMO A WEB FUNCIONA (VISÃO GERAL) ══ -->
+      <section id="cap1">
+        <h2 class="chapter-title">1. Como a Web Funciona</h2>
+        <p class="chapter-sub">
+          Visão geral de toda a jornada — do clique na URL até a página aparecer
+          na tela
+        </p>
+
+        <p>
+          Antes de qualquer código, antes de qualquer ferramenta, precisamos ter
+          uma coisa muito clara:
+          <strong
+            >o que exatamente acontece quando você digita um endereço no
+            navegador e aperta Enter?</strong
+          >
+          Parece mágica, né? A página aparece em frações de segundo, com
+          imagens, textos, vídeos — e a maioria das pessoas nunca para pra
+          pensar em como isso funciona.
+        </p>
+
+        <p>
+          Hoje vamos desfazer essa mágica. Vamos mostrar que por trás de cada
+          página que você acessa existe uma cadeia de eventos muito bem
+          organizada, com regras claras, papéis definidos e tecnologias
+          trabalhando juntas em perfeita sincronia.
+        </p>
+
+        <div class="box box-blue">
+          <span class="icon">🎯</span>
+          <div class="box-content">
+            <strong>Por que isso importa para um desenvolvedor?</strong>
+            <p>
+              Você vai passar a vida criando coisas para a web. Se você não
+              entende como a web funciona por dentro, é como querer ser
+              arquiteto sem entender física das estruturas. Pode até funcionar
+              por um tempo, mas na hora que o problema aparecer, você não vai
+              saber onde olhar.
+            </p>
+          </div>
+        </div>
+
+        <h3>A jornada completa em uma visão rápida</h3>
+        <p>
+          Imaginem a seguinte situação: você está no celular, digita
+          <code>instagram.com</code> e aperta Enter. O que acontece? Em menos de
+          um segundo, sua tela mostra o feed. Mas esse "menos de um segundo"
+          esconde uma série de eventos incríveis. Vamos percorrer cada etapa ao
+          longo desta aula.
+        </p>
+
+        <div class="flow">
+          <div class="flow-step">
+            <div class="flow-badge">1</div>
+            <div class="flow-step-body">
+              <h4>Você digita a URL</h4>
+              <p>O navegador recebe o endereço e começa o processo</p>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step">
+            <div class="flow-badge">2</div>
+            <div class="flow-step-body">
+              <h4>DNS traduz o nome para um IP</h4>
+              <p>"instagram.com" vira um número como 157.240.3.174</p>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step">
+            <div class="flow-badge">3</div>
+            <div class="flow-step-body">
+              <h4>Conexão com o servidor</h4>
+              <p>Seu dispositivo se conecta ao servidor do Instagram pelo IP</p>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step">
+            <div class="flow-badge">4</div>
+            <div class="flow-step-body">
+              <h4>Requisição HTTP</h4>
+              <p>O navegador pede a página usando o protocolo HTTP</p>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step">
+            <div class="flow-badge">5</div>
+            <div class="flow-step-body">
+              <h4>Servidor responde</h4>
+              <p>O servidor processa e envia HTML, CSS, JS e imagens</p>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step">
+            <div class="flow-badge">6</div>
+            <div class="flow-step-body">
+              <h4>Cache e renderização</h4>
+              <p>O navegador guarda o que pode e exibe a página na tela</p>
+            </div>
+          </div>
+        </div>
+
+        <p>
+          Cada uma dessas etapas vai virar um capítulo desta aula. Ao final,
+          você vai conseguir explicar esse processo inteiro com suas próprias
+          palavras — e vai ser uma das poucas pessoas no mundo que realmente
+          entende o que acontece quando a página "carrega".
+        </p>
+      </section>
+
+      <!-- ══ CAP 2: HARDWARE ══ -->
+      <section id="cap2">
+        <h2 class="chapter-title">2. Hardware</h2>
+        <p class="chapter-sub">
+          A parte física de tudo — o que você pode tocar, pesar e levar para o
+          conserto
+        </p>
+
+        <p>
+          Agora pensem comigo: antes de falar em internet, em sites, em
+          servidores — tudo isso precisa existir em algum lugar físico. Precisa
+          de matéria. Precisa de circuitos, chips, cabos e energia elétrica.
+          Esse mundo físico tem um nome: <strong>hardware</strong>.
+        </p>
+
+        <p>
+          A palavra vem do inglês e, se você tentar traduzir ao pé da letra,
+          fica algo como "ferragem" ou "ferramental". Faz todo sentido: hardware
+          é a parte dura, concreta, tangível de um sistema computacional. É o
+          que você carrega na mochila, o que você paga no cartão, o que você
+          pode derrubar no chão e estragar.
+        </p>
+
+        <div class="box box-blue">
+          <span class="icon">👨‍🏫</span>
+          <div class="box-content">
+            <strong>Hora de desenhar no quadro</strong>
+            <p>
+              Imagine um computador aberto. Dentro dele você vê uma placa verde
+              com chips, ventoinhas, memórias e cabos. Tudo isso é hardware.
+              Agora feche o computador e abra o Word. O Word não tem peso, não
+              tem cheiro, não pode ser tocado. O Word é software. Essa é a
+              distinção fundamental.
+            </p>
+          </div>
+        </div>
+
+        <h3>Os principais componentes de hardware</h3>
+
+        <div class="cards">
+          <div class="card">
+            <div class="card-icon">🧠</div>
+            <h4>CPU — Processador</h4>
+            <p>
+              O "cérebro" do computador. Executa bilhões de cálculos por
+              segundo. Toda instrução de todo programa passa por aqui.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon">⚡</div>
+            <h4>RAM — Memória</h4>
+            <p>
+              A "mesa de trabalho". Guarda temporariamente o que está em uso
+              agora. Rápida, mas volátil: quando você desliga, tudo se apaga.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon">💾</div>
+            <h4>HD / SSD — Armazenamento</h4>
+            <p>
+              O "armário de arquivos". Guarda dados permanentemente. O SSD é
+              muito mais rápido que o HD tradicional.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🔌</div>
+            <h4>Placa-mãe</h4>
+            <p>
+              A "espinha dorsal". Conecta todos os componentes e permite que
+              eles se comuniquem entre si.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon">📡</div>
+            <h4>Placa de rede</h4>
+            <p>
+              Permite que o computador se conecte a redes. Pode ser por cabo
+              (Ethernet) ou sem fio (Wi-Fi).
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🖥️</div>
+            <h4>Periféricos</h4>
+            <p>
+              Monitor, teclado, mouse, webcam. São os dispositivos de entrada e
+              saída que permitem a interação com o usuário.
+            </p>
+          </div>
+        </div>
+
+        <h3>A analogia da cozinha</h3>
+        <p>
+          Uma analogia que funciona muito bem: imagine que o computador é uma
+          cozinha. A <strong>CPU</strong> é o chef — quem realmente faz o
+          trabalho. A <strong>RAM</strong> é a bancada — onde o chef trabalha
+          agora, com os ingredientes que está usando neste momento. O
+          <strong>HD/SSD</strong> é a despensa — onde ficam guardados todos os
+          ingredientes, mesmo quando a cozinha está fechada. E a
+          <strong>placa-mãe</strong> é a própria estrutura da cozinha — a
+          bancada, o fogão, as prateleiras — tudo conectado.
+        </p>
+
+        <div class="box box-yellow">
+          <span class="icon">⚠️</span>
+          <div class="box-content">
+            <strong>Erro comum</strong>
+            <p>
+              Muita gente confunde RAM com armazenamento. "Meu celular tem 128GB
+              de memória" — na verdade, esses 128GB são de
+              <em>armazenamento</em> (como um SSD). A RAM costuma ser algo como
+              8GB ou 12GB, e é uma coisa completamente diferente. A RAM é rápida
+              e temporária; o armazenamento é persistente e maior.
+            </p>
+          </div>
+        </div>
+
+        <h3>Por que hardware importa para desenvolvimento web?</h3>
+        <p>
+          Vocês podem estar pensando: "Professor, eu vou programar sites. Por
+          que preciso saber de hardware?" E é uma pergunta legítima. Mas pensa:
+          o código que você escreve vai rodar em alguma máquina. O site que você
+          cria vai ser servido por um servidor — que é um computador. A
+          performance da sua aplicação depende diretamente do hardware onde ela
+          roda. Quando um site está lento, às vezes o problema é código ruim,
+          mas às vezes é o servidor com pouca RAM ou um processador
+          sobrecarregado. Você precisa entender o palco onde seu trabalho vai se
+          apresentar.
+        </p>
+
+        <div class="box box-green">
+          <span class="icon">💡</span>
+          <div class="box-content">
+            <strong>Curiosidade</strong>
+            <p>
+              Os servidores que rodam o Google, o Facebook e o Instagram são
+              computadores como o seu — só que muito mais poderosos, em data
+              centers gigantes com climatização especial, geradores de
+              emergência e segurança física 24h. O maior data center do mundo,
+              da China Telecom, tem mais de 100 mil metros quadrados.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══ CAP 3: SOFTWARE ══ -->
+      <section id="cap3">
+        <h2 class="chapter-title">3. Software</h2>
+        <p class="chapter-sub">
+          As instruções que dão vida ao hardware — o que não pode ser tocado,
+          mas faz tudo funcionar
+        </p>
+
+        <p>
+          Se o hardware é o corpo, o software é a mente. É o conjunto de
+          instruções, programas e sistemas que dizem ao hardware o que fazer,
+          quando fazer e como fazer. Sem software, um computador é apenas um
+          conjunto caro de metal e plástico aquecendo a sala.
+        </p>
+
+        <p>
+          A palavra software também vem do inglês — "soft" (macio, suave) em
+          oposição ao "hard" (duro) do hardware. É o lado intangível, o lado que
+          existe como informação pura: zeros e uns que representam instruções
+          para o processador.
+        </p>
+
+        <h3>As camadas do software</h3>
+        <p>
+          O software não é uma coisa só. Ele existe em camadas, e cada camada
+          depende da camada abaixo dela.
+        </p>
+
+        <div class="cards">
+          <div class="card">
+            <div class="card-icon">🏗️</div>
+            <h4>Sistema Operacional</h4>
+            <p>
+              Windows, macOS, Linux, Android, iOS. É o software mais fundamental
+              — gerencia todos os recursos de hardware e permite que outros
+              programas rodem sobre ele.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🔧</div>
+            <h4>Drivers</h4>
+            <p>
+              São programas que traduzem as instruções do sistema operacional
+              para a linguagem de um hardware específico. Sem o driver, o SO não
+              sabe como falar com a sua impressora, placa de vídeo ou webcam.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🌐</div>
+            <h4>Navegadores</h4>
+            <p>
+              Chrome, Firefox, Safari, Edge. São os programas que interpretam o
+              código HTML, CSS e JavaScript que você vai aprender a escrever.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon">📱</div>
+            <h4>Aplicativos</h4>
+            <p>
+              WhatsApp, Spotify, Word, Photoshop. Programas criados para uma
+              finalidade específica, que rodam sobre o sistema operacional.
+            </p>
+          </div>
+        </div>
+
+        <h3>O navegador — o software mais importante para vocês</h3>
+        <p>
+          Ao longo deste curso, o navegador vai ser o seu palco principal. É
+          para ele que você vai escrever código. É ele que vai interpretar o
+          HTML que você criar, aplicar o CSS que você definir, executar o
+          JavaScript que você programar.
+        </p>
+
+        <p>
+          E os navegadores são muito mais complexos do que parecem. Por baixo
+          daquela janela simples com uma barra de endereço, existe um motor de
+          renderização sofisticadíssimo, um interpretador de JavaScript, um
+          sistema de cache, um gerenciador de cookies, um cliente HTTP... tudo
+          trabalhando junto, em tempo real, para transformar código em pixels na
+          tela.
+        </p>
+
+        <div class="box box-purple">
+          <span class="icon">💻</span>
+          <div class="box-content">
+            <strong>Demonstração prática</strong>
+            <p>
+              Abram o Chrome agora. Aperte F12 (ou clique com o botão direito →
+              Inspecionar). Vocês estão vendo as ferramentas de desenvolvedor —
+              o DevTools. Toda a nossa vida vai acontecer aqui. É nessa janela
+              que vamos ver o código das páginas, analisar as requisições HTTP,
+              medir o tempo de carregamento e muito mais.
+            </p>
+          </div>
+        </div>
+
+        <div class="box box-yellow">
+          <span class="icon">⚠️</span>
+          <div class="box-content">
+            <strong>Erro comum</strong>
+            <p>
+              "Eu uso qualquer navegador, tanto faz." — Não tanto faz. Cada
+              navegador tem comportamentos ligeiramente diferentes. Durante o
+              desenvolvimento, o Chrome é padrão da indústria pelas ferramentas
+              que oferece. Mas você vai sempre testar seu site em múltiplos
+              navegadores antes de lançar. Isso se chama
+              <em>cross-browser testing</em>.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══ CAP 4: REDES ══ -->
+      <section id="cap4">
+        <h2 class="chapter-title">4. Redes de Computadores</h2>
+        <p class="chapter-sub">
+          Como os computadores se encontram, se comunicam e compartilham
+          informação
+        </p>
+
+        <p>
+          Agora que entendemos o que é um computador — hardware com software
+          rodando —, surge a próxima pergunta: como é que
+          <em>dois</em> computadores se falam? Como é que o seu celular consegue
+          pedir uma página para um servidor que fica em outro continente?
+        </p>
+
+        <p>
+          A resposta está nas redes de computadores. E a história das redes é,
+          em muitos aspectos, a história da internet.
+        </p>
+
+        <h3>Por que as redes existem?</h3>
+        <p>
+          Pensa comigo: no início dos computadores, cada máquina vivia isolada.
+          Se você queria transferir um arquivo para outro computador, usava um
+          disquete — um cartão físico que você tirava de uma máquina e colocava
+          na outra. Isso ficou conhecido como "sneakernet": a rede que andava de
+          tênis (sneakers).
+        </p>
+
+        <p>
+          Com o tempo, as pessoas perceberam que seria muito mais prático se os
+          computadores pudessem trocar informação diretamente, sem precisar de
+          um humano como intermediário. Surgiu então a ideia de conectar
+          máquinas entre si por meio de cabos — e nasceram as redes.
+        </p>
+
+        <h3>Tipos de rede</h3>
+
+        <div class="cards">
+          <div class="card">
+            <div class="card-icon">🏠</div>
+            <h4>LAN — Local Area Network</h4>
+            <p>
+              Rede local. Conecta dispositivos em um espaço físico pequeno: sua
+              casa, um escritório, uma escola. É o Wi-Fi da sua casa.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🏙️</div>
+            <h4>MAN — Metropolitan Area Network</h4>
+            <p>
+              Rede metropolitana. Cobre uma cidade ou região. Algumas
+              prefeituras oferecem Wi-Fi público em espaços urbanos — isso é uma
+              MAN.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🌍</div>
+            <h4>WAN — Wide Area Network</h4>
+            <p>
+              Rede de longa distância. Conecta redes em países e continentes
+              diferentes. A internet é a maior WAN do mundo.
+            </p>
+          </div>
+        </div>
+
+        <h3>A internet não é uma coisa só</h3>
+        <p>
+          Olha só que interessante: a internet não é um produto de uma empresa,
+          nem uma rede única criada por alguém. A internet é, na verdade, uma
+          rede de redes. São milhares de redes diferentes — de empresas,
+          governos, universidades, provedores de internet — todas
+          interconectadas e usando os mesmos protocolos de comunicação para se
+          entender.
+        </p>
+
+        <div class="box box-green">
+          <span class="icon">💡</span>
+          <div class="box-content">
+            <strong>Curiosidade histórica</strong>
+            <p>
+              A internet nasceu como um projeto militar americano chamado
+              ARPANET, nos anos 1960. A ideia era criar uma rede de comunicação
+              que continuasse funcionando mesmo que parte dela fosse destruída
+              em um ataque nuclear. A rede foi projetada para que se um nó
+              caísse, os dados encontrassem outro caminho. Esse princípio ainda
+              está no coração da internet hoje.
+            </p>
+          </div>
+        </div>
+
+        <p>
+          Os dispositivos em uma rede se comunicam seguindo regras combinadas
+          chamadas de <strong>protocolos</strong>. Um protocolo é exatamente
+          isso: um conjunto de regras que todos concordam em seguir para que a
+          comunicação funcione. É como um idioma: para duas pessoas se
+          entenderem, precisam falar a mesma língua e seguir as mesmas
+          convenções gramaticais. Para dois computadores se entenderem, precisam
+          seguir o mesmo protocolo.
+        </p>
+      </section>
+
+      <!-- ══ CAP 5: IP ══ -->
+      <section id="cap5">
+        <h2 class="chapter-title">5. Endereço IP</h2>
+        <p class="chapter-sub">
+          O identificador único de cada dispositivo na rede — o CEP da internet
+        </p>
+
+        <p>
+          Imaginem a seguinte situação: você quer mandar uma carta para um
+          amigo. O que você precisa escrever no envelope? O endereço. Rua,
+          número, bairro, cidade, CEP. Sem endereço, a carta não chega. O
+          correio não tem como saber para onde levar.
+        </p>
+
+        <p>
+          Na internet funciona exatamente da mesma forma. Para que um computador
+          possa enviar dados para outro, ele precisa saber o
+          <em>endereço</em> do destino. Esse endereço se chama
+          <strong>IP</strong> — que significa <em>Internet Protocol</em>. O IP é
+          um número que identifica, de forma única, um dispositivo em uma rede.
+        </p>
+
+        <h3>IPv4 — O formato clássico</h3>
+        <p>
+          O formato mais comum de endereço IP que você vai ver na vida é algo
+          assim: <code>192.168.1.100</code>. São quatro grupos de números
+          separados por pontos. Cada grupo vai de 0 a 255. Isso é o IPv4 —
+          versão 4 do protocolo IP, criado nos anos 1970.
+        </p>
+
+        <p>
+          Por que 0 a 255? Porque cada grupo representa 8 bits de informação em
+          binário. O maior número que 8 bits conseguem representar é 255 (que em
+          binário é <code>11111111</code>). Com quatro grupos assim, um endereço
+          IPv4 tem 32 bits no total — o que significa que teoricamente existem
+          cerca de <strong>4,3 bilhões</strong> de endereços possíveis.
+        </p>
+
+        <div class="box box-yellow">
+          <span class="icon">⚠️</span>
+          <div class="box-content">
+            <strong>O problema dos endereços acabando</strong>
+            <p>
+              4,3 bilhões parecia muito nos anos 70. Hoje, com smartphones,
+              tablets, computadores, smart TVs, câmeras conectadas, geladeiras
+              inteligentes... os endereços IPv4 acabaram. Literalmente. Em 2011,
+              a IANA (organização que gerencia endereços IP globalmente)
+              distribuiu os últimos blocos disponíveis. Foi necessário criar uma
+              nova versão.
+            </p>
+          </div>
+        </div>
+
+        <h3>IPv6 — A solução para a escassez</h3>
+        <p>
+          Para resolver o problema, foi criado o IPv6, que usa endereços de 128
+          bits. Um endereço IPv6 parece algo assim:
+          <code>2001:0db8:85a3:0000:0000:8a2e:0370:7334</code>. São oito grupos
+          de quatro dígitos hexadecimais.
+        </p>
+
+        <p>
+          Quantos endereços isso permite? Um número astronomicamente grande:
+          aproximadamente <strong>340 undecilhões</strong> — ou seja, 340
+          seguido de 36 zeros. É o suficiente para dar um endereço único para
+          cada átomo da superfície da Terra. Pode parecer exagero, mas a ideia é
+          nunca mais precisar se preocupar com escassez de endereços.
+        </p>
+
+        <h3>IP Público × IP Privado</h3>
+        <p>
+          Agora, aqui entra um conceito que confunde muita gente: nem todo IP é
+          visível para o mundo. Existe uma distinção fundamental entre IP
+          público e IP privado.
+        </p>
+
+        <div class="cards">
+          <div class="card">
+            <div class="card-icon">🌐</div>
+            <h4>IP Público</h4>
+            <p>
+              É o endereço da sua casa na internet — o endereço visível para o
+              mundo todo. Geralmente é o IP do seu roteador, atribuído pela sua
+              operadora. É único globalmente.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🏠</div>
+            <h4>IP Privado</h4>
+            <p>
+              É o endereço de cada dispositivo dentro da sua rede doméstica. Seu
+              celular tem um, seu notebook tem outro. Esses endereços são locais
+              — invisíveis para a internet.
+            </p>
+          </div>
+        </div>
+
+        <p>
+          A analogia perfeita: pense em um prédio. O prédio tem um endereço na
+          rua — esse é o IP público. Mas dentro do prédio, cada apartamento tem
+          um número — esse é o IP privado. Se alguém manda uma carta para o
+          prédio, ela chega ao endereço da rua. O porteiro (o roteador) então
+          distribui para o apartamento certo.
+        </p>
+
+        <div class="box box-blue">
+          <span class="icon">💻</span>
+          <div class="box-content">
+            <strong>Demonstração prática</strong>
+            <p>
+              Quer ver seu IP público agora? Digite
+              <code>qual é meu ip</code> no Google. Ele te mostra o número.
+              Agora, no terminal do seu computador, digite
+              <code>ipconfig</code> (Windows) ou
+              <code>ifconfig</code> (Mac/Linux) para ver seu IP privado. São
+              números diferentes — você pode comparar.
+            </p>
+          </div>
+        </div>
+
+        <div class="box box-green">
+          <span class="icon">💡</span>
+          <div class="box-content">
+            <strong>Faixas de IP privado</strong>
+            <p>
+              Existem faixas de IP reservadas para uso privado, que nunca
+              aparecem na internet pública. As mais comuns são:
+              <code>192.168.0.0</code> a <code>192.168.255.255</code> (redes
+              domésticas), <code>10.0.0.0</code> a
+              <code>10.255.255.255</code> (redes corporativas) e
+              <code>172.16.0.0</code> a <code>172.31.255.255</code>. Se você vir
+              um IP começando com 192.168, pode ter certeza: é um IP privado.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══ CAP 6: URL ══ -->
+      <section id="cap6">
+        <h2 class="chapter-title">6. URL</h2>
+        <p class="chapter-sub">
+          O endereço completo de qualquer recurso na internet — dissecar cada
+          parte revela muito sobre como a web funciona
+        </p>
+
+        <p>
+          URL significa <em>Uniform Resource Locator</em> — em português,
+          Localizador Uniforme de Recurso. É o endereço completo de qualquer
+          coisa na internet: uma página, uma imagem, um vídeo, uma API, um
+          arquivo PDF.
+        </p>
+
+        <p>
+          Você usa URLs dezenas de vezes por dia sem pensar muito nisso. Mas
+          cada parte de uma URL tem um significado específico e uma função muito
+          precisa. Vamos dissecar uma URL de exemplo:
+        </p>
+
+        <div class="url-box">
+          <div class="url-line">
+            <span class="url-part up-proto">https://</span
+            ><span class="url-part up-domain">www.exemplo.com</span
+            ><span class="url-part up-port">:8080</span
+            ><span class="url-part up-path">/produtos/camisetas</span
+            ><span class="url-part up-query">?cor=azul&tamanho=M</span
+            ><span class="url-part up-frag">#detalhes</span>
+          </div>
+          <div class="url-legend">
+            <span class="ul-proto">Protocolo</span>
+            <span class="ul-domain">Domínio</span>
+            <span class="ul-port">Porta</span>
+            <span class="ul-path">Caminho</span>
+            <span class="ul-query">Query String</span>
+            <span class="ul-frag">Fragmento</span>
+          </div>
+        </div>
+
+        <h3>Protocolo — <code style="color: var(--accent)">https://</code></h3>
+        <p>
+          O protocolo define <em>como</em> a comunicação vai acontecer.
+          <code>https</code> é o HyperText Transfer Protocol Secure — a versão
+          criptografada do HTTP. O <code>s</code> no final significa que os
+          dados trocados entre você e o servidor estão embaralhados
+          (criptografados), impedindo que alguém no meio do caminho intercepte e
+          leia suas informações.
+        </p>
+
+        <p>
+          Quando você vê um cadeado verde na barra do navegador, é o HTTPS
+          funcionando. Sites de banco, e-commerce, redes sociais — todos usam
+          HTTPS. Se um site usa HTTP simples (sem o s), o navegador moderno te
+          avisa com um "Não seguro" bem vermelho na barra de endereço.
+        </p>
+
+        <h3>
+          Domínio — <code style="color: var(--accent)">www.exemplo.com</code>
+        </h3>
+        <p>
+          O domínio é o nome amigável do servidor que você quer acessar. Em vez
+          de decorar <code>157.240.3.174</code>, você digita
+          <code>instagram.com</code>. O domínio é traduzido para um IP pelo
+          sistema DNS — que vamos explorar no próximo capítulo.
+        </p>
+
+        <p>
+          O domínio tem partes menores. O <code>.com</code> é o TLD — Top-Level
+          Domain (domínio de nível superior). Existem centenas deles:
+          <code>.com</code>, <code>.org</code>, <code>.net</code>,
+          <code>.br</code>, <code>.gov</code>, <code>.io</code>,
+          <code>.dev</code>... O <code>exemplo</code> é o nome do domínio em si,
+          registrado por uma empresa ou pessoa. E o <code>www</code> é um
+          subdomínio — uma divisão dentro do domínio principal (outros exemplos:
+          <code>blog.exemplo.com</code>, <code>loja.exemplo.com</code>).
+        </p>
+
+        <h3>Porta — <code style="color: var(--accent)">:8080</code></h3>
+        <p>
+          Pense no IP como o endereço de um prédio e a porta como o número do
+          apartamento. Um servidor pode oferecer vários serviços diferentes ao
+          mesmo tempo — cada um "escuta" em uma porta diferente. As portas mais
+          importantes para você:
+        </p>
+
+        <div class="cards">
+          <div class="card">
+            <div class="card-icon">🔒</div>
+            <h4>Porta 443</h4>
+            <p>
+              HTTPS. É a porta padrão para tráfego web seguro. Quando você
+              acessa um site HTTPS, essa porta é usada automaticamente, por isso
+              não aparece na URL.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🌐</div>
+            <h4>Porta 80</h4>
+            <p>
+              HTTP. Porta padrão para tráfego web não criptografado. Cada vez
+              mais rara, pois os navegadores estão forçando HTTPS.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon">💻</div>
+            <h4>Porta 3000 / 8080</h4>
+            <p>
+              Muito usadas em desenvolvimento local. Quando você rodar seu
+              primeiro servidor local, provavelmente vai acessar
+              <code>localhost:3000</code>.
+            </p>
+          </div>
+        </div>
+
+        <h3>
+          Caminho —
+          <code style="color: var(--accent)">/produtos/camisetas</code>
+        </h3>
+        <p>
+          O caminho (ou <em>path</em>) indica qual recurso específico você quer
+          dentro do servidor. É como o endereço de um arquivo dentro de pastas.
+          <code>/produtos/camisetas</code> pode ser uma página que lista todas
+          as camisetas de uma loja. <code>/usuarios/joao/perfil</code> pode ser
+          a página de perfil do usuário João.
+        </p>
+
+        <h3>
+          Query String —
+          <code style="color: var(--accent)">?cor=azul&tamanho=M</code>
+        </h3>
+        <p>
+          A query string começa com <code>?</code> e serve para passar
+          parâmetros ao servidor. É muito usada em buscas e filtros.
+          <code>?q=gatos</code> na URL do Google é a sua busca pela palavra
+          "gatos". Múltiplos parâmetros são separados por <code>&</code>.
+        </p>
+
+        <h3>Fragmento — <code style="color: var(--accent)">#detalhes</code></h3>
+        <p>
+          O fragmento (também chamado de âncora) começa com <code>#</code> e
+          aponta para uma seção específica dentro da página. Quando você clica
+          em um link que te leva direto para um capítulo de um artigo longo, é o
+          fragmento trabalhando. Diferente das outras partes da URL, o fragmento
+          <em>não é enviado ao servidor</em> — ele é processado inteiramente
+          pelo navegador.
+        </p>
+
+        <div class="box box-blue">
+          <span class="icon">📝</span>
+          <div class="box-content">
+            <strong>Resumo da URL</strong>
+            <p>
+              <strong>Protocolo</strong> → como se comunica ·
+              <strong>Domínio</strong> → com quem fala ·
+              <strong>Porta</strong> → qual serviço · <strong>Caminho</strong> →
+              o que quer · <strong>Query string</strong> → com quais parâmetros
+              · <strong>Fragmento</strong> → em que parte da página
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══ CAP 7: DNS ══ -->
+      <section id="cap7">
+        <h2 class="chapter-title">7. DNS</h2>
+        <p class="chapter-sub">
+          O sistema que traduz nomes amigáveis em endereços IP — a agenda
+          telefônica da internet
+        </p>
+
+        <p>
+          Vocês já perceberam que nenhum ser humano normal memoriza o IP do
+          Google? Ninguém acorda de manhã e pensa "vou digitar 142.250.185.78
+          para pesquisar alguma coisa". As pessoas digitam
+          <code>google.com</code>. E magicamente chegam ao Google.
+        </p>
+
+        <p>
+          Quem faz essa tradução — de nome para número — é o
+          <strong>DNS</strong>: Domain Name System, ou Sistema de Nomes de
+          Domínio. Funciona exatamente como uma agenda telefônica: você pesquisa
+          pelo nome da pessoa e ela te devolve o número. Com DNS, você pesquisa
+          pelo nome do domínio e ele te devolve o IP.
+        </p>
+
+        <h3>O que acontece quando você digita google.com?</h3>
+        <p>
+          Esse processo tem mais etapas do que parece — mas acontece em
+          milissegundos:
+        </p>
+
+        <div class="flow">
+          <div class="flow-step">
+            <div class="flow-badge">1</div>
+            <div class="flow-step-body">
+              <h4>Cache local</h4>
+              <p>
+                Seu navegador verifica se já resolveu esse nome antes e guardou
+                o IP em cache. Se sim, usa direto — sem consultar ninguém.
+              </p>
+            </div>
+          </div>
+          <div class="flow-arrow">↓ (se não encontrou)</div>
+          <div class="flow-step">
+            <div class="flow-badge">2</div>
+            <div class="flow-step-body">
+              <h4>Resolver recursivo</h4>
+              <p>
+                Seu computador pergunta ao servidor DNS configurado (geralmente
+                do seu provedor de internet). Este servidor é o "detetive" — vai
+                atrás da resposta.
+              </p>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step">
+            <div class="flow-badge">3</div>
+            <div class="flow-step-body">
+              <h4>Servidor Raiz</h4>
+              <p>
+                O resolver pergunta a um dos 13 servidores raiz do mundo: "quem
+                cuida do .com?" O raiz diz: "vai falar com os servidores TLD do
+                .com".
+              </p>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step">
+            <div class="flow-badge">4</div>
+            <div class="flow-step-body">
+              <h4>Servidor TLD</h4>
+              <p>
+                O resolver pergunta ao servidor do .com: "quem cuida do
+                google.com?" O TLD diz: "fala com os servidores autoritativos do
+                Google".
+              </p>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step">
+            <div class="flow-badge">5</div>
+            <div class="flow-step-body">
+              <h4>Servidor Autoritativo</h4>
+              <p>
+                O servidor do Google responde com o IP real: "google.com =
+                142.250.185.78".
+              </p>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step">
+            <div class="flow-badge">6</div>
+            <div class="flow-step-body">
+              <h4>Resposta e cache</h4>
+              <p>
+                O resolver devolve o IP ao seu navegador e guarda em cache por
+                um tempo (definido pelo TTL — Time To Live). Na próxima vez,
+                pula tudo isso.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="box box-blue">
+          <span class="icon">👨‍🏫</span>
+          <div class="box-content">
+            <strong>Hora de desenhar no quadro</strong>
+            <p>
+              Imagine que você está num país estrangeiro e quer ligar para uma
+              pizzaria chamada "Bella Napoli". Você não tem o número. Você liga
+              para o 0800 de informações (resolver). Eles perguntam à central da
+              cidade (TLD). A central te passa para a pizzaria (autoritativo),
+              que te dá o telefone. Na próxima vez que quiser pedir pizza, você
+              já tem o número anotado (cache). Isso é o DNS.
+            </p>
+          </div>
+        </div>
+
+        <h3>DNS públicos famosos</h3>
+        <p>
+          Por padrão, seu computador usa o DNS do seu provedor de internet. Mas
+          você pode mudar. Os mais populares são:
+        </p>
+
+        <div class="cards">
+          <div class="card">
+            <div class="card-icon">🔵</div>
+            <h4>Google DNS</h4>
+            <p>
+              <code>8.8.8.8</code> e <code>8.8.4.4</code>. Rápido, confiável e
+              amplamente usado. Quando você vê 8.8.8.8 numa configuração, é o
+              DNS do Google.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🟠</div>
+            <h4>Cloudflare DNS</h4>
+            <p>
+              <code>1.1.1.1</code>. Famoso pela velocidade e foco em
+              privacidade. O endereço mais fácil de memorizar da internet.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🟣</div>
+            <h4>OpenDNS</h4>
+            <p>
+              <code>208.67.222.222</code>. Oferece filtros de conteúdo e
+              segurança extra. Muito usado em ambientes corporativos.
+            </p>
+          </div>
+        </div>
+
+        <div class="box box-yellow">
+          <span class="icon">⚠️</span>
+          <div class="box-content">
+            <strong>Erro comum — "O site está fora do ar"</strong>
+            <p>
+              Às vezes o site não está fora do ar — é o seu cache DNS que está
+              guardando um IP antigo. A solução é limpar o cache DNS. No
+              Windows: <code>ipconfig /flushdns</code>. No Mac:
+              <code>sudo dscacheutil -flushcache</code>. Isso força uma nova
+              consulta DNS e geralmente resolve o problema.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══ CAP 8: HTTP ══ -->
+      <section id="cap8">
+        <h2 class="chapter-title">8. HTTP — O Protocolo da Web</h2>
+        <p class="chapter-sub">
+          A língua que navegadores e servidores usam para se comunicar
+        </p>
+
+        <p>
+          Agora chegamos em um dos conceitos mais importantes do curso: o HTTP.
+          Tudo que acontece na web — cada página que você abre, cada imagem que
+          carrega, cada formulário que você envia — passa pelo HTTP.
+        </p>
+
+        <p>
+          HTTP significa <em>HyperText Transfer Protocol</em> — Protocolo de
+          Transferência de Hipertexto. É o conjunto de regras que define como um
+          cliente (geralmente o navegador) e um servidor trocam informações. É
+          literalmente a língua da web.
+        </p>
+
+        <div class="box box-blue">
+          <span class="icon">🎯</span>
+          <div class="box-content">
+            <strong>A analogia do restaurante</strong>
+            <p>
+              O navegador é o cliente sentado à mesa. O servidor é a cozinha. O
+              HTTP é o garçom. O garçom leva o pedido da mesa para a cozinha
+              (requisição), e traz o prato da cozinha para a mesa (resposta).
+              Sem o garçom, cliente e cozinha não se comunicam.
+            </p>
+          </div>
+        </div>
+
+        <h3>Requisição e Resposta</h3>
+        <p>
+          O HTTP funciona num modelo simples de
+          <strong>requisição e resposta</strong> (request/response). O cliente
+          sempre inicia — ele faz uma requisição. O servidor responde. Nunca ao
+          contrário (no HTTP tradicional).
+        </p>
+
+        <p>
+          Uma requisição HTTP tem estrutura definida. Ela inclui: o
+          <strong>método</strong> (o que você quer fazer), a
+          <strong>URL</strong> (onde quer fazer), os
+          <strong>headers</strong> (metadados, informações extras) e, às vezes,
+          um <strong>body</strong> (o corpo com os dados enviados).
+        </p>
+
+        <pre><span class="k">GET</span> /produtos/42 <span class="k">HTTP</span>/1.1
+<span class="n">Host:</span> <span class="s">www.loja.com</span>
+<span class="n">Accept:</span> <span class="s">application/json</span>
+<span class="n">Authorization:</span> <span class="s">Bearer eyJhbGci...</span>
+<span class="n">User-Agent:</span> <span class="s">Mozilla/5.0 (Chrome)</span></pre>
+
+        <p>
+          A resposta do servidor tem estrutura similar: um
+          <strong>código de status</strong> (deu certo? deu errado?), os
+          <strong>headers de resposta</strong> e o <strong>body</strong> com o
+          conteúdo (o HTML da página, os dados JSON, etc.).
+        </p>
+
+        <h3>Métodos HTTP</h3>
+        <p>
+          O método diz ao servidor <em>o que você quer fazer</em> com o recurso.
+          Os cinco principais são:
+        </p>
+
+        <div class="methods">
+          <div class="method-row">
+            <span class="method-badge m-get">GET</span>
+            <p>
+              <strong>Buscar dados.</strong> Não modifica nada no servidor.
+              Quando você abre uma página, está fazendo um GET. Quando pesquisa
+              no Google, é um GET com query string. É o método mais usado da
+              web.
+            </p>
+          </div>
+          <div class="method-row">
+            <span class="method-badge m-post">POST</span>
+            <p>
+              <strong>Enviar dados para criar algo novo.</strong> Quando você se
+              cadastra em um site, o formulário é enviado via POST. Os dados vão
+              no body da requisição, não na URL — mais seguro para senhas e
+              informações sensíveis.
+            </p>
+          </div>
+          <div class="method-row">
+            <span class="method-badge m-put">PUT</span>
+            <p>
+              <strong>Substituir um recurso completo.</strong> Se você quer
+              atualizar o cadastro inteiro de um usuário, manda um PUT com todos
+              os dados novos. O que estava antes é completamente substituído.
+            </p>
+          </div>
+          <div class="method-row">
+            <span class="method-badge m-patch">PATCH</span>
+            <p>
+              <strong>Atualização parcial.</strong> Quer atualizar só o e-mail
+              de um usuário, sem mexer no resto? PATCH. É mais eficiente que o
+              PUT quando só uma parte precisa mudar.
+            </p>
+          </div>
+          <div class="method-row">
+            <span class="method-badge m-delete">DELETE</span>
+            <p>
+              <strong>Deletar um recurso.</strong> Remove algo do servidor.
+              Quando você deleta sua conta de um serviço, provavelmente um
+              DELETE foi disparado nos bastidores.
+            </p>
+          </div>
+        </div>
+
+        <h3>Códigos de Status HTTP</h3>
+        <p>
+          Depois que o servidor processa uma requisição, ele responde com um
+          código de três dígitos que diz o que aconteceu. Esses códigos são
+          organizados em faixas, e vale a pena memorizar a lógica geral:
+        </p>
+
+        <table class="status-table">
+          <tr>
+            <th>Código</th>
+            <th>Nome</th>
+            <th>Significado</th>
+          </tr>
+          <tr>
+            <td><span class="badge b-200">200</span></td>
+            <td>OK</td>
+            <td>
+              Tudo certo. A requisição foi bem-sucedida e o servidor retornou o
+              que você pediu.
+            </td>
+          </tr>
+          <tr>
+            <td><span class="badge b-200">201</span></td>
+            <td>Created</td>
+            <td>
+              Recurso criado com sucesso. Resposta típica de um POST
+              bem-sucedido.
+            </td>
+          </tr>
+          <tr>
+            <td><span class="badge b-3xx">301</span></td>
+            <td>Moved Permanently</td>
+            <td>
+              O recurso foi movido para outro endereço de forma permanente. O
+              navegador vai redirecionar automaticamente.
+            </td>
+          </tr>
+          <tr>
+            <td><span class="badge b-3xx">302</span></td>
+            <td>Found (Redirect)</td>
+            <td>
+              Redirecionamento temporário. O recurso está em outro lugar, mas
+              pode voltar ao endereço original.
+            </td>
+          </tr>
+          <tr>
+            <td><span class="badge b-4xx">400</span></td>
+            <td>Bad Request</td>
+            <td>
+              A requisição está mal formada — erro do cliente. Faltou algum dado
+              obrigatório ou o formato está errado.
+            </td>
+          </tr>
+          <tr>
+            <td><span class="badge b-4xx">401</span></td>
+            <td>Unauthorized</td>
+            <td>
+              Você não está autenticado. O servidor quer saber quem você é antes
+              de continuar. Faça login.
+            </td>
+          </tr>
+          <tr>
+            <td><span class="badge b-4xx">403</span></td>
+            <td>Forbidden</td>
+            <td>
+              Você está autenticado, mas não tem permissão. O servidor sabe quem
+              você é e diz que você não pode fazer isso.
+            </td>
+          </tr>
+          <tr>
+            <td><span class="badge b-4xx">404</span></td>
+            <td>Not Found</td>
+            <td>
+              O recurso não existe. A URL não leva a nada — pode ter sido
+              deletado, movido ou você errou o endereço.
+            </td>
+          </tr>
+          <tr>
+            <td><span class="badge b-5xx">500</span></td>
+            <td>Internal Server Error</td>
+            <td>
+              Erro no servidor — não é culpa sua. Algo quebrou no lado de quem
+              responde.
+            </td>
+          </tr>
+          <tr>
+            <td><span class="badge b-5xx">502</span></td>
+            <td>Bad Gateway</td>
+            <td>
+              Um servidor intermediário recebeu uma resposta inválida de outro
+              servidor. Comum em problemas de infraestrutura.
+            </td>
+          </tr>
+          <tr>
+            <td><span class="badge b-5xx">503</span></td>
+            <td>Service Unavailable</td>
+            <td>
+              Servidor fora do ar ou sobrecarregado. Temporário — tente de novo
+              mais tarde.
+            </td>
+          </tr>
+        </table>
+
+        <div class="box box-green">
+          <span class="icon">💡</span>
+          <div class="box-content">
+            <strong>Macete para lembrar as faixas</strong>
+            <p>
+              <strong>2xx</strong> = Sucesso (dois, deu bom) ·
+              <strong>3xx</strong> = Redirecionamento · <strong>4xx</strong> =
+              Erro do cliente (você errou) · <strong>5xx</strong> = Erro do
+              servidor (eles erraram)
+            </p>
+          </div>
+        </div>
+
+        <h3>Headers HTTP</h3>
+        <p>
+          Os headers são metadados da requisição ou resposta — informações sobre
+          os dados, não os dados em si. Pense num envelope de carta: o conteúdo
+          da carta é o body; o que está escrito no envelope (destinatário,
+          remetente, tipo de correspondência) são os headers.
+        </p>
+
+        <p>Alguns headers importantes que você vai encontrar:</p>
+
+        <div class="cards">
+          <div class="card">
+            <h4><code>Content-Type</code></h4>
+            <p>
+              Diz qual é o tipo do conteúdo sendo enviado.
+              <code>text/html</code> para HTML,
+              <code>application/json</code> para JSON,
+              <code>image/png</code> para uma imagem PNG.
+            </p>
+          </div>
+          <div class="card">
+            <h4><code>Authorization</code></h4>
+            <p>
+              Carrega o token ou credenciais de autenticação. Quando você está
+              logado e faz uma requisição, seu token vai aqui.
+            </p>
+          </div>
+          <div class="card">
+            <h4><code>Cache-Control</code></h4>
+            <p>
+              Instrui o navegador e servidores intermediários sobre como cachear
+              a resposta. Define validade, permissões de cache, etc.
+            </p>
+          </div>
+          <div class="card">
+            <h4><code>User-Agent</code></h4>
+            <p>
+              Identifica o cliente que fez a requisição. O servidor pode ver que
+              é um Chrome no Windows, um Safari no iPhone, etc.
+            </p>
+          </div>
+        </div>
+
+        <h3>Cookies e Sessão</h3>
+        <p>
+          O HTTP por si só é <em>stateless</em> — sem estado. Cada requisição é
+          independente; o servidor não se lembra de nada da requisição anterior.
+          Mas sites modernos precisam lembrar que você está logado, o que tem no
+          carrinho, suas preferências...
+        </p>
+
+        <p>
+          A solução são os <strong>cookies</strong>. Um cookie é um pequeno
+          arquivo de texto que o servidor pede para o navegador guardar. Em cada
+          próxima requisição para aquele domínio, o navegador inclui os cookies
+          automaticamente — aí o servidor consegue identificar você.
+        </p>
+
+        <p>
+          A <strong>sessão</strong> é uma abstração em cima disso: o servidor
+          guarda dados sobre você (estado da sessão) e te entrega um ID de
+          sessão via cookie. Em cada requisição você manda esse ID, e o servidor
+          busca seus dados. É como um ticket de vestiário: você entrega e recebe
+          um número; quando voltar com o número, eles te devolvem seus
+          pertences.
+        </p>
+      </section>
+
+      <!-- ══ CAP 9: TCP/IP e PARÂMETROS ══ -->
+      <section id="cap9">
+        <h2 class="chapter-title">9. TCP/IP e Parâmetros de Rede</h2>
+        <p class="chapter-sub">
+          As camadas que organizam a comunicação e as configurações que todo
+          dispositivo precisa para se conectar
+        </p>
+
+        <p>
+          Agora que você entende o que é HTTP, surge uma pergunta natural: como
+          os dados saem do seu computador e chegam ao servidor? O HTTP define o
+          <em>conteúdo</em> da comunicação, mas precisa de uma estrutura abaixo
+          dele para <em>transportar</em> esses dados. É aí que entra o modelo
+          TCP/IP.
+        </p>
+
+        <h3>O Modelo TCP/IP</h3>
+        <p>
+          O TCP/IP organiza a comunicação em rede em quatro camadas, cada uma
+          com uma responsabilidade específica. É como uma linha de montagem:
+          você não precisa saber fazer tudo — cada camada faz sua parte e passa
+          para a próxima.
+        </p>
+
+        <div class="cards">
+          <div class="card">
+            <div class="card-icon">🌐</div>
+            <h4>Camada de Aplicação</h4>
+            <p>
+              É onde vivem os protocolos que você já conhece: HTTP, HTTPS, DNS,
+              FTP, SMTP (e-mail). É a camada mais próxima do usuário.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon">📦</div>
+            <h4>Camada de Transporte</h4>
+            <p>
+              Define como os dados são divididos e transportados. Os dois
+              principais protocolos aqui são TCP e UDP.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🗺️</div>
+            <h4>Camada de Internet</h4>
+            <p>
+              Define o endereçamento (IP) e o roteamento — como os pacotes
+              encontram o caminho entre remetente e destinatário.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🔌</div>
+            <h4>Camada de Acesso</h4>
+            <p>
+              É o hardware físico: cabos Ethernet, Wi-Fi, fibra óptica. Como os
+              bits saem de um dispositivo e chegam ao próximo.
+            </p>
+          </div>
+        </div>
+
+        <h3>TCP vs. UDP — Duas filosofias de transporte</h3>
+        <p>
+          Na camada de transporte, os dois principais protocolos têm filosofias
+          bem diferentes:
+        </p>
+
+        <div class="compare">
+          <div class="compare-col">
+            <h4>TCP — Transmission Control Protocol</h4>
+            <ul>
+              <li>Garante entrega de todos os dados</li>
+              <li>Confirma recebimento de cada pacote</li>
+              <li>Reenvia pacotes perdidos automaticamente</li>
+              <li>Mantém a ordem dos dados</li>
+              <li>Mais lento, porém confiável</li>
+              <li>Usado por: HTTP, e-mail, downloads</li>
+            </ul>
+          </div>
+          <div class="compare-col">
+            <h4>UDP — User Datagram Protocol</h4>
+            <ul>
+              <li>Envia sem verificar se chegou</li>
+              <li>Sem confirmação de recebimento</li>
+              <li>Pacotes perdidos não são reenviados</li>
+              <li>Ordem não garantida</li>
+              <li>Muito mais rápido, menor latência</li>
+              <li>Usado por: streaming, jogos online, VoIP</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="box box-blue">
+          <span class="icon">💡</span>
+          <div class="box-content">
+            <strong>Analogia perfeita</strong>
+            <p>
+              TCP é como uma carta registrada — você só descansa quando recebe a
+              confirmação de entrega. UDP é como gritar uma informação pela
+              janela — rápido, mas você não sabe se a outra pessoa ouviu. Para
+              uma videochamada, tudo bem perder um frame de vez em quando. Para
+              um pagamento bancário, precisa ter certeza que chegou.
+            </p>
+          </div>
+        </div>
+
+        <h3>Parâmetros de Rede — O que todo dispositivo precisa</h3>
+        <p>
+          Para que um dispositivo se comunique em uma rede, ele precisa de
+          quatro informações básicas. Faltando qualquer uma, a conexão não
+          funciona direito:
+        </p>
+
+        <div class="cards">
+          <div class="card">
+            <div class="card-icon">📍</div>
+            <h4>Endereço IP</h4>
+            <p>
+              A identidade do dispositivo na rede. Ex:
+              <code>192.168.1.100</code>. Cada dispositivo precisa ter um IP
+              único dentro da sua rede.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🎭</div>
+            <h4>Máscara de Sub-rede</h4>
+            <p>
+              Define qual parte do IP identifica a rede e qual identifica o
+              dispositivo. Ex: <code>255.255.255.0</code>. Permite saber quem
+              está na mesma rede.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🚪</div>
+            <h4>Gateway Padrão</h4>
+            <p>
+              O "porteiro" da rede — geralmente o roteador. Quando você quer
+              falar com alguém fora da sua rede local, os dados vão primeiro
+              para o gateway. Ex: <code>192.168.1.1</code>.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon">📖</div>
+            <h4>Servidor DNS</h4>
+            <p>
+              O endereço do servidor que vai traduzir nomes de domínio em IPs.
+              Sem isso, você sabe o IP de destino mas não consegue resolver
+              <code>google.com</code>.
+            </p>
+          </div>
+        </div>
+
+        <h3>Configuração Manual vs. DHCP</h3>
+        <p>
+          Existem duas formas de atribuir esses parâmetros a um dispositivo:
+          você define tudo manualmente (configuração estática) ou deixa a rede
+          fazer isso automaticamente (DHCP).
+        </p>
+
+        <p>
+          O <strong>DHCP</strong> — Dynamic Host Configuration Protocol — é um
+          serviço que roda no seu roteador. Quando você conecta um novo
+          dispositivo à rede, ele "grita": "tem alguém aí? Eu preciso de um
+          endereço!". O servidor DHCP ouve, verifica quais endereços estão
+          disponíveis e responde: "pode usar o <code>192.168.1.105</code>,
+          máscara tal, gateway tal, DNS tal". O dispositivo aceita e está
+          configurado. Tudo em milissegundos, sem nenhuma intervenção humana.
+        </p>
+
+        <div class="box box-green">
+          <span class="icon">💡</span>
+          <div class="box-content">
+            <strong>O processo DORA</strong>
+            <p>
+              O processo DHCP tem quatro etapas com iniciais que formam a
+              palavra DORA: <strong>D</strong>iscover (dispositivo procura
+              servidor DHCP) → <strong>O</strong>ffer (servidor oferece um IP) →
+              <strong>R</strong>equest (dispositivo pede aquele IP) →
+              <strong>A</strong>cknowledge (servidor confirma). Toda vez que
+              você conecta no Wi-Fi, isso acontece.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══ CAP 10: CACHE ══ -->
+      <section id="cap10">
+        <h2 class="chapter-title">10. Cache</h2>
+        <p class="chapter-sub">
+          A memória inteligente que evita baixar as mesmas coisas repetidamente
+        </p>
+
+        <p>
+          Vamos fazer um teste mental: você abre o Instagram pela manhã. Carrega
+          o feed, as fotos, os ícones, as fontes. Tudo chega do servidor. Cinco
+          minutos depois, você sai do app e volta. Será que o navegador vai
+          baixar tudo de novo?
+        </p>
+
+        <p>
+          Não. É aí que entra o <strong>cache</strong>. Cache (pronuncia-se
+          "cash", como dinheiro em inglês) é uma memória temporária que guarda
+          cópias de recursos já baixados. Na próxima vez que você precisar
+          daquele mesmo recurso, o sistema serve a cópia local — muito mais
+          rápido do que ir buscar no servidor de novo.
+        </p>
+
+        <h3>Por que o cache existe?</h3>
+        <p>
+          A resposta é simples: velocidade e eficiência. Baixar dados da
+          internet leva tempo e consome banda. Muitos recursos de um site não
+          mudam com frequência — a logo, os ícones, as fontes, os arquivos CSS e
+          JavaScript. Se você vai acessar o mesmo site todos os dias, faz
+          sentido guardar esses recursos no seu computador e reutilizá-los.
+        </p>
+
+        <div class="cards">
+          <div class="card">
+            <div class="card-icon">⚡</div>
+            <h4>Cache do Navegador</h4>
+            <p>
+              O mais próximo de você. Fica no seu computador. Guarda arquivos de
+              sites que você visitou: imagens, CSS, JS, fontes. Validade
+              definida pelos headers HTTP.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🖥️</div>
+            <h4>Cache do Servidor</h4>
+            <p>
+              No lado do servidor. Guarda resultados de consultas ao banco de
+              dados ou processamentos pesados, para não precisar recalcular tudo
+              a cada requisição.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🌍</div>
+            <h4>CDN — Content Delivery Network</h4>
+            <p>
+              Uma rede de servidores espalhados pelo mundo que guarda cópias dos
+              seus arquivos. Usuário no Brasil acessa um servidor no Brasil, não
+              nos EUA — muito mais rápido.
+            </p>
+          </div>
+        </div>
+
+        <h3>Cache-Control — Quem manda no cache?</h3>
+        <p>
+          O servidor define a política de cache nos headers HTTP. Com o header
+          <code>Cache-Control</code>, ele pode dizer ao navegador: "guarde esse
+          arquivo por 7 dias" (<code>max-age=604800</code>), ou "nunca guarde
+          esse arquivo" (<code>no-cache</code>), ou "pode guardar em qualquer
+          cache intermediário" (<code>public</code>).
+        </p>
+
+        <div class="box box-yellow">
+          <span class="icon">⚠️</span>
+          <div class="box-content">
+            <strong>Quando o cache atrapalha</strong>
+            <p>
+              Você atualiza o CSS do seu site, mas os usuários continuam vendo a
+              versão antiga. Por quê? O navegador deles está usando o arquivo em
+              cache. A solução mais comum é o "cache busting": incluir um hash
+              ou número de versão no nome do arquivo —
+              <code>estilo.abc123.css</code>. Quando você atualiza o CSS, o nome
+              muda, o navegador não reconhece o arquivo no cache e baixa de
+              novo.
+            </p>
+          </div>
+        </div>
+
+        <div class="box box-blue">
+          <span class="icon">💻</span>
+          <div class="box-content">
+            <strong>Demonstração prática</strong>
+            <p>
+              Abra o DevTools (F12) → aba Network. Acesse qualquer site. Veja os
+              arquivos sendo baixados. Agora recarregue a página. Repare nos
+              arquivos que aparecem como "(disk cache)" ou "(memory cache)" —
+              esses não foram baixados de novo. Essa é a diferença de uma página
+              com cache versus sem cache.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══ CAP 11: CLIENTE x SERVIDOR ══ -->
+      <section id="cap11">
+        <h2 class="chapter-title">11. Cliente × Servidor</h2>
+        <p class="chapter-sub">
+          Frontend, backend e banco de dados — o fluxo completo de uma aplicação
+          web moderna
+        </p>
+
+        <p>
+          Agora que entendemos todos os componentes individuais, podemos montar
+          o quadro completo. Quase tudo na web funciona segundo um modelo
+          chamado <strong>cliente-servidor</strong>. É o modelo mais fundamental
+          da computação em rede: alguém pede, alguém responde.
+        </p>
+
+        <h3>O que é o Cliente?</h3>
+        <p>
+          O cliente é quem inicia a comunicação. Na web, o cliente mais comum é
+          o <strong>navegador</strong> — Chrome, Firefox, Safari. Mas também
+          pode ser um aplicativo de celular, um script Python, uma ferramenta
+          como o Postman, ou qualquer coisa capaz de fazer uma requisição HTTP.
+        </p>
+
+        <p>
+          No desenvolvimento web, chamamos de <strong>frontend</strong> tudo
+          aquilo que roda no cliente. O HTML que estrutura a página, o CSS que
+          define o visual, o JavaScript que adiciona interatividade — tudo isso
+          é executado no navegador do usuário, no dispositivo dele. Por isso
+          dizemos que o frontend é "client-side" (lado do cliente).
+        </p>
+
+        <h3>O que é o Servidor?</h3>
+        <p>
+          O servidor é quem responde. É um computador (ou conjunto de
+          computadores) que fica ligado 24 horas por dia, 7 dias por semana,
+          esperando requisições. Quando uma chega, ele processa e responde.
+        </p>
+
+        <p>
+          No desenvolvimento web, chamamos de <strong>backend</strong> tudo que
+          roda no servidor. A lógica de negócio, as regras da aplicação, a
+          autenticação, o processamento de dados — tudo isso é "server-side"
+          (lado do servidor). O usuário nunca vê o código do backend
+          diretamente.
+        </p>
+
+        <h3>O Banco de Dados</h3>
+        <p>
+          Por trás do servidor, quase sempre existe um banco de dados. É onde
+          ficam armazenadas permanentemente as informações: usuários, posts,
+          transações, produtos. O servidor consulta o banco quando precisa de
+          dados e grava no banco quando algo muda.
+        </p>
+
+        <div class="box box-blue">
+          <span class="icon">👨‍🏫</span>
+          <div class="box-content">
+            <strong>Hora de desenhar no quadro</strong>
+            <p>
+              Três caixas conectadas: [Navegador] ←→ [Servidor] ←→ [Banco de
+              Dados]. O navegador só fala com o servidor. O servidor fala com o
+              navegador e com o banco. O banco nunca fala diretamente com o
+              navegador. Esse isolamento é uma questão de segurança — você nunca
+              expõe seu banco diretamente para o mundo.
+            </p>
+          </div>
+        </div>
+
+        <h3>O fluxo completo — Exemplo: Instagram</h3>
+        <p>
+          Você abre o Instagram no celular e o feed carrega. O que acontece,
+          passo a passo?
+        </p>
+
+        <div class="flow">
+          <div class="flow-step">
+            <div class="flow-badge">1</div>
+            <div class="flow-step-body">
+              <h4>App (cliente) faz uma requisição</h4>
+              <p>GET /feed?page=1 com seu token de autenticação no header</p>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step">
+            <div class="flow-badge">2</div>
+            <div class="flow-step-body">
+              <h4>Servidor recebe e autentica</h4>
+              <p>Verifica seu token — você está logado e tem permissão</p>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step">
+            <div class="flow-badge">3</div>
+            <div class="flow-step-body">
+              <h4>Servidor consulta o banco de dados</h4>
+              <p>
+                "Quais são os posts das pessoas que este usuário segue,
+                ordenados por relevância?"
+              </p>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step">
+            <div class="flow-badge">4</div>
+            <div class="flow-step-body">
+              <h4>Banco responde com os dados</h4>
+              <p>
+                Lista de posts com metadados: usuário, imagem, legenda,
+                curtidas...
+              </p>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step">
+            <div class="flow-badge">5</div>
+            <div class="flow-step-body">
+              <h4>Servidor monta e envia a resposta</h4>
+              <p>Resposta HTTP 200 com JSON contendo os dados do feed</p>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step">
+            <div class="flow-badge">6</div>
+            <div class="flow-step-body">
+              <h4>App renderiza o feed</h4>
+              <p>
+                O JavaScript processa o JSON e exibe os posts na tela, busca as
+                imagens (que podem vir de uma CDN)
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <h3>Outros exemplos do dia a dia</h3>
+
+        <div class="cards">
+          <div class="card">
+            <div class="card-icon">🎬</div>
+            <h4>Netflix</h4>
+            <p>
+              Seu app (cliente) pede uma lista de filmes recomendados. O
+              servidor roda um algoritmo de recomendação consultando seu
+              histórico no banco. Retorna o JSON. Seu app exibe. Quando você
+              aperta Play, o vídeo vem de uma CDN — um servidor geograficamente
+              próximo de você.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon">💬</div>
+            <h4>WhatsApp</h4>
+            <p>
+              Você manda uma mensagem. Ela vai ao servidor (cliente → servidor).
+              O servidor a armazena e verifica se o destinatário está online. Se
+              sim, entrega na hora; se não, guarda até ele conectar. O servidor
+              age como intermediário.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🛒</div>
+            <h4>E-commerce</h4>
+            <p>
+              Você adiciona um produto ao carrinho (salvo no servidor ou no
+              localStorage). Finaliza a compra: dados de pagamento vão ao
+              servidor, que se comunica com a operadora do cartão, registra o
+              pedido no banco e confirma. Você recebe email (outro servidor).
+            </p>
+          </div>
+        </div>
+
+        <div class="box box-green">
+          <span class="icon">💡</span>
+          <div class="box-content">
+            <strong>Frontend vs. Backend vs. Fullstack</strong>
+            <p>
+              Um desenvolvedor <strong>frontend</strong> cuida da interface —
+              HTML, CSS, JavaScript, a experiência do usuário. Um desenvolvedor
+              <strong>backend</strong> cuida do servidor, da lógica de negócios
+              e do banco de dados. Um desenvolvedor <strong>fullstack</strong> —
+              como o que este curso vai formar — faz os dois. É mais versátil e
+              capaz de entender o sistema como um todo.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══ CAP 12: COMO TUDO SE CONECTA ══ -->
+      <section id="cap12">
+        <h2 class="chapter-title">12. Como Tudo se Conecta</h2>
+        <p class="chapter-sub">
+          O fluxo completo — de quando você digita a URL até a página aparecer
+          na tela
+        </p>
+
+        <p>
+          Chegamos ao momento que esperamos desde o início: juntar todas as
+          peças. Cada conceito que aprendemos hoje tem um papel nessa cadeia.
+          Vamos percorrer a jornada completa — e agora, diferente do capítulo 1,
+          você vai entender cada detalhe.
+        </p>
+
+        <div class="box box-purple">
+          <span class="icon">🎯</span>
+          <div class="box-content">
+            <strong>O cenário</strong>
+            <p>
+              Você digita <code>https://www.github.com/explore</code> no Chrome
+              e aperta Enter. O que acontece, do começo ao fim?
+            </p>
+          </div>
+        </div>
+
+        <div class="flow">
+          <div class="flow-step">
+            <div class="flow-badge">1</div>
+            <div class="flow-step-body">
+              <h4>URL é analisada pelo navegador</h4>
+              <p>
+                Chrome identifica: protocolo HTTPS, domínio www.github.com,
+                caminho /explore. Sabe que precisa fazer uma requisição GET.
+              </p>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step">
+            <div class="flow-badge">2</div>
+            <div class="flow-step-body">
+              <h4>Verificação do cache DNS</h4>
+              <p>
+                Chrome verifica se já tem o IP de github.com em cache. Se não
+                tiver, consulta o servidor DNS configurado (ex: 8.8.8.8).
+              </p>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step">
+            <div class="flow-badge">3</div>
+            <div class="flow-step-body">
+              <h4>Resolução DNS</h4>
+              <p>
+                O servidor DNS percorre a hierarquia (raiz → TLD .com →
+                autoritativo do GitHub) e retorna o IP: 140.82.114.3.
+              </p>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step">
+            <div class="flow-badge">4</div>
+            <div class="flow-step-body">
+              <h4>Conexão TCP + TLS Handshake</h4>
+              <p>
+                Chrome se conecta ao IP na porta 443 (HTTPS). Acontece o
+                handshake TLS: servidor apresenta certificado, chaves
+                criptográficas são trocadas, canal seguro estabelecido.
+              </p>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step">
+            <div class="flow-badge">5</div>
+            <div class="flow-step-body">
+              <h4>Requisição HTTP enviada</h4>
+              <p>
+                <code>GET /explore HTTP/2</code> com headers (cookies de sessão,
+                User-Agent, Accept, etc.) é enviada ao servidor do GitHub.
+              </p>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step">
+            <div class="flow-badge">6</div>
+            <div class="flow-step-body">
+              <h4>Servidor processa</h4>
+              <p>
+                Backend do GitHub recebe a requisição, autentica (se você
+                estiver logado), consulta o banco de dados com repositórios em
+                destaque, monta a resposta.
+              </p>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step">
+            <div class="flow-badge">7</div>
+            <div class="flow-step-body">
+              <h4>Resposta HTTP recebida</h4>
+              <p>
+                <code>200 OK</code> com headers (Content-Type: text/html,
+                Cache-Control, etc.) e o body com o HTML da página.
+              </p>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step">
+            <div class="flow-badge">8</div>
+            <div class="flow-step-body">
+              <h4>Renderização pelo navegador</h4>
+              <p>
+                Chrome lê o HTML, descobre links para CSS e JS, faz novas
+                requisições para esses arquivos (verificando cache primeiro),
+                monta a página e exibe na tela.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <p>
+          Agora tudo começa a fazer sentido. Hardware rodando software (o
+          navegador), conectado em rede com IP, usando DNS para resolver
+          domínios, comunicando-se via HTTP/HTTPS sobre TCP, com cache
+          otimizando tudo — e do outro lado, um servidor com backend consultando
+          banco de dados, retornando dados para o cliente renderizar. É um
+          sistema elegante, robusto e incrivelmente bem projetado.
+        </p>
+      </section>
+
+      <!-- ══ EXERCÍCIOS ══ -->
+      <section id="exercicios">
+        <h2 class="chapter-title">Exercícios</h2>
+        <p class="chapter-sub">
+          Questões objetivas, discursivas e situações-problema
+        </p>
+
+        <h3>Questões Objetivas</h3>
+        <div class="ex-list">
+          <div class="ex-item">
+            O que significa a sigla IP?<br /><em
+              >(a) Internet Protocol &nbsp; (b) Internal Process &nbsp; (c)
+              Input Protocol &nbsp; (d) Interface Page</em
+            >
+          </div>
+          <div class="ex-item">
+            Qual a diferença entre hardware e software? Dê um exemplo de cada.
+          </div>
+          <div class="ex-item">
+            Um endereço IPv4 é composto por quantos bits?
+            <em>(a) 8 &nbsp; (b) 16 &nbsp; (c) 32 &nbsp; (d) 64</em>
+          </div>
+          <div class="ex-item">
+            O que o código HTTP 404 indica?
+            <em
+              >(a) Erro no servidor &nbsp; (b) Redirecionamento &nbsp; (c)
+              Recurso não encontrado &nbsp; (d) Sucesso</em
+            >
+          </div>
+          <div class="ex-item">
+            Qual protocolo é responsável por traduzir domínios em endereços IP?
+            <em>(a) HTTP &nbsp; (b) DNS &nbsp; (c) TCP &nbsp; (d) FTP</em>
+          </div>
+          <div class="ex-item">
+            O que significa HTTPS em relação ao HTTP?
+            <em
+              >(a) É mais rápido &nbsp; (b) Adiciona criptografia &nbsp; (c) É
+              uma versão antiga &nbsp; (d) Funciona offline</em
+            >
+          </div>
+          <div class="ex-item">
+            Qual método HTTP é usado para buscar dados sem modificar nada no
+            servidor?
+            <em>(a) POST &nbsp; (b) DELETE &nbsp; (c) GET &nbsp; (d) PUT</em>
+          </div>
+          <div class="ex-item">O que é um cookie no contexto web?</div>
+          <div class="ex-item">Qual é a porta padrão do HTTPS?</div>
+          <div class="ex-item">O que é CDN? Para que serve?</div>
+          <div class="ex-item">
+            Na arquitetura cliente-servidor, quem sempre inicia a comunicação?
+            <em
+              >(a) Servidor &nbsp; (b) Banco de dados &nbsp; (c) Cliente &nbsp;
+              (d) DNS</em
+            >
+          </div>
+          <div class="ex-item">
+            O que é o cache do navegador? Por que ele existe?
+          </div>
+          <div class="ex-item">
+            Qual a diferença entre IP público e IP privado?
+          </div>
+          <div class="ex-item">
+            O que significa "servidor stateless" (sem estado) no contexto HTTP?
+          </div>
+          <div class="ex-item">
+            Na URL <code>https://loja.com/produtos?categoria=roupas#topo</code>,
+            o que é <code>#topo</code>?
+          </div>
+        </div>
+
+        <h3 style="margin-top: 36px">Questões Discursivas</h3>
+        <div class="ex-list">
+          <div class="ex-item">
+            Explique com suas próprias palavras o que acontece desde o momento
+            em que você digita uma URL até a página aparecer na tela. Use o
+            máximo de conceitos vistos na aula.
+          </div>
+          <div class="ex-item">
+            Por que o IPv6 foi criado? Qual problema o IPv4 apresentava que
+            justificou a criação de um novo padrão?
+          </div>
+          <div class="ex-item">
+            Explique a diferença entre TCP e UDP. Por que o YouTube usa UDP para
+            streaming de vídeo, mas uma transferência de arquivo importante usa
+            TCP?
+          </div>
+          <div class="ex-item">
+            O que é DNS e por que ele é fundamental para a internet? O que
+            aconteceria se não existisse?
+          </div>
+          <div class="ex-item">
+            Qual a diferença entre frontend e backend no desenvolvimento web? Dê
+            exemplos de tecnologias de cada lado.
+          </div>
+          <div class="ex-item">
+            Explique o que são os métodos HTTP GET, POST, PUT e DELETE e em que
+            situações cada um seria usado em uma aplicação de lista de tarefas
+            (to-do list).
+          </div>
+          <div class="ex-item">
+            Descreva o processo DORA do DHCP. Por que o DHCP é preferível à
+            configuração manual em redes domésticas?
+          </div>
+          <div class="ex-item">
+            Por que o cache é importante para a web? Cite um cenário onde o
+            cache ajuda e um onde ele pode causar problemas.
+          </div>
+        </div>
+
+        <h3 style="margin-top: 36px">Situações-Problema</h3>
+        <div class="ex-list">
+          <div class="ex-item">
+            <strong>Situação:</strong> Você atualiza o CSS do seu site mas todos
+            os usuários continuam vendo o visual antigo. Qual pode ser a causa e
+            como resolver?
+          </div>
+          <div class="ex-item">
+            <strong>Situação:</strong> Um usuário recebe o erro 403 ao tentar
+            acessar uma área do sistema. Ele está logado. Qual pode ser o
+            problema?
+          </div>
+          <div class="ex-item">
+            <strong>Situação:</strong> Seu site funcionava perfeitamente. Você
+            mudou o servidor para outro IP mas não alterou nada no DNS. O que
+            provavelmente acontecerá?
+          </div>
+          <div class="ex-item">
+            <strong>Situação:</strong> Um aplicativo de chat está lento porque
+            re-baixa a foto de perfil dos contatos toda vez que abre uma
+            conversa. Que solução de arquitetura você propõe?
+          </div>
+          <div class="ex-item">
+            <strong>Situação:</strong> Você precisa criar uma API para um
+            aplicativo de delivery. Mapeie quais métodos HTTP (GET, POST, PUT,
+            DELETE) seriam usados para: listar restaurantes, criar um pedido,
+            atualizar o status do pedido e cancelar um pedido.
+          </div>
+          <div class="ex-item">
+            <strong>Situação:</strong> Um usuário diz que "o site está fora do
+            ar" mas você consegue acessar normalmente. Quais são as possíveis
+            causas e como diagnosticar?
+          </div>
+        </div>
+
+        <h3 style="margin-top: 36px">Desafios em Grupo</h3>
+        <div class="ex-list">
+          <div class="ex-item">
+            <strong>Desafio 1 — Mapeie uma jornada:</strong> Escolham um app
+            (WhatsApp, iFood, Spotify) e descrevam em detalhes o fluxo
+            cliente-servidor de uma ação específica: enviar mensagem, fazer
+            pedido, dar play em uma música. Apresentem para a turma.
+          </div>
+          <div class="ex-item">
+            <strong>Desafio 2 — Detetives de URL:</strong> Cada grupo recebe 5
+            URLs diferentes. Identifique e explique cada parte de cada URL:
+            protocolo, domínio, subdomínio, TLD, porta (se houver), caminho,
+            query string, fragmento.
+          </div>
+          <div class="ex-item">
+            <strong>Desafio 3 — Glossário colaborativo:</strong> Cada grupo
+            recebe 6 termos desta aula e deve criar uma explicação com analogia,
+            para apresentar para quem nunca estudou tecnologia. Critério: sua
+            avó de 70 anos entenderia?
+          </div>
+          <div class="ex-item">
+            <strong>Desafio 4 — DevTools ao vivo:</strong> Abram o DevTools (F12
+            → Network) e acessem um site a sua escolha. Respondam: quantas
+            requisições foram feitas? Qual foi o maior arquivo? Algum usou
+            cache? Houve redirecionamentos? Apresentem os achados.
+          </div>
+          <div class="ex-item">
+            <strong>Desafio 5 — Debate técnico:</strong> "O HTTP é stateless por
+            design. Isso é uma limitação ou uma vantagem?" Cada grupo defende um
+            lado com argumentos técnicos.
+          </div>
+        </div>
+      </section>
+
+      <!-- ══ FAQ ══ -->
+      <section id="faq">
+        <h2 class="chapter-title">Perguntas Frequentes</h2>
+        <p class="chapter-sub">
+          As dúvidas que sempre aparecem — respondidas com clareza
+        </p>
+
+        <div class="qa-list">
+          <div class="qa-item">
+            <div class="qa-q">Qual a diferença entre internet e web?</div>
+            <div class="qa-a">
+              A internet é a infraestrutura — a rede física de cabos,
+              roteadores, servidores, protocolos. A web (World Wide Web) é um
+              serviço que funciona sobre essa infraestrutura, baseado em HTTP e
+              HTML. E-mail, FTP e streaming de vídeo também usam a internet, mas
+              não são "a web".
+            </div>
+          </div>
+          <div class="qa-item">
+            <div class="qa-q">O que é localhost?</div>
+            <div class="qa-a">
+              <code>localhost</code> é o nome de domínio que aponta para o
+              próprio computador. Seu IP reservado é <code>127.0.0.1</code>.
+              Quando você rodar um servidor local de desenvolvimento, vai
+              acessar <code>localhost:3000</code> ou similar. É útil para testar
+              aplicações sem precisar de um servidor externo.
+            </div>
+          </div>
+          <div class="qa-item">
+            <div class="qa-q">
+              Por que alguns sites carregam mais rápido que outros?
+            </div>
+            <div class="qa-a">
+              Vários fatores: localização geográfica do servidor, uso de CDN,
+              qualidade do código (arquivos grandes demais, muitas requisições),
+              uso de cache, velocidade da sua conexão e quantidade de usuários
+              simultâneos no servidor. Otimizar performance é uma área inteira
+              do desenvolvimento web.
+            </div>
+          </div>
+          <div class="qa-item">
+            <div class="qa-q">O que é API?</div>
+            <div class="qa-a">
+              API significa Application Programming Interface — uma interface
+              que permite que dois softwares se comuniquem. Na web, quase sempre
+              se refere a uma URL que retorna dados (geralmente em JSON) em vez
+              de HTML. Quando o app do iFood mostra os restaurantes perto de
+              você, está consumindo uma API.
+            </div>
+          </div>
+          <div class="qa-item">
+            <div class="qa-q">Qual a diferença entre 401 e 403?</div>
+            <div class="qa-a">
+              401 (Unauthorized) significa que o servidor não sabe quem você é —
+              você precisa se autenticar (fazer login). 403 (Forbidden)
+              significa que o servidor sabe quem você é, mas você não tem
+              permissão para aquele recurso. Exemplo: 401 = "quem é você?"; 403
+              = "eu sei quem você é, mas você não pode entrar aqui".
+            </div>
+          </div>
+          <div class="qa-item">
+            <div class="qa-q">HTTP ou HTTPS — qual devo usar no meu site?</div>
+            <div class="qa-a">
+              Sempre HTTPS. Hoje é um requisito, não uma opção. Navegadores
+              marcam sites HTTP como "Não seguro". O Google penaliza sites HTTP
+              no ranking de busca. E certificados SSL/TLS (que habilitam o
+              HTTPS) são gratuitos com o Let's Encrypt. Não há razão para usar
+              HTTP em 2025.
+            </div>
+          </div>
+          <div class="qa-item">
+            <div class="qa-q">
+              O que acontece se dois dispositivos na mesma rede tiverem o mesmo
+              IP?
+            </div>
+            <div class="qa-a">
+              Conflito de IP. Os dois dispositivos apresentarão comportamento
+              instável — conexão caindo, erros de rede, impossibilidade de
+              comunicar. O DHCP existe justamente para evitar isso, gerenciando
+              quais IPs estão em uso. Em configuração manual, o risco de
+              conflito é real.
+            </div>
+          </div>
+          <div class="qa-item">
+            <div class="qa-q">
+              Por que às vezes o site carrega, mas as imagens não aparecem?
+            </div>
+            <div class="qa-a">
+              Podem ser requisições separadas falhando. O HTML carrega (200 OK),
+              mas as URLs das imagens podem retornar 404 (imagem deletada do
+              servidor), 403 (sem permissão), ou a requisição pode simplesmente
+              falhar por timeout. O DevTools → aba Network mostra cada
+              requisição individualmente — você vê exatamente o que está
+              falhando.
+            </div>
+          </div>
+          <div class="qa-item">
+            <div class="qa-q">O que é VPN e como ela se relaciona com IP?</div>
+            <div class="qa-a">
+              VPN (Virtual Private Network) cria um túnel criptografado entre
+              seu dispositivo e um servidor VPN. Todo seu tráfego passa por esse
+              servidor — então para a internet, seu IP público aparece como o IP
+              desse servidor, não o seu. É por isso que VPN "muda" sua
+              localização aparente.
+            </div>
+          </div>
+          <div class="qa-item">
+            <div class="qa-q">Banco de dados é diferente de servidor?</div>
+            <div class="qa-a">
+              Sim. O servidor (backend) é o programa que recebe requisições,
+              executa a lógica da aplicação e monta respostas. O banco de dados
+              é o sistema especializado em guardar e recuperar dados de forma
+              eficiente. Geralmente são softwares separados, mas podem rodar no
+              mesmo computador físico.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══ GLOSSÁRIO ══ -->
+      <section id="glossario">
+        <h2 class="chapter-title">Glossário</h2>
+        <p class="chapter-sub">
+          Todos os termos essenciais desta aula, explicados de forma direta
+        </p>
+
+        <div class="glossary">
+          <div class="gl-item">
+            <span class="gl-term">API</span
+            ><span class="gl-def"
+              >Interface que permite dois sistemas se comunicarem. Na web,
+              geralmente uma URL que retorna dados em JSON.</span
+            >
+          </div>
+          <div class="gl-item">
+            <span class="gl-term">Backend</span
+            ><span class="gl-def"
+              >Parte do sistema que roda no servidor — lógica de negócio, banco
+              de dados, autenticação. Invisível ao usuário.</span
+            >
+          </div>
+          <div class="gl-item">
+            <span class="gl-term">Cache</span
+            ><span class="gl-def"
+              >Cópia temporária de dados já acessados, usada para acelerar
+              acessos futuros sem ir buscar na origem.</span
+            >
+          </div>
+          <div class="gl-item">
+            <span class="gl-term">CDN</span
+            ><span class="gl-def"
+              >Rede de servidores distribuídos pelo mundo que entrega conteúdo a
+              partir do servidor mais próximo do usuário.</span
+            >
+          </div>
+          <div class="gl-item">
+            <span class="gl-term">Cliente</span
+            ><span class="gl-def"
+              >Qualquer software que inicia uma requisição para um servidor.
+              Geralmente o navegador.</span
+            >
+          </div>
+          <div class="gl-item">
+            <span class="gl-term">Cookie</span
+            ><span class="gl-def"
+              >Pequeno arquivo de texto guardado pelo navegador a pedido do
+              servidor, para manter estado entre requisições.</span
+            >
+          </div>
+          <div class="gl-item">
+            <span class="gl-term">DHCP</span
+            ><span class="gl-def"
+              >Protocolo que atribui automaticamente endereço IP e demais
+              parâmetros de rede a dispositivos conectados.</span
+            >
+          </div>
+          <div class="gl-item">
+            <span class="gl-term">DNS</span
+            ><span class="gl-def"
+              >Sistema que traduz nomes de domínio (google.com) em endereços IP
+              numéricos. A "agenda telefônica" da internet.</span
+            >
+          </div>
+          <div class="gl-item">
+            <span class="gl-term">Domínio</span
+            ><span class="gl-def"
+              >Nome amigável de um servidor na internet (ex: github.com),
+              registrado e associado a um endereço IP.</span
+            >
+          </div>
+          <div class="gl-item">
+            <span class="gl-term">Frontend</span
+            ><span class="gl-def"
+              >Parte do sistema que roda no navegador do usuário — HTML, CSS e
+              JavaScript. O que o usuário vê e interage.</span
+            >
+          </div>
+          <div class="gl-item">
+            <span class="gl-term">Gateway</span
+            ><span class="gl-def"
+              >Dispositivo (geralmente o roteador) que conecta uma rede local à
+              internet. Ponto de saída da rede interna.</span
+            >
+          </div>
+          <div class="gl-item">
+            <span class="gl-term">Hardware</span
+            ><span class="gl-def"
+              >Parte física de um sistema computacional: processador, memória,
+              disco, placa de rede, periféricos.</span
+            >
+          </div>
+          <div class="gl-item">
+            <span class="gl-term">Header</span
+            ><span class="gl-def"
+              >Metadado de uma requisição ou resposta HTTP. Carrega informações
+              sobre o conteúdo, autenticação, cache, etc.</span
+            >
+          </div>
+          <div class="gl-item">
+            <span class="gl-term">HTTP</span
+            ><span class="gl-def"
+              >Protocolo de comunicação entre clientes e servidores na web.
+              Define requisições, respostas, métodos e status.</span
+            >
+          </div>
+          <div class="gl-item">
+            <span class="gl-term">HTTPS</span
+            ><span class="gl-def"
+              >Versão segura do HTTP, com criptografia TLS/SSL. Garante
+              confidencialidade e integridade dos dados.</span
+            >
+          </div>
+          <div class="gl-item">
+            <span class="gl-term">IP</span
+            ><span class="gl-def"
+              >Internet Protocol. Número único que identifica um dispositivo em
+              uma rede. Ex: 192.168.1.1 (IPv4).</span
+            >
+          </div>
+          <div class="gl-item">
+            <span class="gl-term">LAN</span
+            ><span class="gl-def"
+              >Local Area Network. Rede local de área limitada, como a rede
+              Wi-Fi da sua casa ou escritório.</span
+            >
+          </div>
+          <div class="gl-item">
+            <span class="gl-term">Localhost</span
+            ><span class="gl-def"
+              >Nome de domínio que aponta para o próprio computador (127.0.0.1).
+              Usado no desenvolvimento local.</span
+            >
+          </div>
+          <div class="gl-item">
+            <span class="gl-term">Método HTTP</span
+            ><span class="gl-def"
+              >Verbo que indica a ação desejada: GET (buscar), POST (criar), PUT
+              (substituir), PATCH (atualizar), DELETE (deletar).</span
+            >
+          </div>
+          <div class="gl-item">
+            <span class="gl-term">Porta</span
+            ><span class="gl-def"
+              >Número que identifica um serviço específico em um servidor. Ex:
+              443 (HTTPS), 80 (HTTP), 3000 (desenvolvimento).</span
+            >
+          </div>
+          <div class="gl-item">
+            <span class="gl-term">Protocolo</span
+            ><span class="gl-def"
+              >Conjunto de regras que define como dois sistemas se comunicam. É
+              o "idioma" combinado entre as partes.</span
+            >
+          </div>
+          <div class="gl-item">
+            <span class="gl-term">RAM</span
+            ><span class="gl-def"
+              >Memória de Acesso Aleatório. Armazenamento temporário e rápido
+              para dados em uso ativo. Perde conteúdo ao desligar.</span
+            >
+          </div>
+          <div class="gl-item">
+            <span class="gl-term">Servidor</span
+            ><span class="gl-def"
+              >Computador (ou software) que responde a requisições de clientes,
+              geralmente disponível 24h por dia.</span
+            >
+          </div>
+          <div class="gl-item">
+            <span class="gl-term">Sessão</span
+            ><span class="gl-def"
+              >Mecanismo para manter estado entre requisições HTTP. O servidor
+              guarda dados do usuário identificado por um ID de sessão.</span
+            >
+          </div>
+          <div class="gl-item">
+            <span class="gl-term">Software</span
+            ><span class="gl-def"
+              >Conjunto de instruções e programas que dizem ao hardware o que
+              fazer. Intangível — não pode ser tocado.</span
+            >
+          </div>
+          <div class="gl-item">
+            <span class="gl-term">TCP</span
+            ><span class="gl-def"
+              >Protocolo de transporte confiável. Garante entrega, ordem e
+              integridade dos dados. Usado por HTTP.</span
+            >
+          </div>
+          <div class="gl-item">
+            <span class="gl-term">TLD</span
+            ><span class="gl-def"
+              >Top-Level Domain. A última parte de um domínio: .com, .org, .br,
+              .dev. Define categoria ou país do domínio.</span
+            >
+          </div>
+          <div class="gl-item">
+            <span class="gl-term">UDP</span
+            ><span class="gl-def"
+              >Protocolo de transporte rápido, sem garantia de entrega. Usado em
+              streaming, jogos e VoIP onde velocidade supera
+              confiabilidade.</span
+            >
+          </div>
+          <div class="gl-item">
+            <span class="gl-term">URL</span
+            ><span class="gl-def"
+              >Endereço completo de um recurso na internet, composto por
+              protocolo, domínio, porta, caminho, query string e
+              fragmento.</span
+            >
+          </div>
+          <div class="gl-item">
+            <span class="gl-term">WAN</span
+            ><span class="gl-def"
+              >Wide Area Network. Rede de longa distância. A internet é a maior
+              WAN existente.</span
+            >
+          </div>
+        </div>
+
+        <div class="box box-blue" style="margin-top: 40px">
+          <span class="icon">🚀</span>
+          <div class="box-content">
+            <strong>Próximos passos</strong>
+            <p>
+              Na próxima aula, vamos colocar a mão na massa: criar nossa
+              primeira página HTML do zero. Tudo que aprendemos hoje — sobre
+              como o navegador interpreta arquivos, como o servidor os entrega,
+              como o HTTP funciona — vai fazer muito mais sentido quando você
+              estiver escrevendo o código que o navegador vai renderizar. Até
+              lá!
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      function toggleTheme() {
+        const isDark =
+          document.documentElement.getAttribute("data-theme") === "dark";
+        document.documentElement.setAttribute(
+          "data-theme",
+          isDark ? "" : "dark",
+        );
+        document.getElementById("theme-btn").textContent = isDark
+          ? "🌙 Modo escuro"
+          : "☀️ Modo claro";
+        localStorage.setItem("theme", isDark ? "light" : "dark");
+      }
+
+      // Restore saved theme
+      const saved = localStorage.getItem("theme");
+      if (saved === "dark") {
+        document.documentElement.setAttribute("data-theme", "dark");
+        document.getElementById("theme-btn").textContent = "☀️ Modo claro";
+      }
+
+      // Active sidebar link on scroll
+      const sections = document.querySelectorAll("section[id], #cover");
+      const links = document.querySelectorAll("#sidebar nav a");
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              links.forEach((l) => l.classList.remove("active"));
+              const active = document.querySelector(
+                `#sidebar nav a[href="#${entry.target.id}"]`,
+              );
+              if (active) active.classList.add("active");
+            }
+          });
+        },
+        { rootMargin: "-20% 0px -70% 0px" },
+      );
+
+      sections.forEach((s) => observer.observe(s));
+
+      // Close sidebar on mobile after click
+      links.forEach((link) => {
+        link.addEventListener("click", () => {
+          if (window.innerWidth <= 900) {
+            document.getElementById("sidebar").classList.remove("open");
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
