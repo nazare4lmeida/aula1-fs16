@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aula 3 — Introdução ao HTML | Roteiro da Professora</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink-deep: #101c33;
+    --ink-panel: #182742;
+    --ink-panel-2: #1e3050;
+    --paper: #fdf6e9;
+    --paper-line: #e7dcc3;
+    --amber: #ffb627;
+    --amber-deep: #e0980a;
+    --teal: #52d6cb;
+    --rose: #ff8577;
+    --violet: #b9a6ff;
+    --text-light: #eae6da;
+    --text-dim: #a9b4c9;
+    --text-ink: #1b2a4a;
+    --radius: 14px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--ink-deep);
+    background-image:
+      radial-gradient(circle at 10% 0%, rgba(255,182,39,0.07), transparent 40%),
+      radial-gradient(circle at 90% 20%, rgba(82,214,203,0.06), transparent 45%);
+    color:var(--text-light);
+    font-family:'Public Sans', sans-serif;
+    line-height:1.65;
+    padding:0 0 120px 0;
+  }
+
+  h1,h2,h3,h4{
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    letter-spacing:-0.01em;
+    color:var(--text-light);
+    margin:0;
+  }
+
+  code, .mono{
+    font-family:'JetBrains Mono', monospace;
+  }
+
+  a{color:var(--amber);}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    max-width:900px;
+    margin:0 auto;
+    padding:90px 32px 50px;
+    text-align:left;
+  }
+  .hero .tagline{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    color:var(--teal);
+    background:rgba(82,214,203,0.08);
+    border:1px solid rgba(82,214,203,0.3);
+    padding:6px 14px;
+    border-radius:999px;
+    margin-bottom:28px;
+  }
+  .hero h1{
+    font-size:clamp(2.2rem, 5vw, 3.6rem);
+    line-height:1.08;
+  }
+  .hero h1 .accent{ color:var(--amber); font-style:italic; font-weight:500;}
+  .hero p.lede{
+    max-width:640px;
+    color:var(--text-dim);
+    font-size:1.08rem;
+    margin-top:22px;
+  }
+  .hero .skeleton-tag{
+    margin-top:36px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:14px;
+    color:var(--text-dim);
+    border-left:2px solid var(--ink-panel-2);
+    padding-left:16px;
+  }
+  .hero .skeleton-tag b{color:var(--amber); font-weight:600;}
+
+  /* ---------- SUMÁRIO ---------- */
+  .sumario{
+    max-width:900px;
+    margin:0 auto 20px;
+    padding:0 32px;
+  }
+  .sumario-caixa{
+    background:var(--ink-panel);
+    border:1px solid rgba(255,255,255,0.07);
+    border-radius:var(--radius);
+    padding:24px 26px;
+  }
+  .sumario-caixa h4{
+    font-size:0.95rem;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--text-dim);
+    font-family:'JetBrains Mono', monospace;
+    font-weight:700;
+    margin-bottom:14px;
+  }
+  .sumario-lista{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(230px,1fr));
+    gap:6px 24px;
+    list-style:none;
+    margin:0;
+    padding:0;
+  }
+  .sumario-lista li a{
+    display:flex;
+    gap:10px;
+    color:var(--text-light);
+    text-decoration:none;
+    font-size:0.92rem;
+    padding:6px 0;
+    border-bottom:1px dashed transparent;
+  }
+  .sumario-lista li a:hover{ color:var(--amber); border-bottom-color:rgba(255,182,39,0.4);}
+  .sumario-lista li a .num{ color:var(--amber); font-family:'JetBrains Mono', monospace; font-size:0.85rem;}
+
+  /* ---------- CONTAINER ---------- */
+  .roteiro{
+    max-width:900px;
+    margin:0 auto;
+    padding:0 32px;
+  }
+
+  .secao{
+    margin-top:90px;
+    scroll-margin-top:24px;
+  }
+  .secao-abre{
+    display:flex;
+    align-items:baseline;
+    gap:14px;
+    margin-bottom:8px;
+  }
+  .secao-abre .num{
+    font-family:'JetBrains Mono', monospace;
+    color:var(--amber);
+    font-size:14px;
+    background:rgba(255,182,39,0.1);
+    border:1px solid rgba(255,182,39,0.35);
+    padding:3px 10px;
+    border-radius:6px;
+    white-space:nowrap;
+  }
+  .secao-abre h2{
+    font-size:1.9rem;
+  }
+  .secao-desc{
+    color:var(--text-dim);
+    margin:14px 0 34px 0;
+    max-width:660px;
+  }
+
+  h3.sub{
+    font-size:1.25rem;
+    margin:40px 0 6px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  h3.sub .mini{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.75rem;
+    color:var(--ink-deep);
+    background:var(--teal);
+    padding:2px 8px;
+    border-radius:5px;
+  }
+
+  /* ---------- CUE LABELS ---------- */
+  .cue{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:11.5px;
+    font-weight:700;
+    letter-spacing:0.03em;
+    text-transform:uppercase;
+    padding:4px 10px;
+    border-radius:6px;
+    margin-bottom:10px;
+  }
+  .cue.fala{ background:rgba(255,182,39,0.14); color:var(--amber); }
+  .cue.tela{ background:rgba(82,214,203,0.14); color:var(--teal); }
+  .cue.pausa{ background:rgba(255,133,119,0.14); color:var(--rose); }
+  .cue.pergunta{ background:rgba(255,255,255,0.08); color:var(--text-light); }
+
+  /* ---------- FALA (speech bubble, paper card) ---------- */
+  .fala-bloco{
+    background:var(--paper);
+    color:var(--text-ink);
+    border-radius:var(--radius);
+    padding:26px 28px;
+    margin-bottom:22px;
+    position:relative;
+    box-shadow:0 14px 30px -18px rgba(0,0,0,0.55);
+  }
+  .fala-bloco::before{
+    content:"";
+    position:absolute;
+    left:28px;
+    top:-9px;
+    width:16px;
+    height:16px;
+    background:var(--paper);
+    transform:rotate(45deg);
+    border-radius:3px;
+  }
+  .fala-bloco p{ margin:0 0 12px 0; font-size:1.02rem;}
+  .fala-bloco p:last-child{margin-bottom:0;}
+  .fala-bloco .prof-marca{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-weight:500;
+    font-size:0.92rem;
+    color:var(--amber-deep);
+    margin-bottom:10px;
+    display:block;
+  }
+  .fala-bloco ul{margin:6px 0 12px 0; padding-left:20px;}
+  .fala-bloco li{margin-bottom:6px;}
+
+  /* ---------- TELA / DEMO note ---------- */
+  .tela-bloco{
+    border:1px solid rgba(82,214,203,0.35);
+    background:rgba(82,214,203,0.06);
+    border-radius:var(--radius);
+    padding:18px 22px;
+    margin-bottom:22px;
+    font-size:0.95rem;
+    color:var(--text-light);
+  }
+  .tela-bloco b{color:var(--teal);}
+
+  /* ---------- PAUSA ---------- */
+  .pausa-bloco{
+    border-left:3px solid var(--rose);
+    background:rgba(255,133,119,0.06);
+    padding:14px 20px;
+    border-radius:0 10px 10px 0;
+    margin-bottom:22px;
+    font-size:0.95rem;
+    color:var(--text-light);
+  }
+
+  /* ---------- PERGUNTA inline (dentro de seções normais) ---------- */
+  .pergunta-bloco{
+    border:1px dashed rgba(255,255,255,0.25);
+    padding:14px 20px;
+    border-radius:10px;
+    margin-bottom:22px;
+    font-size:0.95rem;
+    color:var(--text-dim);
+  }
+
+  /* ---------- CODE WINDOW ---------- */
+  .code-window{
+    background:var(--ink-panel);
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:var(--radius);
+    overflow:hidden;
+    margin:18px 0 26px 0;
+    box-shadow:0 20px 40px -24px rgba(0,0,0,0.6);
+  }
+  .code-window .titlebar{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    background:var(--ink-panel-2);
+    padding:10px 14px;
+  }
+  .code-window .dot{width:10px;height:10px;border-radius:50%;}
+  .dot.r{background:#ff5f56;}
+  .dot.y{background:#ffbd2e;}
+  .dot.g{background:#27c93f;}
+  .code-window .filename{
+    margin-left:10px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    color:var(--text-dim);
+  }
+  .code-window pre{
+    margin:0;
+    padding:20px 22px;
+    overflow-x:auto;
+    font-family:'JetBrains Mono', monospace;
+    font-size:13.5px;
+    line-height:1.75;
+    color:#e6ecf5;
+  }
+  .code-window .tagname{color:var(--teal);}
+  .code-window .attr{color:var(--amber);}
+  .code-window .str{color:#a8e6a1;}
+  .code-window .cm{color:var(--text-dim); font-style:italic;}
+  .code-window .txt{color:#e6ecf5;}
+
+  .k{
+    font-family:'JetBrains Mono', monospace;
+    background:rgba(255,182,39,0.12);
+    color:var(--amber);
+    padding:1px 7px;
+    border-radius:5px;
+    font-size:0.92em;
+  }
+
+  /* ---------- CHECKLIST ---------- */
+  .checklist{
+    list-style:none;
+    margin:0 0 26px 0;
+    padding:0;
+    display:grid;
+    gap:10px;
+  }
+  .checklist li{
+    display:flex;
+    gap:12px;
+    align-items:flex-start;
+    background:var(--ink-panel);
+    border:1px solid rgba(255,255,255,0.06);
+    border-radius:10px;
+    padding:12px 16px;
+    font-size:0.95rem;
+  }
+  .checklist li .check{
+    font-family:'JetBrains Mono', monospace;
+    color:var(--teal);
+    font-weight:700;
+    flex-shrink:0;
+  }
+
+  /* ---------- STEP LIST ---------- */
+  .passos{
+    counter-reset: passo;
+    margin:0 0 26px 0;
+    padding:0;
+    list-style:none;
+    display:grid;
+    gap:16px;
+  }
+  .passos li{
+    counter-increment: passo;
+    position:relative;
+    padding-left:46px;
+    font-size:0.97rem;
+    color:var(--text-light);
+  }
+  .passos li::before{
+    content: counter(passo);
+    position:absolute;
+    left:0;
+    top:-2px;
+    width:30px;
+    height:30px;
+    border-radius:8px;
+    background:linear-gradient(145deg, var(--amber), var(--amber-deep));
+    color:var(--ink-deep);
+    font-family:'JetBrains Mono', monospace;
+    font-weight:700;
+    font-size:13px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .passos li b{color:var(--teal);}
+  .passos li .detalhe{
+    display:block;
+    color:var(--text-dim);
+    font-size:0.88rem;
+    margin-top:4px;
+  }
+
+  /* ---------- ANATOMIA ---------- */
+  .anatomia{
+    display:flex;
+    justify-content:center;
+    margin:34px 0 40px;
+  }
+  .anatomia svg{max-width:100%;height:auto;}
+
+  /* ---------- TAG REFERENCE GRID ---------- */
+  .tag-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(240px,1fr));
+    gap:16px;
+    margin:0 0 30px 0;
+  }
+  .tag-card{
+    background:var(--ink-panel);
+    border:1px solid rgba(255,255,255,0.07);
+    border-radius:12px;
+    padding:18px 20px;
+  }
+  .tag-card .tag-nome{
+    font-family:'JetBrains Mono', monospace;
+    color:var(--amber);
+    font-size:1.05rem;
+    font-weight:700;
+    margin-bottom:6px;
+    display:block;
+  }
+  .tag-card p{
+    margin:0;
+    font-size:0.9rem;
+    color:var(--text-dim);
+  }
+
+  /* ---------- FAQ (details/summary) ---------- */
+  .faq-lista{
+    display:grid;
+    gap:12px;
+    margin-bottom:10px;
+  }
+  details.faq-item{
+    background:var(--ink-panel);
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:12px;
+    padding:0;
+    overflow:hidden;
+  }
+  details.faq-item summary{
+    cursor:pointer;
+    list-style:none;
+    padding:18px 22px;
+    display:flex;
+    align-items:center;
+    gap:14px;
+    font-weight:600;
+    font-size:0.98rem;
+    color:var(--text-light);
+  }
+  details.faq-item summary::-webkit-details-marker{display:none;}
+  details.faq-item summary .qmark{
+    flex-shrink:0;
+    width:28px;
+    height:28px;
+    border-radius:8px;
+    background:rgba(255,182,39,0.14);
+    color:var(--amber);
+    font-family:'JetBrains Mono', monospace;
+    font-weight:700;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:0.85rem;
+  }
+  details.faq-item summary .chev{
+    margin-left:auto;
+    color:var(--text-dim);
+    font-family:'JetBrains Mono', monospace;
+    transition:transform 0.2s ease;
+  }
+  details.faq-item[open] summary .chev{ transform:rotate(180deg); }
+  details.faq-item .resposta{
+    padding:0 22px 20px 64px;
+    color:var(--text-dim);
+    font-size:0.93rem;
+  }
+  details.faq-item .resposta b{ color:var(--teal); font-weight:600;}
+
+  /* ---------- GLOSSÁRIO ---------- */
+  .glossario-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(260px,1fr));
+    gap:14px;
+  }
+  .termo-card{
+    background:var(--paper);
+    color:var(--text-ink);
+    border-radius:12px;
+    padding:18px 20px;
+  }
+  .termo-card .termo-nome{
+    font-family:'JetBrains Mono', monospace;
+    font-weight:700;
+    color:var(--amber-deep);
+    font-size:0.98rem;
+    display:block;
+    margin-bottom:6px;
+  }
+  .termo-card p{
+    margin:0;
+    font-size:0.88rem;
+    color:var(--text-ink);
+    opacity:0.85;
+  }
+
+  /* ---------- ATALHOS ---------- */
+  .atalhos-tabela{
+    width:100%;
+    border-collapse:collapse;
+    margin-bottom:26px;
+    font-size:0.92rem;
+    background:var(--ink-panel);
+    border-radius:12px;
+    overflow:hidden;
+  }
+  .atalhos-tabela caption{
+    text-align:left;
+    font-family:'JetBrains Mono', monospace;
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+    font-size:0.78rem;
+    color:var(--teal);
+    padding:14px 18px;
+    background:var(--ink-panel-2);
+  }
+  .atalhos-tabela th{
+    text-align:left;
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.78rem;
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+    color:var(--text-dim);
+    padding:10px 18px;
+    border-bottom:1px solid rgba(255,255,255,0.08);
+  }
+  .atalhos-tabela td{
+    padding:11px 18px;
+    border-bottom:1px solid rgba(255,255,255,0.05);
+    color:var(--text-light);
+  }
+  .atalhos-tabela tr:last-child td{ border-bottom:none; }
+  .tecla{
+    font-family:'JetBrains Mono', monospace;
+    background:rgba(82,214,203,0.12);
+    color:var(--teal);
+    padding:2px 8px;
+    border-radius:5px;
+    font-size:0.85em;
+    white-space:nowrap;
+  }
+
+  /* ---------- SIGNATURE RULE ---------- */
+  .bracket-rule{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin:70px 0 10px;
+    color:var(--ink-panel-2);
+  }
+  .bracket-rule .b{
+    font-family:'JetBrains Mono', monospace;
+    color:var(--amber);
+    font-size:14px;
+  }
+  .bracket-rule .line{
+    flex:1;
+    height:1px;
+    background:linear-gradient(90deg, rgba(255,182,39,0.4), transparent);
+  }
+
+  .footer-note{
+    max-width:900px;
+    margin:100px auto 0;
+    padding:32px;
+    text-align:center;
+    color:var(--text-dim);
+    font-size:0.85rem;
+    font-family:'JetBrains Mono', monospace;
+  }
+
+  @media (max-width:600px){
+    .hero{padding:60px 20px 40px;}
+    .sumario{padding:0 20px;}
+    .roteiro{padding:0 20px;}
+    .fala-bloco{padding:20px;}
+    .atalhos-tabela{font-size:0.82rem;}
+    .atalhos-tabela th, .atalhos-tabela td{padding:9px 10px;}
+    details.faq-item .resposta{padding:0 18px 18px 18px;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <span class="tagline">&lt;curso-fullstack&gt; aula 03 &middot; html</span>
+  <h1>O esqueleto por trás<br>de <span class="accent">toda página da web</span></h1>
+  <p class="lede">Roteiro completo da aula — do zero absoluto até o primeiro "Hello World" escrito com as próprias mãos, no VSCode, com o navegador aberto do lado mostrando o resultado. Com FAQ, glossário e atalhos ao final.</p>
+  <div class="skeleton-tag">
+    &lt;objetivo&gt;<br>
+    &nbsp;&nbsp;Instalar as ferramentas &middot; entender o que é HTML em profundidade &middot; escrever a primeira página &middot; sair com um guia de referência<br>
+    &lt;/objetivo&gt;
+  </div>
+</header>
+
+<!-- ============ SUMÁRIO ============ -->
+<nav class="sumario">
+  <div class="sumario-caixa">
+    <h4>Sumário da aula</h4>
+    <ul class="sumario-lista">
+      <li><a href="#sec00"><span class="num">00</span> Abertura</a></li>
+      <li><a href="#sec01"><span class="num">01</span> Instalando as ferramentas</a></li>
+      <li><a href="#sec02"><span class="num">02</span> O que é HTML</a></li>
+      <li><a href="#sec03"><span class="num">03</span> Tags, elementos e atributos</a></li>
+      <li><a href="#sec04"><span class="num">04</span> Tags essenciais</a></li>
+      <li><a href="#sec05"><span class="num">05</span> Primeiro Hello World</a></li>
+      <li><a href="#sec06"><span class="num">06</span> Perguntas frequentes</a></li>
+      <li><a href="#sec07"><span class="num">07</span> Glossário</a></li>
+      <li><a href="#sec08"><span class="num">08</span> Atalhos do VSCode</a></li>
+      <li><a href="#sec09"><span class="num">09</span> Fechamento</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="roteiro">
+
+  <!-- ============ SEÇÃO 0 — ABERTURA ============ -->
+  <section class="secao" id="sec00">
+    <div class="secao-abre">
+      <span class="num">00</span>
+      <h2>Abertura da aula</h2>
+    </div>
+    <p class="secao-desc">Antes de instalar qualquer coisa, é importante situar a turma: o que vem por aí, quanto tempo isso deve levar e por que isso importa.</p>
+
+    <span class="cue fala">professora fala</span>
+    <div class="fala-bloco">
+      <span class="prof-marca">— Bom dia, turma! Terceira aula, e hoje é um dia especial.</span>
+      <p>Até agora a gente conversou sobre lógica, sobre como um computador "pensa" e sobre o caminho que vocês vão trilhar nesse curso. Hoje a gente sai da teoria e coloca a mão na massa pela primeira vez de verdade.</p>
+      <p>A aula de hoje tem três partes bem grandes: primeiro vamos instalar, com calma, as ferramentas que vocês vão usar <b>todos os dias</b> daqui pra frente. Depois vamos entender, devagar e com bastante analogia, o que é HTML e como ele é organizado por dentro. E por fim vamos escrever, juntos, a primeira página HTML de vocês — do zero, sem copiar e colar, entendendo cada linha.</p>
+      <p>No final ainda deixo pra vocês um material de apoio: perguntas frequentes, um glossário com todos os termos novos que vamos usar, e uma lista de atalhos do VSCode pra vocês irem ganhando velocidade. Pode ser que a aula pareça longa — e ela é mesmo, de propósito. Prefiro que a gente vá com calma hoje, porque tudo que vem depois no curso se apoia nesse alicerce.</p>
+    </div>
+
+    <span class="cue pausa">respire</span>
+    <div class="pausa-bloco">
+      Antes de começar: se é a primeira vez que vocês instalam algo assim, é absolutamente normal sentir que tem muito nome estranho — Git, GitHub, VSCode, extensão. Ninguém nasce sabendo o que é isso. Ninguém, nem os desenvolvedores mais experientes que vocês forem conhecer. Vamos devagar, um de cada vez, e ninguém fica pra trás.
+    </div>
+  </section>
+
+  <!-- ============ SEÇÃO 1 — INSTALAÇÃO ============ -->
+  <section class="secao" id="sec01">
+    <div class="secao-abre">
+      <span class="num">01</span>
+      <h2>Preparando a caixa de ferramentas</h2>
+    </div>
+    <p class="secao-desc">Toda profissão tem suas ferramentas. Pedreiro tem colher de pedreiro, cozinheiro tem faca boa e afiada. A nossa caixa de ferramentas de hoje: o Git, uma conta no GitHub e o VSCode configurado.</p>
+
+    <span class="cue fala">professora fala</span>
+    <div class="fala-bloco">
+      <span class="prof-marca">— Pensem assim, com calma, porque isso vai acompanhar vocês o curso inteiro:</span>
+      <p>O <b>VSCode</b> é a nossa "folha de papel e caneta" — é onde a gente vai escrever o código, todos os dias, em todas as aulas daqui pra frente.</p>
+      <p>O <b>Git</b> é diferente: ele não é onde a gente escreve código, é uma ferramenta que fica "por trás", rodando no computador de vocês, guardando um histórico de tudo que foi escrito. Pensem nele como uma máquina do tempo, ou como o "Ctrl+Z" definitivo: se em algum momento vocês estragarem um projeto inteiro sem querer, o Git guarda versões anteriores para vocês voltarem no tempo.</p>
+      <p>O <b>GitHub</b>, por sua vez, é um site — uma espécie de "Google Drive" só que feito especialmente para guardar código na nuvem. Ele usa o Git por trás dos panos, mas o GitHub em si é o lugar onde o código de vocês fica hospedado, visível, e onde vocês vão poder mostrar seus projetos pro mundo (incluindo recrutadores, no futuro).</p>
+      <p>Repare que são três coisas diferentes, mas que trabalham juntas: <b>VSCode</b> (onde escrevo), <b>Git</b> (que guarda o histórico local) e <b>GitHub</b> (onde guardo esse histórico na nuvem, para todo mundo ver).</p>
+    </div>
+
+    <span class="cue pausa">respire</span>
+    <div class="pausa-bloco">
+      Hoje a gente só vai <b>instalar</b> essas ferramentas e criar a conta. O uso de verdade do Git — salvando versões, subindo pro GitHub — a gente aprende com calma numa aula futura dedicada só a isso. Por hoje, é só deixar tudo pronto na "bancada de trabalho".
+    </div>
+
+    <h3 class="sub"><span class="mini">1.1</span> Instalando o Git</h3>
+    <span class="cue tela">mostrar na tela</span>
+    <div class="tela-bloco"><b>Compartilhar tela</b> e abrir o site oficial <span class="mono">git-scm.com</span> junto com a turma, mostrando cada clique.</div>
+
+    <ol class="passos">
+      <li>Acessem <b>git-scm.com</b> no navegador. É o site oficial — desconfiem de qualquer outro site que prometa "baixar Git" com botões piscando ou muita propaganda.
+        <span class="detalhe">Dica: digitem o endereço direto na barra do navegador, em vez de pesquisar no Google, para não cair em um site falso.</span>
+      </li>
+      <li>Cliquem em <b>Download</b>. O site detecta sozinho se vocês usam Windows, Mac ou Linux e já sugere a versão certa.</li>
+      <li>Abram o instalador baixado. Durante a instalação, se aparecer uma tela de opções e vocês não tiverem certeza do que marcar, deixem tudo como está por padrão e cliquem em "Next" até o fim — os padrões já servem perfeitamente pra gente agora. Não precisam entender cada opção nesse momento.
+        <span class="detalhe">Se aparecer uma pergunta sobre "editor padrão", pode deixar como Vim ou o que vier marcado — a gente vai usar o VSCode de qualquer forma, isso não afeta nosso curso.</span>
+      </li>
+      <li>Para confirmar que funcionou, precisamos abrir um <b>terminal</b>: no Windows, procurem no menu iniciar por "Git Bash" (ele já vem instalado junto com o Git); no Mac ou Linux, abram o aplicativo "Terminal".</li>
+      <li>Dentro do terminal, digitem <span class="k">git --version</span> e apertem Enter. Se aparecer um número de versão (algo como <span class="k">git version 2.44.0</span>), deu tudo certo!</li>
+    </ol>
+
+    <span class="cue pergunta">pergunta comum</span>
+    <div class="pergunta-bloco">
+      <b>"O que é esse terminal, professora?"</b> — É uma tela onde a gente conversa com o computador escrevendo comandos de texto, em vez de clicar em ícones e menus. Parece assustador na primeira vez — uma telinha preta com letrinhas — mas em poucas aulas vai virar rotina, e vocês vão perceber que é até mais rápido que usar o mouse para muita coisa.
+    </div>
+
+    <h3 class="sub"><span class="mini">1.2</span> Criando a conta no GitHub</h3>
+    <span class="cue fala">professora fala</span>
+    <div class="fala-bloco">
+      <p>Vamos criar a conta agora. Pensem nela como o "perfil profissional" de vocês como programadores — muitas empresas, na hora de contratar, dão uma olhada no GitHub da pessoa candidata para ver os projetos que ela já fez.</p>
+    </div>
+
+    <ol class="passos">
+      <li>Acessem <b>github.com</b> e cliquem em <b>Sign up</b> (Cadastrar-se), geralmente no canto superior direito da página.</li>
+      <li>Preencham e-mail e senha quando solicitado. Usem um e-mail que vocês acessam com frequência, porque o GitHub vai enviar um código de confirmação para ele.</li>
+      <li>Escolham um nome de usuário <b>profissional</b> — pensem que, com o tempo, esse é o endereço que vocês vão colocar no currículo e no LinkedIn (algo como <span class="k">github.com/seu-usuario</span>). Evitem apelidos de adolescência ou combinações de números aleatórios aqui!
+        <span class="detalhe">Boas opções costumam ser variações do próprio nome, como "mariasilva-dev" ou "joaocosta-tech".</span>
+      </li>
+      <li>Confirmem o e-mail quando o GitHub pedir, digitando o código que chegou na caixa de entrada — sem esse passo a conta fica incompleta e algumas funções não funcionam.</li>
+      <li>Prontinho: essa conta vai ser a "casa na nuvem" de todos os projetos que vocês criarem no curso, e a gente vai voltar a usá-la em detalhes numa aula futura.</li>
+    </ol>
+
+    <h3 class="sub"><span class="mini">1.3</span> Instalando o VSCode</h3>
+    <span class="cue fala">professora fala</span>
+    <div class="fala-bloco">
+      <span class="prof-marca">— O VSCode vai ser a casa de vocês pelos próximos meses. Vamos conhecer ele com calma.</span>
+      <p>VSCode é a abreviação de <b>Visual Studio Code</b>, um editor de código gratuito, feito pela Microsoft, usado por profissionais no mundo inteiro — de estagiários a engenheiros sêniores em grandes empresas de tecnologia. Ele é meio "cru" recém-instalado, parecido com um caderno em branco, mas a gente vai deixar ele mais bonito e útil com algumas extensões daqui a pouco.</p>
+    </div>
+
+    <ol class="passos">
+      <li>Acessem <b>code.visualstudio.com</b> e cliquem no botão de download para o sistema operacional de vocês (o site também costuma detectar automaticamente).</li>
+      <li>Instalem normalmente, sempre com as opções padrão marcadas. No Windows, se aparecerem caixinhas de seleção extras como "Adicionar ação 'Abrir com Code' ao menu de contexto", pode deixar marcadas — isso só facilita a vida de vocês depois.</li>
+      <li>Abram o VSCode pela primeira vez. Vão ver uma tela de boas-vindas com dicas — podem fechar essa aba por enquanto, ou deixar aberta para explorar depois.</li>
+      <li>Vamos fazer um tour rápido pela interface: no canto esquerdo, aquela barra fina de ícones verticais é a <b>Activity Bar</b>; o painel que abre ao lado dela (normalmente mostrando arquivos) é o <b>Explorer</b>; a área grande no meio é onde o código aparece; e lá embaixo fica a <b>barra de status</b>, mostrando informações como o tipo de arquivo aberto.</li>
+      <li>No menu lateral esquerdo, procurem o ícone de <b>quadradinhos empilhados</b> (Extensões) e cliquem nele — é ali que vamos instalar nossas ferramentas extras.</li>
+    </ol>
+
+    <span class="cue tela">mostrar na tela</span>
+    <div class="tela-bloco">
+      Instalar ao vivo, junto com a turma, cada uma destas extensões (buscar pelo nome exato na barra de busca de extensões, clicar em "Install" e aguardar carregar):
+    </div>
+
+    <ul class="checklist">
+      <li><span class="check">✓</span><span><b>Portuguese Language Pack</b> — traduz a interface do VSCode para português. É opcional: muitos programadores preferem deixar em inglês desde cedo, já que a maior parte da documentação e das mensagens de erro do mundo todo vem em inglês. Fica a escolha de vocês.</span></li>
+      <li><span class="check">✓</span><span><b>Live Server</b> — abre a nossa página HTML diretamente no navegador e atualiza sozinha toda vez que a gente salva o arquivo, sem precisar apertar F5 manualmente. Essa vai ser usada em praticamente toda aula prática.</span></li>
+      <li><span class="check">✓</span><span><b>Prettier - Code formatter</b> — organiza e "arruma" a identação e a formatação do nosso código automaticamente, deixando tudo alinhado e legível com um atalho de teclado.</span></li>
+      <li><span class="check">✓</span><span><b>Auto Rename Tag</b> — quando editamos o nome de uma tag de abertura em HTML, ela renomeia a de fechamento automaticamente junto. Uma mãozinha e tanto pra evitar erros bobos!</span></li>
+      <li><span class="check">✓</span><span><b>Material Icon Theme</b> — deixa os ícones de pastas e arquivos mais bonitos e, principalmente, mais fáceis de identificar rapidamente pelo tipo de arquivo.</span></li>
+    </ul>
+
+    <span class="cue pergunta">pergunta comum</span>
+    <div class="pergunta-bloco">
+      <b>"Preciso reiniciar o VSCode depois de instalar uma extensão?"</b> — Na maioria das vezes não, mas se alguma extensão não parecer estar funcionando (como o Live Server não aparecendo no menu de botão direito), feche e abra o VSCode novamente. Isso resolve praticamente sempre.
+    </div>
+
+    <span class="cue pausa">respire</span>
+    <div class="pausa-bloco">
+      Ufa. Instalação feita! Deem uma esticada, bebam uma água, olhem pra longe por 20 segundos para descansar os olhos. Quando todo mundo tiver o Git, o GitHub e o VSCode com as extensões prontos, a gente segue para a parte mais gostosa da aula: entender o que diabos é esse tal de HTML.
+    </div>
+  </section>
+
+  <div class="bracket-rule"><span class="b">&lt;/instalação&gt;</span><span class="line"></span></div>
+
+  <!-- ============ SEÇÃO 2 — O QUE É HTML ============ -->
+  <section class="secao" id="sec02">
+    <div class="secao-abre">
+      <span class="num">02</span>
+      <h2>O que é HTML, afinal?</h2>
+    </div>
+    <p class="secao-desc">Vamos construir essa ideia com calma, camada por camada, antes de ver qualquer código de verdade.</p>
+
+    <span class="cue fala">professora fala</span>
+    <div class="fala-bloco">
+      <span class="prof-marca">— Deixa eu te fazer uma pergunta: quando vocês entram num site, o que vocês estão vendo?</span>
+      <p>Título, parágrafo de texto, uma imagem ali, um botão aqui, um menu no topo... Pois é. <b>Tudo isso que aparece na tela precisa ser organizado de alguma forma para o navegador entender o que é o quê.</b> O navegador — Chrome, Firefox, Safari, qualquer um — não sabe, por padrão, o que é um título e o que é uma imagem só de olhar um monte de texto solto. Alguém precisa dizer isso pra ele, de um jeito que ele entenda.</p>
+      <p>É exatamente para isso que o HTML existe. <span class="k">HTML</span> significa <i>HyperText Markup Language</i> — em português, "Linguagem de Marcação de Hipertexto". O nome é feio e confuso, então vamos separar em pedaços:</p>
+      <ul>
+        <li><b>HyperText (Hipertexto):</b> é um texto que pode conter links — referências que levam para outros textos, outras páginas. É basicamente o que torna a web uma "teia" (web = teia): páginas conectadas umas às outras por links.</li>
+        <li><b>Markup (Marcação):</b> é o ato de "marcar" um texto, como quando a gente grifa um trecho de um livro com marca-texto para destacar que aquilo é importante. Só que aqui, em vez de simplesmente destacar, a gente está dizendo <i>o tipo</i> daquele conteúdo.</li>
+        <li><b>Language (Linguagem):</b> porque, assim como o português ou o inglês têm regras de gramática, o HTML também tem suas próprias regras — que vamos aprender juntos hoje.</li>
+      </ul>
+      <p>Juntando tudo: HTML é a linguagem que a gente usa para <b>marcar</b> o conteúdo de uma página, dizendo ao navegador: "isso aqui é um título", "isso aqui é um parágrafo", "isso aqui é uma imagem", "isso aqui é um link para outra página".</p>
+    </div>
+
+    <span class="cue fala">professora fala</span>
+    <div class="fala-bloco">
+      <span class="prof-marca">— Agora, a analogia que eu quero que vocês guardem para o resto do curso, porque ela vai se repetir toda aula:</span>
+      <p><b>HTML é o esqueleto de uma página.</b></p>
+      <p>Pensem no corpo humano. O esqueleto não é o que a gente vê quando olha pra uma pessoa na rua — quem "aparece" é a pele, a roupa, o cabelo, a expressão do rosto. Mas sem o esqueleto por baixo de tudo isso, o corpo não tem forma nenhuma, não fica em pé, não tem onde pendurar os músculos e os órgãos.</p>
+      <p>O HTML é exatamente isso para um site: ele dá <b>estrutura</b>, o "arcabouço" sobre o qual tudo o mais é construído. Ele decide "aqui vai a cabeça (o título principal), aqui vai o tronco (o conteúdo principal da página), aqui vai um braço (uma imagem), aqui vai uma mão apontando para outro lugar (um link)".</p>
+      <p>Mais pra frente no curso, quando aprendermos <b>CSS</b>, a gente vai "vestir" esse esqueleto — dar cor, forma, espaçamento, um visual bonito. E depois, com <b>JavaScript</b>, a gente vai fazer esse corpo <i>se mexer</i> — reagir a cliques, mostrar e esconder coisas, calcular valores. Mas hoje é só sobre o esqueleto: sem ele, não existe corpo nenhum para vestir ou fazer se mexer.</p>
+    </div>
+
+    <span class="cue fala">professora fala</span>
+    <div class="fala-bloco">
+      <span class="prof-marca">— E de onde vem o HTML? Um contexto rápido, sem precisar decorar datas:</span>
+      <p>O HTML foi criado no início dos anos 1990 por um cientista chamado Tim Berners-Lee, junto com a própria ideia da World Wide Web (a "www" que a gente ainda vê em alguns endereços). A ideia original era simples: permitir que pesquisadores compartilhassem documentos de texto conectados por links, de qualquer lugar do mundo. Só depois, com o passar dos anos, o HTML foi ganhando mais recursos — imagens, formulários, vídeos, e assim por diante — até chegar na web riquíssima que a gente usa hoje.</p>
+      <p>O motivo de eu contar isso é simples: o HTML não foi inventado para ser "bonito" — ele foi inventado para <b>estruturar informação de forma que qualquer computador do mundo consiga entender</b>. Beleza visual é trabalho de outra ferramenta, que veremos mais pra frente.</p>
+    </div>
+
+    <span class="cue pausa">deixa entrar</span>
+    <div class="pausa-bloco">
+      Repitam isso mentalmente, porque vai ser cobrado o curso inteiro: <b>HTML = estrutura. CSS = estilo. JavaScript = comportamento.</b> Essa frase vai fazer todo sentido daqui a algumas aulas — por enquanto, guardem principalmente a primeira parte, é sobre ela que vamos trabalhar hoje.
+    </div>
+  </section>
+
+  <div class="bracket-rule"><span class="b">&lt;/o-que-é-html&gt;</span><span class="line"></span></div>
+
+  <!-- ============ SEÇÃO 3 — ESTRUTURA: TAGS, ELEMENTOS, ATRIBUTOS ============ -->
+  <section class="secao" id="sec03">
+    <div class="secao-abre">
+      <span class="num">03</span>
+      <h2>Como o esqueleto é montado: tags, elementos e atributos</h2>
+    </div>
+    <p class="secao-desc">Três palavras que vocês vão ouvir o curso inteiro. Vamos entender cada uma com calma, uma peça de cada vez, e ainda ver algumas regras importantes de escrita.</p>
+
+    <span class="cue fala">professora fala</span>
+    <div class="fala-bloco">
+      <span class="prof-marca">— Vamos começar pela peça mais básica: a tag.</span>
+      <p>Uma <b>tag</b> é uma etiqueta, escrita entre os sinais de menor <span class="k">&lt;</span> e maior <span class="k">&gt;</span>, que diz ao navegador o tipo daquele pedaço de conteúdo. Quase toda tag em HTML vem em par: uma de <b>abertura</b> e uma de <b>fechamento</b> — e a única diferença entre elas é a barrinha <span class="k">/</span> logo depois do <span class="k">&lt;</span> na de fechamento.</p>
+    </div>
+
+    <div class="code-window">
+      <div class="titlebar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="filename">exemplo.html</span></div>
+      <pre><span class="tagname">&lt;p&gt;</span><span class="txt">Esse é um parágrafo de texto.</span><span class="tagname">&lt;/p&gt;</span></pre>
+    </div>
+
+    <div class="anatomia">
+      <svg viewBox="0 0 640 190" xmlns="http://www.w3.org/2000/svg">
+        <text x="20" y="60" font-family="JetBrains Mono, monospace" font-size="26" fill="#52d6cb">&lt;p&gt;</text>
+        <text x="90" y="60" font-family="JetBrains Mono, monospace" font-size="26" fill="#e6ecf5">Esse é um parágrafo.</text>
+        <text x="440" y="60" font-family="JetBrains Mono, monospace" font-size="26" fill="#52d6cb">&lt;/p&gt;</text>
+
+        <line x1="35" y1="75" x2="35" y2="105" stroke="#52d6cb" stroke-width="1.5"/>
+        <text x="0" y="122" font-family="Public Sans, sans-serif" font-size="13" fill="#a9b4c9">tag de</text>
+        <text x="0" y="138" font-family="Public Sans, sans-serif" font-size="13" fill="#a9b4c9">abertura</text>
+
+        <line x1="270" y1="75" x2="270" y2="105" stroke="#e6ecf5" stroke-width="1.5"/>
+        <text x="215" y="122" font-family="Public Sans, sans-serif" font-size="13" fill="#a9b4c9">conteúdo</text>
+
+        <line x1="465" y1="75" x2="465" y2="105" stroke="#52d6cb" stroke-width="1.5"/>
+        <text x="415" y="122" font-family="Public Sans, sans-serif" font-size="13" fill="#a9b4c9">tag de</text>
+        <text x="415" y="138" font-family="Public Sans, sans-serif" font-size="13" fill="#a9b4c9">fechamento</text>
+      </svg>
+    </div>
+
+    <span class="cue fala">professora fala</span>
+    <div class="fala-bloco">
+      <span class="prof-marca">— Quando uma tag de abertura, o conteúdo de dentro e a tag de fechamento aparecem juntos, damos um nome pra esse "pacote completo":</span>
+      <p>chamamos isso de <b>elemento</b>. Ou seja: a tag é a etiqueta, e o elemento é o "pacote inteiro" — etiqueta de abertura, conteúdo, etiqueta de fechamento, tudo junto.</p>
+      <p>Pensem de novo no esqueleto: a tag <span class="k">&lt;p&gt;</span> é como uma placa dizendo "aqui começa um osso do tipo parágrafo", e o elemento inteiro é o osso montado, do início ao fim, já com sua "carne" (o conteúdo) dentro.</p>
+      <p>Uma coisa importante: elementos podem ficar <b>dentro</b> de outros elementos — isso se chama <b>aninhamento</b> (em inglês, <i>nesting</i>). É como caixas dentro de caixas. Olhem esse exemplo:</p>
+    </div>
+
+    <div class="code-window">
+      <div class="titlebar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="filename">exemplo.html</span></div>
+      <pre><span class="tagname">&lt;p&gt;</span><span class="txt">Esse texto tem uma palavra </span><span class="tagname">&lt;strong&gt;</span><span class="txt">importante</span><span class="tagname">&lt;/strong&gt;</span><span class="txt"> no meio.</span><span class="tagname">&lt;/p&gt;</span></pre>
+    </div>
+
+    <span class="cue fala">professora fala</span>
+    <div class="fala-bloco">
+      <p>Reparem: o elemento <span class="k">&lt;strong&gt;</span> (que deixa o texto em negrito) está <b>dentro</b> do elemento <span class="k">&lt;p&gt;</span>. Isso é perfeitamente normal e vai acontecer o tempo todo. A única regra de ouro aqui é: <b>quem abre por último, fecha primeiro</b> — como quando a gente abre parênteses dentro de parênteses. Se o <span class="k">&lt;strong&gt;</span> abriu depois do <span class="k">&lt;p&gt;</span>, ele precisa fechar antes do <span class="k">&lt;/p&gt;</span>. Nunca cruzado.</p>
+    </div>
+
+    <div class="code-window">
+      <div class="titlebar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="filename">certo-vs-errado.html</span></div>
+      <pre><span class="cm">// certo: o strong fecha antes do p</span>
+<span class="tagname">&lt;p&gt;</span><span class="txt">texto </span><span class="tagname">&lt;strong&gt;</span><span class="txt">forte</span><span class="tagname">&lt;/strong&gt;</span><span class="tagname">&lt;/p&gt;</span>
+
+<span class="cm">// errado: as tags se cruzam</span>
+<span class="tagname">&lt;p&gt;</span><span class="txt">texto </span><span class="tagname">&lt;strong&gt;</span><span class="txt">forte</span><span class="tagname">&lt;/p&gt;</span><span class="tagname">&lt;/strong&gt;</span></pre>
+    </div>
+
+    <span class="cue fala">professora fala</span>
+    <div class="fala-bloco">
+      <span class="prof-marca">— E os atributos?</span>
+      <p>Às vezes, a tag sozinha não dá conta de toda informação que a gente precisa passar. Por exemplo: se eu quero mostrar uma imagem, o navegador precisa saber <i>qual</i> imagem — o nome da tag <span class="k">&lt;img&gt;</span> sozinho não diz isso. Para complementar, usamos <b>atributos</b>: informações extras que colocamos dentro da tag de abertura, sempre no formato <span class="k">nome="valor"</span>.</p>
+    </div>
+
+    <div class="code-window">
+      <div class="titlebar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="filename">exemplo.html</span></div>
+      <pre><span class="tagname">&lt;img</span> <span class="attr">src</span>=<span class="str">"gato.jpg"</span> <span class="attr">alt</span>=<span class="str">"Foto de um gato laranja dormindo"</span><span class="tagname">&gt;</span></pre>
+    </div>
+
+    <span class="cue fala">professora fala</span>
+    <div class="fala-bloco">
+      <p>Reparem: <span class="k">src</span> (abreviação de <i>source</i>, "fonte" em inglês) é o atributo que diz <i>onde</i> está o arquivo da imagem, e <span class="k">alt</span> (de <i>alternative</i>, "alternativo") é o atributo que diz <i>o que</i> tem nessa imagem, caso ela não carregue por algum motivo — ou caso a pessoa esteja usando um leitor de tela por ter dificuldade de enxergar. Esse segundo atributo é importante não só por acessibilidade, mas porque o Google e outros buscadores usam esse texto para entender do que se trata a imagem.</p>
+      <p>Reparem também que a tag <span class="k">&lt;img&gt;</span> não tem uma tag de fechamento separada — ela é o que chamamos de <b>elemento vazio</b> (ou <i>void element</i>), porque uma imagem não "envolve" nenhum conteúdo dentro dela, então não faz sentido ter um <span class="k">&lt;/img&gt;</span>. Outros elementos vazios comuns são o <span class="k">&lt;br&gt;</span> (quebra de linha) e o <span class="k">&lt;hr&gt;</span> (linha horizontal divisória) — vamos ver os dois em detalhe daqui a pouco.</p>
+    </div>
+
+    <h3 class="sub"><span class="mini">3.1</span> Mais algumas regras importantes de escrita</h3>
+    <span class="cue fala">professora fala</span>
+    <div class="fala-bloco">
+      <ul>
+        <li><b>Espaços em branco e quebras de linha não importam para o HTML.</b> O navegador junta tudo e ignora espaços extras, tabulações e linhas em branco entre as tags. Ou seja: a identação que a gente usa (aqueles espaços no início da linha, "escadinha") não é obrigatória para o código funcionar — ela existe só para <b>nós, humanos,</b> conseguirmos ler o código com mais facilidade. Mesmo assim, é uma prática essencial: código bem identado é muito mais fácil de entender e de corrigir.</li>
+        <li><b>Tags em HTML não diferenciam maiúsculas de minúsculas</b> — <span class="k">&lt;P&gt;</span> e <span class="k">&lt;p&gt;</span> funcionam do mesmo jeito. Mas o combinado do mercado, e o que vamos seguir aqui, é sempre escrever tudo em <b>minúsculas</b>. Isso é só uma convenção de organização, mas seguir convenções é parte importante de trabalhar em equipe.</li>
+        <li><b>Comentários</b> são trechos de texto que a gente escreve no código só para anotações nossas — o navegador simplesmente os ignora, eles nunca aparecem na tela. Em HTML, escrevemos assim: <span class="k">&lt;!-- isso é um comentário --&gt;</span>. São úteis para deixar lembretes ou desativar temporariamente um trecho de código sem apagá-lo.</li>
+      </ul>
+    </div>
+
+    <div class="code-window">
+      <div class="titlebar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="filename">comentario.html</span></div>
+      <pre><span class="cm">&lt;!-- Essa é a seção de apresentação da página --&gt;</span>
+<span class="tagname">&lt;h1&gt;</span><span class="txt">Olá, mundo!</span><span class="tagname">&lt;/h1&gt;</span></pre>
+    </div>
+
+    <span class="cue pausa">respire</span>
+    <div class="pausa-bloco">
+      Recapitulando com uma frase só: <b>tag</b> é a etiqueta, <b>elemento</b> é o pacote completo (abertura + conteúdo + fechamento), e <b>atributo</b> é uma informação extra que a gente coloca dentro da tag de abertura. Elementos podem ficar aninhados uns dentro dos outros, sempre respeitando a ordem de fechamento. Se isso ainda parece nebuloso, tudo bem — daqui a pouco a gente vê isso rodando de verdade no navegador, e costuma clicar na hora.
+    </div>
+  </section>
+
+  <div class="bracket-rule"><span class="b">&lt;/tags-elementos-atributos&gt;</span><span class="line"></span></div>
+
+  <!-- ============ SEÇÃO 4 — TAGS ESSENCIAIS ============ -->
+  <section class="secao" id="sec04">
+    <div class="secao-abre">
+      <span class="num">04</span>
+      <h2>Conhecendo os primeiros "ossos"</h2>
+    </div>
+    <p class="secao-desc">Não precisamos decorar todas as tags que existem — são dezenas. Hoje, vamos conhecer bem o essencial para montar nossa primeira página com confiança.</p>
+
+    <span class="cue fala">professora fala</span>
+    <div class="fala-bloco">
+      <span class="prof-marca">— Antes de qualquer tag de conteúdo, toda página HTML precisa de um "molde" básico.</span>
+      <p>É tipo a folha de papel dobrada de um jeito específico antes de começar a escrever uma carta formal. Vamos ver essa estrutura completa daqui a pouco, no nosso Hello World. Por enquanto, vamos conhecer bem as tags de conteúdo que vamos usar hoje — e algumas extras, para quando vocês forem praticar em casa.</p>
+    </div>
+
+    <div class="tag-grid">
+      <div class="tag-card">
+        <span class="tag-nome">&lt;h1&gt; a &lt;h6&gt;</span>
+        <p>Títulos e subtítulos, do maior (<span class="mono">h1</span>) para o menor (<span class="mono">h6</span>). Pensem como capítulo, seção, subseção. Toda página deve ter só <b>um</b> <span class="mono">h1</span>, que é o título principal.</p>
+      </div>
+      <div class="tag-card">
+        <span class="tag-nome">&lt;p&gt;</span>
+        <p>Um parágrafo de texto comum. É a tag que vocês mais vão usar no dia a dia para blocos de texto corrido.</p>
+      </div>
+      <div class="tag-card">
+        <span class="tag-nome">&lt;img&gt;</span>
+        <p>Exibe uma imagem. Sempre acompanhada dos atributos <span class="mono">src</span> (de onde vem a imagem) e <span class="mono">alt</span> (texto alternativo). Não tem tag de fechamento.</p>
+      </div>
+      <div class="tag-card">
+        <span class="tag-nome">&lt;a&gt;</span>
+        <p>Um link (âncora). Usa o atributo <span class="mono">href</span> para dizer para onde o link leva quando clicado. O texto entre as tags é o que fica clicável.</p>
+      </div>
+      <div class="tag-card">
+        <span class="tag-nome">&lt;strong&gt;</span>
+        <p>Deixa o texto em <b>negrito</b> e indica que aquele trecho tem importância semântica — não é só um efeito visual, é um significado.</p>
+      </div>
+      <div class="tag-card">
+        <span class="tag-nome">&lt;em&gt;</span>
+        <p>Deixa o texto em <i>itálico</i>, indicando ênfase na fala — como quando a gente grifa a voz ao falar uma palavra com mais força.</p>
+      </div>
+      <div class="tag-card">
+        <span class="tag-nome">&lt;br&gt;</span>
+        <p>Quebra de linha simples, sem começar um novo parágrafo. Usar com moderação — geralmente parágrafos separados são a escolha melhor.</p>
+      </div>
+      <div class="tag-card">
+        <span class="tag-nome">&lt;hr&gt;</span>
+        <p>Desenha uma linha horizontal, útil para separar visualmente blocos de conteúdo diferentes na página.</p>
+      </div>
+      <div class="tag-card">
+        <span class="tag-nome">&lt;div&gt; e &lt;span&gt;</span>
+        <p>Duas caixas "neutras", sem significado próprio, usadas para agrupar outros elementos. <span class="mono">div</span> agrupa blocos maiores; <span class="mono">span</span> agrupa pedacinhos de texto. Vamos usar bastante nas próximas aulas, junto com o CSS.</p>
+      </div>
+      <div class="tag-card">
+        <span class="tag-nome">&lt;ul&gt;, &lt;ol&gt;, &lt;li&gt;</span>
+        <p>Listas! <span class="mono">ul</span> é uma lista sem numeração (com marcadores), <span class="mono">ol</span> é uma lista numerada, e cada item de qualquer uma das duas é um <span class="mono">li</span>.</p>
+      </div>
+    </div>
+
+    <span class="cue tela">mostrar no navegador</span>
+    <div class="tela-bloco">
+      Digitar ao vivo, na tela, cada uma dessas tags dentro de um arquivo de teste e salvar com o Live Server ligado, para a turma ver o resultado aparecendo no navegador em tempo real, uma tag de cada vez, comentando a aparência padrão de cada uma.
+    </div>
+
+    <div class="code-window">
+      <div class="titlebar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="filename">teste.html</span></div>
+      <pre><span class="tagname">&lt;h1&gt;</span><span class="txt">Bem-vindos ao meu site</span><span class="tagname">&lt;/h1&gt;</span>
+<span class="tagname">&lt;p&gt;</span><span class="txt">Esse é o meu primeiro parágrafo em HTML, e essa parte é </span><span class="tagname">&lt;strong&gt;</span><span class="txt">bem importante</span><span class="tagname">&lt;/strong&gt;</span><span class="txt">.</span><span class="tagname">&lt;/p&gt;</span>
+<span class="tagname">&lt;img</span> <span class="attr">src</span>=<span class="str">"foto.jpg"</span> <span class="attr">alt</span>=<span class="str">"Uma paisagem de montanhas"</span><span class="tagname">&gt;</span>
+<span class="tagname">&lt;a</span> <span class="attr">href</span>=<span class="str">"https://google.com"</span><span class="tagname">&gt;</span><span class="txt">Clique aqui para pesquisar</span><span class="tagname">&lt;/a&gt;</span>
+<span class="tagname">&lt;ul&gt;</span>
+    <span class="tagname">&lt;li&gt;</span><span class="txt">Primeiro item</span><span class="tagname">&lt;/li&gt;</span>
+    <span class="tagname">&lt;li&gt;</span><span class="txt">Segundo item</span><span class="tagname">&lt;/li&gt;</span>
+<span class="tagname">&lt;/ul&gt;</span></pre>
+    </div>
+
+    <span class="cue fala">professora fala</span>
+    <div class="fala-bloco">
+      <p>Vejam como cada tag "avisa" o navegador do que se trata, e o navegador automaticamente já sabe como mostrar aquilo: título grande e em negrito, parágrafo com texto normal, imagem exibida na tela, link sublinhado e azul, lista com bolinhas na frente de cada item. A gente não precisou dizer <i>como</i> deveria parecer, nem escolher cor ou tamanho de fonte — isso é trabalho do CSS, mais pra frente. O HTML só diz <i>o que</i> é cada coisa, e o navegador já vem com uma aparência padrão para cada tipo de elemento.</p>
+    </div>
+
+    <span class="cue pergunta">pergunta comum</span>
+    <div class="pergunta-bloco">
+      <b>"Professora, e se eu esquecer de fechar uma tag?"</b> — O navegador é bem tolerante e, na maioria das vezes, ele vai tentar "adivinhar" e mostrar algo mesmo assim. Mas isso pode bagunçar a página de formas estranhas, difíceis de perceber. Por isso o hábito certo, desde já, é: abriu uma tag, já escreve a de fechamento na mesma hora, antes de preencher o conteúdo no meio. O VSCode, inclusive, ajuda muito nisso — vamos ver como.
+    </div>
+  </section>
+
+  <div class="bracket-rule"><span class="b">&lt;/tags-essenciais&gt;</span><span class="line"></span></div>
+
+  <!-- ============ SEÇÃO 5 — HELLO WORLD ============ -->
+  <section class="secao" id="sec05">
+    <div class="secao-abre">
+      <span class="num">05</span>
+      <h2>Mãos à obra: o primeiro Hello World</h2>
+    </div>
+    <p class="secao-desc">Chegou a hora. Vamos, juntos, criar o primeiro arquivo HTML de vocês, do zero, dentro do VSCode — sem pular nenhum passo.</p>
+
+    <span class="cue fala">professora fala</span>
+    <div class="fala-bloco">
+      <span class="prof-marca">— Bora criar de verdade. Sigam comigo, passo a passo, sem pressa. Quem terminar antes, espera a turma.</span>
+    </div>
+
+    <ol class="passos">
+      <li>Criem, em algum lugar do computador, uma pasta chamada <span class="k">meu-primeiro-site</span>. Pode ser na área de trabalho mesmo — depois vamos organizar melhor isso com o Git.
+        <span class="detalhe">Evitem espaços, acentos ou caracteres especiais no nome da pasta — prefiram hífen ou underline para separar palavras. Isso evita bugs chatos mais pra frente.</span>
+      </li>
+      <li>Abram o <b>VSCode</b> e, no menu <span class="k">File &gt; Open Folder</span> (ou <span class="k">Arquivo &gt; Abrir Pasta</span>), selecionem essa pasta que acabaram de criar.</li>
+      <li>No painel do lado esquerdo (o Explorer), cliquem no ícone de "novo arquivo" e nomeiem o arquivo exatamente como <span class="k">index.html</span> — esse nome não é por acaso: é o nome padrão que os navegadores e servidores procuram primeiro quando abrem um site, sem que a gente precise digitar o nome do arquivo na URL.</li>
+      <li>Dentro do arquivo vazio, digitem apenas o caractere <span class="k">!</span> e apertem a tecla <span class="k">Tab</span>. O VSCode vai gerar sozinho toda a estrutura básica do HTML — essa mágica se chama <b>Emmet</b>, um recurso que já vem embutido no editor, sem precisar instalar nada.</li>
+    </ol>
+
+    <span class="cue tela">mostrar na tela</span>
+    <div class="tela-bloco">Fazer isso ao vivo, digitando devagar, para a turma acompanhar o "!" + Tab virando a estrutura inteira, e reforçar que esse atalho vai ser usado toda aula.</div>
+
+    <div class="code-window">
+      <div class="titlebar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="filename">index.html</span></div>
+      <pre><span class="tagname">&lt;!DOCTYPE html&gt;</span>
+<span class="tagname">&lt;html</span> <span class="attr">lang</span>=<span class="str">"pt-BR"</span><span class="tagname">&gt;</span>
+<span class="tagname">&lt;head&gt;</span>
+    <span class="tagname">&lt;meta</span> <span class="attr">charset</span>=<span class="str">"UTF-8"</span><span class="tagname">&gt;</span>
+    <span class="tagname">&lt;meta</span> <span class="attr">name</span>=<span class="str">"viewport"</span> <span class="attr">content</span>=<span class="str">"width=device-width, initial-scale=1.0"</span><span class="tagname">&gt;</span>
+    <span class="tagname">&lt;title&gt;</span><span class="txt">Document</span><span class="tagname">&lt;/title&gt;</span>
+<span class="tagname">&lt;/head&gt;</span>
+<span class="tagname">&lt;body&gt;</span>
+
+<span class="tagname">&lt;/body&gt;</span>
+<span class="tagname">&lt;/html&gt;</span></pre>
+    </div>
+
+    <span class="cue fala">professora fala</span>
+    <div class="fala-bloco">
+      <span class="prof-marca">— Vamos entender rapidamente cada uma dessas peças, com calma, sem susto:</span>
+      <p><span class="k">&lt;!DOCTYPE html&gt;</span> é só um aviso lá no topo, sempre na primeira linha, avisando ao navegador "ei, esse arquivo é um HTML moderno, seguindo o padrão atual". É a única linha do arquivo que não é uma tag de verdade — é uma declaração especial.</p>
+      <p><span class="k">&lt;html lang="pt-BR"&gt;</span> é a "casca" que envolve a página inteira — é literalmente o esqueleto todo, da cabeça aos pés, tudo mais fica dentro dela. O atributo <span class="k">lang</span> diz em qual idioma a página está escrita, o que ajuda leitores de tela e buscadores a entenderem o conteúdo corretamente.</p>
+      <p>Dentro do <span class="k">&lt;html&gt;</span> temos duas partes bem separadas: o <span class="k">&lt;head&gt;</span> e o <span class="k">&lt;body&gt;</span>.</p>
+      <ul>
+        <li><b>&lt;head&gt;</b> guarda informações <i>sobre</i> a página que <i>não aparecem</i> diretamente na tela para quem visita o site. Dentro dele temos: o <span class="k">&lt;meta charset="UTF-8"&gt;</span>, que garante que acentos e caracteres especiais do português (ç, ã, é) apareçam corretamente; o <span class="k">&lt;meta name="viewport"...&gt;</span>, que ajuda a página a se adaptar bem a telas de celular; e o <span class="k">&lt;title&gt;</span>, que define o texto que aparece na aba do navegador.</li>
+        <li><b>&lt;body&gt;</b> é onde vai todo o conteúdo que <i>aparece</i> de verdade na tela — títulos, textos, imagens, links, listas, tudo o que vimos na seção anterior entra aqui dentro.</li>
+      </ul>
+    </div>
+
+    <span class="cue pergunta">pergunta comum</span>
+    <div class="pergunta-bloco">
+      <b>"Preciso decorar essa estrutura toda?"</b> — Não! Por isso usamos o atalho <span class="k">! + Tab</span> — ele existe justamente para gerar essa estrutura automaticamente, sempre. O importante hoje é <i>entender</i> o papel de cada parte, não memorizar a sintaxe exata.
+    </div>
+
+    <ol class="passos" start="5">
+      <li>Cliquem dentro das tags <span class="k">&lt;body&gt;&lt;/body&gt;</span> e alterem o <span class="k">&lt;title&gt;</span> lá no <span class="k">&lt;head&gt;</span> para algo como <span class="k">Meu Primeiro Site</span> — isso é o que vai aparecer na aba do navegador.</li>
+      <li>Agora escrevam o nosso "Hello World" dentro do <span class="k">&lt;body&gt;</span>:</li>
+    </ol>
+
+    <div class="code-window">
+      <div class="titlebar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="filename">index.html</span></div>
+      <pre><span class="tagname">&lt;body&gt;</span>
+    <span class="tagname">&lt;h1&gt;</span><span class="txt">Olá, mundo!</span><span class="tagname">&lt;/h1&gt;</span>
+    <span class="tagname">&lt;p&gt;</span><span class="txt">Essa é a minha primeira página em HTML.</span><span class="tagname">&lt;/p&gt;</span>
+<span class="tagname">&lt;/body&gt;</span></pre>
+    </div>
+
+    <ol class="passos" start="7">
+      <li>Salvem o arquivo com <span class="k">Ctrl + S</span> (Windows/Linux) ou <span class="k">Cmd + S</span> (Mac). Esse é, provavelmente, o atalho que vocês mais vão usar no curso inteiro — criem o hábito de salvar com frequência.</li>
+      <li>Cliquem com o botão direito em qualquer parte do arquivo e escolham <span class="k">Open with Live Server</span>. O navegador vai abrir sozinho, numa nova aba, mostrando a página de vocês rodando de verdade, com um endereço parecido com <span class="k">127.0.0.1:5500</span>.
+        <span class="detalhe">Esse endereço estranho é o "endereço local" do computador de vocês — significa que a página está rodando só na máquina de vocês, ainda não está publicada na internet para o mundo ver. Isso é normal e é assim que trabalhamos durante todo o desenvolvimento.</span>
+      </li>
+      <li>Agora o teste final, pra sentir a mágica do Live Server: voltem ao VSCode, mudem o texto do <span class="k">&lt;h1&gt;</span> para o nome de vocês, salvem de novo com <span class="k">Ctrl+S</span>, e observem o navegador atualizar sozinho, sem vocês precisarem clicar em nada nele.</li>
+    </ol>
+
+    <span class="cue pausa">momento importante</span>
+    <div class="pausa-bloco">
+      Parem um segundo aqui. Olhem pra essa tela. Isso que está aparecendo no navegador — por mais simples que pareça — foi escrito por vocês, do zero, entendendo cada linha, sem copiar e colar de lugar nenhum. Essa é a página número um de muitas, muitas outras que vocês ainda vão construir. Guardem essa sensação, porque ela só vai crescer.
+    </div>
+
+    <span class="cue pergunta">pergunta comum</span>
+    <div class="pergunta-bloco">
+      <b>"Professora, minha página abriu em branco / com erro!"</b> — Respirem fundo, é super comum, acontece com todo mundo, sempre. 90% das vezes é uma tag que ficou sem fechar, uma letra digitada errada no nome do arquivo (tem que ser exatamente <span class="k">index.html</span>), ou o arquivo salvo na pasta errada. Revisem com calma, comparando linha a linha com o exemplo — e chamem a gente, estamos aqui exatamente pra isso.
+    </div>
+  </section>
+
+  <div class="bracket-rule"><span class="b">&lt;/hello-world&gt;</span><span class="line"></span></div>
+
+  <!-- ============ SEÇÃO 6 — FAQ ============ -->
+  <section class="secao" id="sec06">
+    <div class="secao-abre">
+      <span class="num">06</span>
+      <h2>Perguntas frequentes</h2>
+    </div>
+    <p class="secao-desc">Uma coletânea das dúvidas que mais aparecem nessa fase do curso. Cliquem em cada pergunta para abrir a resposta — guardem esse material, vocês vão voltar nele mais de uma vez.</p>
+
+    <div class="faq-lista">
+
+      <details class="faq-item">
+        <summary><span class="qmark">P</span> Preciso ter internet o tempo todo para escrever HTML?<span class="chev">▾</span></summary>
+        <div class="resposta">Não. Depois de instalado, o VSCode funciona totalmente offline para escrever e visualizar suas páginas HTML no navegador com o Live Server. Você só precisa de internet para <b>instalar</b> as ferramentas, buscar imagens, ou quando começar a usar o GitHub para guardar o código na nuvem.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary><span class="qmark">P</span> Qual a diferença entre HTML e um site "pronto", tipo os feitos no Canva ou Wix?<span class="chev">▾</span></summary>
+        <div class="resposta">Ferramentas como Wix e Canva geram o HTML <b>por trás dos panos</b>, automaticamente, sem você ver ou controlar o código. Aprender HTML "na mão" te dá controle total sobre a estrutura, entendimento de como a web funciona por dentro, e é a base para qualquer caminho profissional em desenvolvimento — mesmo quem usa essas ferramentas no dia a dia se beneficia de entender o que está rolando por baixo.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary><span class="qmark">P</span> Posso escrever HTML no Bloco de Notas em vez do VSCode?<span class="chev">▾</span></summary>
+        <div class="resposta">Tecnicamente sim, HTML é só texto puro. Mas o VSCode oferece destaque de cores por tipo de código (chamado <b>syntax highlighting</b>), autocompletar, detecção de erros, o atalho do Emmet (<span class="mono">!+Tab</span>) e a extensão Live Server — recursos que tornam o aprendizado muito mais rápido e com menos erros bobos. Não há motivo para abrir mão disso.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary><span class="qmark">P</span> O que acontece se eu usar uma tag que não existe, tipo &lt;bananinha&gt;?<span class="chev">▾</span></summary>
+        <div class="resposta">O navegador não trava nem mostra um erro chamativo — ele simplesmente ignora que aquilo é uma tag especial e trata como se fosse um elemento genérico, sem nenhum estilo padrão. Ou seja: nada quebra visivelmente, mas também nada funciona como deveria. Por isso é importante usar sempre as tags reais da linguagem.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary><span class="qmark">P</span> Toda tag precisa ter um atributo?<span class="chev">▾</span></summary>
+        <div class="resposta">Não! A maioria das tags que vimos hoje (<span class="mono">h1</span>, <span class="mono">p</span>, <span class="mono">strong</span>, <span class="mono">ul</span>, <span class="mono">li</span>) funciona perfeitamente sem nenhum atributo. Atributos só entram quando a tag precisa de uma informação extra para funcionar — como o <span class="mono">src</span> do <span class="mono">&lt;img&gt;</span> ou o <span class="mono">href</span> do <span class="mono">&lt;a&gt;</span>.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary><span class="qmark">P</span> Por que às vezes vejo HTML escrito todo em uma linha só, sem identação?<span class="chev">▾</span></summary>
+        <div class="resposta">Isso costuma acontecer com código gerado automaticamente por ferramentas, ou "minificado" (comprimido) para deixar o arquivo mais leve para carregar na internet. Para nós, aprendendo, sempre vamos escrever identado e organizado — é assim que se escreve HTML "à mão", pensando em quem vai ler o código depois, inclusive vocês mesmos no futuro.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary><span class="qmark">P</span> Existe limite de quantas tags eu posso usar numa página?<span class="chev">▾</span></summary>
+        <div class="resposta">Não, nenhum limite prático. Sites reais têm páginas com centenas ou milhares de elementos HTML. O que existe é uma preocupação crescente, conforme o curso avança, com <b>organização</b> — para o código não virar uma bagunça difícil de entender e manter.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary><span class="qmark">P</span> Git, GitHub e GitHub Desktop são a mesma coisa?<span class="chev">▾</span></summary>
+        <div class="resposta">Não. <b>Git</b> é a ferramenta de controle de versão em si, que roda no seu computador pelo terminal. <b>GitHub</b> é o site que hospeda repositórios na nuvem. <b>GitHub Desktop</b> é um programa opcional, com interface visual (botões e cliques), que facilita usar o Git sem digitar comandos no terminal. Vamos explorar essas diferenças com calma numa aula futura dedicada ao Git.</div>
+      </details>
+
+    </div>
+  </section>
+
+  <div class="bracket-rule"><span class="b">&lt;/perguntas-frequentes&gt;</span><span class="line"></span></div>
+
+  <!-- ============ SEÇÃO 7 — GLOSSÁRIO ============ -->
+  <section class="secao" id="sec07">
+    <div class="secao-abre">
+      <span class="num">07</span>
+      <h2>Glossário da aula</h2>
+    </div>
+    <p class="secao-desc">Todos os termos novos de hoje, reunidos num só lugar, em ordem alfabética, para consulta rápida sempre que precisarem.</p>
+
+    <div class="glossario-grid">
+      <div class="termo-card"><span class="termo-nome">Atributo</span><p>Informação extra colocada dentro de uma tag de abertura, no formato <span class="mono">nome="valor"</span>, como o <span class="mono">src</span> de uma imagem.</p></div>
+      <div class="termo-card"><span class="termo-nome">Aninhamento (nesting)</span><p>Quando um elemento HTML fica escrito dentro de outro elemento, formando camadas, como caixas dentro de caixas.</p></div>
+      <div class="termo-card"><span class="termo-nome">&lt;body&gt;</span><p>Parte do documento HTML que contém todo o conteúdo visível na tela do navegador.</p></div>
+      <div class="termo-card"><span class="termo-nome">Comentário</span><p>Trecho de código, escrito como <span class="mono">&lt;!-- texto --&gt;</span>, que o navegador ignora e nunca exibe. Serve para anotações do próprio programador.</p></div>
+      <div class="termo-card"><span class="termo-nome">DOCTYPE</span><p>Declaração no topo do arquivo HTML que informa ao navegador qual versão do HTML está sendo usada.</p></div>
+      <div class="termo-card"><span class="termo-nome">Editor de código</span><p>Programa usado para escrever código, com recursos como destaque de cores e autocompletar. Nosso editor é o VSCode.</p></div>
+      <div class="termo-card"><span class="termo-nome">Elemento</span><p>O "pacote completo" formado pela tag de abertura, o conteúdo dentro dela, e a tag de fechamento.</p></div>
+      <div class="termo-card"><span class="termo-nome">Elemento vazio (void element)</span><p>Tag que não possui conteúdo interno nem tag de fechamento própria, como <span class="mono">&lt;img&gt;</span> ou <span class="mono">&lt;br&gt;</span>.</p></div>
+      <div class="termo-card"><span class="termo-nome">Emmet</span><p>Recurso já embutido no VSCode que expande atalhos curtos, como <span class="mono">!</span> + Tab, em blocos inteiros de código HTML.</p></div>
+      <div class="termo-card"><span class="termo-nome">Extensão (VSCode)</span><p>Complemento instalável que adiciona novas funções ao editor, como o Live Server ou o Prettier.</p></div>
+      <div class="termo-card"><span class="termo-nome">Git</span><p>Ferramenta de controle de versão que guarda um histórico das mudanças feitas nos arquivos de um projeto ao longo do tempo.</p></div>
+      <div class="termo-card"><span class="termo-nome">GitHub</span><p>Site que hospeda repositórios de código na nuvem, usando o Git por trás, permitindo compartilhar e colaborar em projetos.</p></div>
+      <div class="termo-card"><span class="termo-nome">&lt;head&gt;</span><p>Parte do documento HTML que guarda informações sobre a página que não aparecem diretamente na tela.</p></div>
+      <div class="termo-card"><span class="termo-nome">HTML</span><p>Sigla de HyperText Markup Language — a linguagem usada para estruturar e marcar o conteúdo de páginas web.</p></div>
+      <div class="termo-card"><span class="termo-nome">Identação</span><p>Espaços no início da linha usados para organizar visualmente o código e mostrar o nível de aninhamento dos elementos.</p></div>
+      <div class="termo-card"><span class="termo-nome">Live Server</span><p>Extensão do VSCode que abre a página HTML no navegador e a atualiza automaticamente a cada vez que o arquivo é salvo.</p></div>
+      <div class="termo-card"><span class="termo-nome">Navegador</span><p>Programa usado para acessar e exibir páginas da web, como Chrome, Firefox, Safari ou Edge.</p></div>
+      <div class="termo-card"><span class="termo-nome">Tag</span><p>Etiqueta escrita entre os sinais <span class="mono">&lt;</span> e <span class="mono">&gt;</span> que indica ao navegador o tipo de um conteúdo.</p></div>
+      <div class="termo-card"><span class="termo-nome">Terminal</span><p>Tela onde comandos de texto são digitados para conversar diretamente com o computador, sem usar cliques em ícones.</p></div>
+      <div class="termo-card"><span class="termo-nome">VSCode</span><p>Abreviação de Visual Studio Code, o editor de código gratuito que vamos usar durante todo o curso.</p></div>
+    </div>
+  </section>
+
+  <div class="bracket-rule"><span class="b">&lt;/glossário&gt;</span><span class="line"></span></div>
+
+  <!-- ============ SEÇÃO 8 — ATALHOS VSCODE ============ -->
+  <section class="secao" id="sec08">
+    <div class="secao-abre">
+      <span class="num">08</span>
+      <h2>Atalhos úteis do VSCode</h2>
+    </div>
+    <p class="secao-desc">Vocês não precisam decorar tudo isso hoje — vão absorver com a prática, aula após aula. Mas já deixo aqui como referência para consultar sempre que precisar.</p>
+
+    <span class="cue fala">professora fala</span>
+    <div class="fala-bloco">
+      <p>Uma dica de ouro: sempre que puderem, usem o teclado em vez do mouse. No começo parece mais lento, porque a gente ainda não decorou as tecas, mas com o tempo escrever código fica muito mais rápido e fluido dessa forma. Comecem pelos atalhos de <b>salvar</b> e <b>desfazer</b> — só esses dois já vão te acompanhar toda aula.</p>
+    </div>
+
+    <table class="atalhos-tabela">
+      <caption>Essenciais do dia a dia</caption>
+      <thead>
+        <tr><th>Ação</th><th>Windows / Linux</th><th>Mac</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Salvar arquivo</td><td><span class="tecla">Ctrl + S</span></td><td><span class="tecla">Cmd + S</span></td></tr>
+        <tr><td>Desfazer</td><td><span class="tecla">Ctrl + Z</span></td><td><span class="tecla">Cmd + Z</span></td></tr>
+        <tr><td>Refazer</td><td><span class="tecla">Ctrl + Shift + Z</span></td><td><span class="tecla">Cmd + Shift + Z</span></td></tr>
+        <tr><td>Copiar</td><td><span class="tecla">Ctrl + C</span></td><td><span class="tecla">Cmd + C</span></td></tr>
+        <tr><td>Colar</td><td><span class="tecla">Ctrl + V</span></td><td><span class="tecla">Cmd + V</span></td></tr>
+        <tr><td>Recortar</td><td><span class="tecla">Ctrl + X</span></td><td><span class="tecla">Cmd + X</span></td></tr>
+      </tbody>
+    </table>
+
+    <table class="atalhos-tabela">
+      <caption>Escrevendo e editando código</caption>
+      <thead>
+        <tr><th>Ação</th><th>Windows / Linux</th><th>Mac</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Expandir atalho do Emmet (ex: <span class="mono">!</span>)</td><td><span class="tecla">Tab</span></td><td><span class="tecla">Tab</span></td></tr>
+        <tr><td>Comentar / descomentar linha</td><td><span class="tecla">Ctrl + /</span></td><td><span class="tecla">Cmd + /</span></td></tr>
+        <tr><td>Duplicar a linha atual</td><td><span class="tecla">Shift + Alt + &darr;</span></td><td><span class="tecla">Shift + Option + &darr;</span></td></tr>
+        <tr><td>Mover a linha atual para cima/baixo</td><td><span class="tecla">Alt + &uarr; / &darr;</span></td><td><span class="tecla">Option + &uarr; / &darr;</span></td></tr>
+        <tr><td>Apagar a linha inteira</td><td><span class="tecla">Ctrl + Shift + K</span></td><td><span class="tecla">Cmd + Shift + K</span></td></tr>
+        <tr><td>Formatar (arrumar identação) o arquivo</td><td><span class="tecla">Shift + Alt + F</span></td><td><span class="tecla">Shift + Option + F</span></td></tr>
+        <tr><td>Selecionar a palavra atual</td><td><span class="tecla">Ctrl + D</span></td><td><span class="tecla">Cmd + D</span></td></tr>
+        <tr><td>Adicionar múltiplos cursores</td><td><span class="tecla">Alt + Clique</span></td><td><span class="tecla">Option + Clique</span></td></tr>
+      </tbody>
+    </table>
+
+    <table class="atalhos-tabela">
+      <caption>Navegação e organização</caption>
+      <thead>
+        <tr><th>Ação</th><th>Windows / Linux</th><th>Mac</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Abrir/fechar o terminal integrado</td><td><span class="tecla">Ctrl + `</span></td><td><span class="tecla">Cmd + `</span></td></tr>
+        <tr><td>Buscar um arquivo pelo nome</td><td><span class="tecla">Ctrl + P</span></td><td><span class="tecla">Cmd + P</span></td></tr>
+        <tr><td>Abrir a paleta de comandos</td><td><span class="tecla">Ctrl + Shift + P</span></td><td><span class="tecla">Cmd + Shift + P</span></td></tr>
+        <tr><td>Buscar texto dentro do arquivo atual</td><td><span class="tecla">Ctrl + F</span></td><td><span class="tecla">Cmd + F</span></td></tr>
+        <tr><td>Buscar e substituir</td><td><span class="tecla">Ctrl + H</span></td><td><span class="tecla">Cmd + Option + F</span></td></tr>
+        <tr><td>Mostrar/esconder o Explorer (barra lateral)</td><td><span class="tecla">Ctrl + B</span></td><td><span class="tecla">Cmd + B</span></td></tr>
+        <tr><td>Fechar a aba atual</td><td><span class="tecla">Ctrl + W</span></td><td><span class="tecla">Cmd + W</span></td></tr>
+      </tbody>
+    </table>
+
+    <span class="cue pergunta">pergunta comum</span>
+    <div class="pergunta-bloco">
+      <b>"Preciso decorar tudo isso agora?"</b> — De jeito nenhum. Comecem hoje com <span class="mono">Ctrl/Cmd + S</span> (salvar) e o Emmet (<span class="mono">! + Tab</span>). Os outros vão entrando naturalmente conforme forem úteis no dia a dia — é assim que qualquer programador experiente aprendeu também, na prática, aula após aula, projeto após projeto.
+    </div>
+  </section>
+
+  <div class="bracket-rule"><span class="b">&lt;/atalhos&gt;</span><span class="line"></span></div>
+
+  <!-- ============ SEÇÃO 9 — FECHAMENTO ============ -->
+  <section class="secao" id="sec09">
+    <div class="secao-abre">
+      <span class="num">09</span>
+      <h2>Fechando a aula</h2>
+    </div>
+
+    <span class="cue fala">professora fala</span>
+    <div class="fala-bloco">
+      <span class="prof-marca">— Vamos recapitular tudo o que a gente construiu hoje, com calma:</span>
+      <p>Instalamos o Git, criamos uma conta no GitHub e deixamos o VSCode pronto para trabalhar, com extensões que vão facilitar a vida de vocês em toda aula futura. Entendemos, em profundidade, que o HTML é o <b>esqueleto</b> de qualquer página — a estrutura que dá forma para tudo o que vem depois, e de onde vem seu nome, sua história e seu propósito.</p>
+      <p>Aprendemos que uma <b>tag</b> é uma etiqueta, um <b>elemento</b> é o pacote completo, um <b>atributo</b> é uma informação extra dentro da tag de abertura, e que elementos podem ficar aninhados uns dentro dos outros. Conhecemos as tags essenciais — <span class="mono">h1</span> até <span class="mono">h6</span>, <span class="mono">p</span>, <span class="mono">img</span>, <span class="mono">a</span>, <span class="mono">strong</span>, <span class="mono">em</span>, <span class="mono">ul</span>, <span class="mono">li</span>, entre outras. E o mais importante: escrevemos, com as próprias mãos, a primeira página HTML de vocês, entendendo o papel de cada peça da estrutura.</p>
+      <p>Levem com vocês também o material de apoio: as perguntas frequentes, o glossário e a lista de atalhos ficam aqui disponíveis para consulta sempre que precisarem — não é prova, é ferramenta de trabalho.</p>
+      <p>Na próxima aula, a gente continua explorando novas tags — tabelas, formulários, elementos semânticos como <span class="mono">&lt;header&gt;</span> e <span class="mono">&lt;footer&gt;</span> — e começa a organizar melhor o conteúdo dentro da página. Se possível, brinquem um pouco em casa: tentem adicionar mais um parágrafo, uma nova imagem, uma lista, um link para o site favorito de vocês. Quanto mais vocês praticarem essa semana, mais leve vai ficar a próxima aula.</p>
+      <p>Foi um prazer construir esse primeiro esqueleto com vocês. Até a próxima aula! 🦴</p>
+    </div>
+  </section>
+
+</div>
+
+<footer class="footer-note">
+  &lt;curso-fullstack&gt; roteiro da aula 03 &middot; introdução ao html &lt;/curso-fullstack&gt;
+</footer>
+
+</body>
+</html>
