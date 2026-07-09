@@ -1,401 +1,694 @@
 <!doctype html>
 <html lang="pt-BR">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Roteiro de Aula · HTML na Prática — Projeto Bem-cuidado</title>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
-<style>
-  :root{
-    --ink:#1b2432;
-    --ink-soft:#4a5568;
-    --paper:#fbfbf8;
-    --card:#ffffff;
-    --line:#e4e2d9;
-    --marker:#ffe45c;          /* marca-texto amarelo */
-    --screen:#2d5bff;          /* mostrar na tela */
-    --screen-bg:#eef2ff;
-    --type:#178a4c;            /* digitar junto */
-    --type-bg:#e9f7ef;
-    --pause:#d98a12;           /* pausa p/ perguntas */
-    --pause-bg:#fdf3e2;
-    --code-bg:#161b24;
-    --code-tag:#7dd3fc;
-    --code-attr:#fbbf24;
-    --code-val:#a5e88b;
-    --code-com:#6b7688;
-    --code-txt:#e6e9ef;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
-  body{
-    font-family:'Inter',system-ui,sans-serif;
-    background:var(--paper);
-    color:var(--ink);
-    line-height:1.65;
-    font-size:16.5px;
-  }
-  ::selection{background:var(--marker)}
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Guia do Aluno · HTML na Prática — Projeto Bem-cuidado</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --ink: #1b2432;
+        --ink-soft: #4a5568;
+        --paper: #fbfbf8;
+        --card: #ffffff;
+        --line: #e4e2d9;
+        --marker: #ffe45c; /* marca-texto amarelo */
+        --screen: #2d5bff; /* conceito / entenda antes */
+        --screen-bg: #eef2ff;
+        --type: #178a4c; /* faça você */
+        --type-bg: #e9f7ef;
+        --pause: #d98a12; /* checkpoint */
+        --pause-bg: #fdf3e2;
+        --code-bg: #161b24;
+        --code-tag: #7dd3fc;
+        --code-attr: #fbbf24;
+        --code-val: #a5e88b;
+        --code-com: #6b7688;
+        --code-txt: #e6e9ef;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: "Inter", system-ui, sans-serif;
+        background: var(--paper);
+        color: var(--ink);
+        line-height: 1.65;
+        font-size: 16.5px;
+      }
+      ::selection {
+        background: var(--marker);
+      }
 
-  /* ---------- capa ---------- */
-  .capa{
-    background:var(--ink);
-    color:#f4f5f0;
-    padding:56px 24px 48px;
-  }
-  .capa-inner{max-width:880px;margin:0 auto}
-  .capa .etiqueta{
-    display:inline-block;
-    background:var(--marker);
-    color:var(--ink);
-    font-family:'Sora',sans-serif;
-    font-weight:700;
-    font-size:.78rem;
-    letter-spacing:.12em;
-    text-transform:uppercase;
-    padding:6px 14px;
-    border-radius:4px;
-    transform:rotate(-1.2deg);
-    margin-bottom:22px;
-  }
-  .capa h1{
-    font-family:'Sora',sans-serif;
-    font-weight:800;
-    font-size:clamp(1.9rem,4.5vw,3rem);
-    line-height:1.12;
-    letter-spacing:-.02em;
-    margin-bottom:14px;
-  }
-  .capa h1 em{font-style:normal;color:var(--marker)}
-  .capa .sub{color:#c3c9d4;max-width:620px;font-size:1.02rem}
-  .capa-meta{
-    display:flex;flex-wrap:wrap;gap:10px;margin-top:26px;
-  }
-  .capa-meta span{
-    border:1px solid #3a4557;
-    border-radius:999px;
-    padding:6px 14px;
-    font-size:.82rem;
-    color:#dfe3ea;
-  }
+      /* ---------- capa ---------- */
+      .capa {
+        background: var(--ink);
+        color: #f4f5f0;
+        padding: 56px 24px 48px;
+      }
+      .capa-inner {
+        max-width: 880px;
+        margin: 0 auto;
+      }
+      .capa .etiqueta {
+        display: inline-block;
+        background: var(--marker);
+        color: var(--ink);
+        font-family: "Sora", sans-serif;
+        font-weight: 700;
+        font-size: 0.78rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        padding: 6px 14px;
+        border-radius: 4px;
+        transform: rotate(-1.2deg);
+        margin-bottom: 22px;
+      }
+      .capa h1 {
+        font-family: "Sora", sans-serif;
+        font-weight: 800;
+        font-size: clamp(1.9rem, 4.5vw, 3rem);
+        line-height: 1.12;
+        letter-spacing: -0.02em;
+        margin-bottom: 14px;
+      }
+      .capa h1 em {
+        font-style: normal;
+        color: var(--marker);
+      }
+      .capa .sub {
+        color: #c3c9d4;
+        max-width: 620px;
+        font-size: 1.02rem;
+      }
+      .capa-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 26px;
+      }
+      .capa-meta span {
+        border: 1px solid #3a4557;
+        border-radius: 999px;
+        padding: 6px 14px;
+        font-size: 0.82rem;
+        color: #dfe3ea;
+      }
 
-  /* ---------- legenda dos marcadores ---------- */
-  .legenda{
-    max-width:880px;margin:-26px auto 0;padding:0 24px;
-    position:relative;z-index:2;
-  }
-  .legenda-box{
-    background:var(--card);
-    border:1px solid var(--line);
-    border-radius:14px;
-    padding:20px 24px;
-    box-shadow:0 8px 24px rgba(27,36,50,.08);
-  }
-  .legenda-box h2{
-    font-family:'Sora',sans-serif;font-size:.82rem;letter-spacing:.1em;
-    text-transform:uppercase;color:var(--ink-soft);margin-bottom:12px;
-  }
-  .legenda-itens{display:flex;flex-wrap:wrap;gap:10px 22px;font-size:.92rem}
-  .chip{display:inline-flex;align-items:center;gap:8px;font-weight:600}
-  .dot{width:12px;height:12px;border-radius:3px;flex:none}
-  .dot.s{background:var(--screen)} .dot.t{background:var(--type)} .dot.p{background:var(--pause)}
+      /* ---------- legenda dos marcadores ---------- */
+      .legenda {
+        max-width: 880px;
+        margin: -26px auto 0;
+        padding: 0 24px;
+        position: relative;
+        z-index: 2;
+      }
+      .legenda-box {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 20px 24px;
+        box-shadow: 0 8px 24px rgba(27, 36, 50, 0.08);
+      }
+      .legenda-box h2 {
+        font-family: "Sora", sans-serif;
+        font-size: 0.82rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--ink-soft);
+        margin-bottom: 12px;
+      }
+      .legenda-itens {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px 22px;
+        font-size: 0.92rem;
+      }
+      .chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 600;
+      }
+      .dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 3px;
+        flex: none;
+      }
+      .dot.s {
+        background: var(--screen);
+      }
+      .dot.t {
+        background: var(--type);
+      }
+      .dot.p {
+        background: var(--pause);
+      }
 
-  /* ---------- sumário ---------- */
-  .sumario{max-width:880px;margin:34px auto 0;padding:0 24px}
-  .sumario h2{font-family:'Sora',sans-serif;font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:10px}
-  .sumario ol{
-    list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:6px 20px;
-    counter-reset:sum;
-  }
-  .sumario li{counter-increment:sum}
-  .sumario a{
-    display:flex;gap:10px;align-items:baseline;
-    color:var(--ink);text-decoration:none;padding:7px 10px;border-radius:8px;
-    font-weight:500;font-size:.94rem;
-  }
-  .sumario a:hover{background:#f0efe8}
-  .sumario a::before{
-    content:counter(sum,decimal-leading-zero);
-    font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--ink-soft);
-  }
+      /* ---------- sumário ---------- */
+      .sumario {
+        max-width: 880px;
+        margin: 34px auto 0;
+        padding: 0 24px;
+      }
+      .sumario h2 {
+        font-family: "Sora", sans-serif;
+        font-size: 0.82rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--ink-soft);
+        margin-bottom: 10px;
+      }
+      .sumario ol {
+        list-style: none;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 6px 20px;
+        counter-reset: sum;
+      }
+      .sumario li {
+        counter-increment: sum;
+      }
+      .sumario a {
+        display: flex;
+        gap: 10px;
+        align-items: baseline;
+        color: var(--ink);
+        text-decoration: none;
+        padding: 7px 10px;
+        border-radius: 8px;
+        font-weight: 500;
+        font-size: 0.94rem;
+      }
+      .sumario a:hover {
+        background: #f0efe8;
+      }
+      .sumario a::before {
+        content: counter(sum, decimal-leading-zero);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.78rem;
+        color: var(--ink-soft);
+      }
 
-  /* ---------- corpo ---------- */
-  main{max-width:880px;margin:0 auto;padding:20px 24px 90px}
+      /* ---------- corpo ---------- */
+      main {
+        max-width: 880px;
+        margin: 0 auto;
+        padding: 20px 24px 90px;
+      }
 
-  section.bloco{
-    background:var(--card);
-    border:1px solid var(--line);
-    border-radius:16px;
-    padding:34px 34px 30px;
-    margin-top:34px;
-  }
-  .bloco-head{display:flex;align-items:flex-start;gap:16px;margin-bottom:8px;flex-wrap:wrap}
-  .bloco-num{
-    font-family:'JetBrains Mono',monospace;font-weight:600;
-    background:var(--ink);color:var(--marker);
-    border-radius:8px;padding:4px 10px;font-size:.85rem;flex:none;
-    margin-top:6px;
-  }
-  .bloco h2{
-    font-family:'Sora',sans-serif;font-weight:700;font-size:1.5rem;letter-spacing:-.01em;line-height:1.25;
-    flex:1;min-width:200px;
-  }
-  .tempo{
-    font-size:.78rem;font-weight:600;color:var(--ink-soft);
-    border:1px dashed #c9c6b8;border-radius:999px;padding:4px 12px;white-space:nowrap;margin-top:6px;
-  }
-  .bloco h3{
-    font-family:'Sora',sans-serif;font-weight:600;font-size:1.08rem;margin:26px 0 8px;
-  }
-  .bloco p{margin:10px 0;color:#2b3444}
-  .bloco ul,.bloco ol{margin:10px 0 10px 22px}
-  .bloco li{margin:6px 0}
-  .hl{background:linear-gradient(transparent 55%,var(--marker) 55%);padding:0 2px;font-weight:600}
-  strong{font-weight:700}
+      section.bloco {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 34px 34px 30px;
+        margin-top: 34px;
+      }
+      .bloco-head {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+        margin-bottom: 8px;
+        flex-wrap: wrap;
+      }
+      .bloco-num {
+        font-family: "JetBrains Mono", monospace;
+        font-weight: 600;
+        background: var(--ink);
+        color: var(--marker);
+        border-radius: 8px;
+        padding: 4px 10px;
+        font-size: 0.85rem;
+        flex: none;
+        margin-top: 6px;
+      }
+      .bloco h2 {
+        font-family: "Sora", sans-serif;
+        font-weight: 700;
+        font-size: 1.5rem;
+        letter-spacing: -0.01em;
+        line-height: 1.25;
+        flex: 1;
+        min-width: 200px;
+      }
+      .tempo {
+        font-size: 0.78rem;
+        font-weight: 600;
+        color: var(--ink-soft);
+        border: 1px dashed #c9c6b8;
+        border-radius: 999px;
+        padding: 4px 12px;
+        white-space: nowrap;
+        margin-top: 6px;
+      }
+      .bloco h3 {
+        font-family: "Sora", sans-serif;
+        font-weight: 600;
+        font-size: 1.08rem;
+        margin: 26px 0 8px;
+      }
+      .bloco p {
+        margin: 10px 0;
+        color: #2b3444;
+      }
+      .bloco ul,
+      .bloco ol {
+        margin: 10px 0 10px 22px;
+      }
+      .bloco li {
+        margin: 6px 0;
+      }
+      .hl {
+        background: linear-gradient(transparent 55%, var(--marker) 55%);
+        padding: 0 2px;
+        font-weight: 600;
+      }
+      strong {
+        font-weight: 700;
+      }
 
-  /* fala do instrutor */
-  .fala{
-    border-left:3px solid var(--ink);
-    background:#f6f5ef;
-    border-radius:0 10px 10px 0;
-    padding:14px 18px;
-    margin:14px 0;
-    font-size:1rem;
-  }
-  .fala::before{
-    content:"🎙️ Fala do instrutor";
-    display:block;font-family:'Sora',sans-serif;font-size:.7rem;font-weight:700;
-    letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:6px;
-  }
-  .fala p{margin:6px 0;font-style:italic;color:var(--ink)}
+      /* caixa de explicação */
+      .fala {
+        border-left: 3px solid var(--ink);
+        background: #f6f5ef;
+        border-radius: 0 10px 10px 0;
+        padding: 14px 18px;
+        margin: 14px 0;
+        font-size: 1rem;
+      }
+      .fala::before {
+        content: "💡 Entenda";
+        display: block;
+        font-family: "Sora", sans-serif;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--ink-soft);
+        margin-bottom: 6px;
+      }
+      .fala p {
+        margin: 6px 0;
+        color: var(--ink);
+      }
 
-  /* marcadores de ação */
-  .acao{
-    border-radius:12px;padding:14px 18px;margin:16px 0;
-    display:flex;gap:12px;align-items:flex-start;
-    font-size:.96rem;
-  }
-  .acao .rotulo{
-    font-family:'Sora',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.09em;
-    text-transform:uppercase;border-radius:5px;padding:4px 9px;color:#fff;flex:none;margin-top:2px;white-space:nowrap;
-  }
-  .acao.mostrar{background:var(--screen-bg);border:1px solid #ccd7ff}
-  .acao.mostrar .rotulo{background:var(--screen)}
-  .acao.digitar{background:var(--type-bg);border:1px solid #bfe6cf}
-  .acao.digitar .rotulo{background:var(--type)}
-  .acao.pausa{background:var(--pause-bg);border:1px solid #f2ddb4}
-  .acao.pausa .rotulo{background:var(--pause)}
-  .acao div p{margin:4px 0}
+      /* marcadores de ação */
+      .acao {
+        border-radius: 12px;
+        padding: 14px 18px;
+        margin: 16px 0;
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+        font-size: 0.96rem;
+      }
+      .acao .rotulo {
+        font-family: "Sora", sans-serif;
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+        border-radius: 5px;
+        padding: 4px 9px;
+        color: #fff;
+        flex: none;
+        margin-top: 2px;
+        white-space: nowrap;
+      }
+      .acao.mostrar {
+        background: var(--screen-bg);
+        border: 1px solid #ccd7ff;
+      }
+      .acao.mostrar .rotulo {
+        background: var(--screen);
+      }
+      .acao.digitar {
+        background: var(--type-bg);
+        border: 1px solid #bfe6cf;
+      }
+      .acao.digitar .rotulo {
+        background: var(--type);
+      }
+      .acao.pausa {
+        background: var(--pause-bg);
+        border: 1px solid #f2ddb4;
+      }
+      .acao.pausa .rotulo {
+        background: var(--pause);
+      }
+      .acao div p {
+        margin: 4px 0;
+      }
 
-  /* código */
-  pre{
-    background:var(--code-bg);
-    color:var(--code-txt);
-    border-radius:12px;
-    padding:18px 20px;
-    overflow-x:auto;
-    font-family:'JetBrains Mono',monospace;
-    font-size:.86rem;
-    line-height:1.6;
-    margin:14px 0;
-  }
-  code{font-family:'JetBrains Mono',monospace}
-  p code,li code,td code{
-    background:#edece4;border-radius:5px;padding:2px 6px;font-size:.85em;color:#8a2b4a;
-  }
-  .tg{color:var(--code-tag)} .at{color:var(--code-attr)} .vl{color:var(--code-val)} .cm{color:var(--code-com);font-style:italic}
+      /* código */
+      pre {
+        background: var(--code-bg);
+        color: var(--code-txt);
+        border-radius: 12px;
+        padding: 18px 20px;
+        overflow-x: auto;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.86rem;
+        line-height: 1.6;
+        margin: 14px 0;
+      }
+      code {
+        font-family: "JetBrains Mono", monospace;
+      }
+      p code,
+      li code,
+      td code {
+        background: #edece4;
+        border-radius: 5px;
+        padding: 2px 6px;
+        font-size: 0.85em;
+        color: #8a2b4a;
+      }
+      .tg {
+        color: var(--code-tag);
+      }
+      .at {
+        color: var(--code-attr);
+      }
+      .vl {
+        color: var(--code-val);
+      }
+      .cm {
+        color: var(--code-com);
+        font-style: italic;
+      }
 
-  /* tabelas didáticas */
-  table.did{width:100%;border-collapse:collapse;margin:14px 0;font-size:.93rem}
-  table.did th{
-    text-align:left;font-family:'Sora',sans-serif;font-size:.75rem;letter-spacing:.08em;
-    text-transform:uppercase;color:var(--ink-soft);padding:8px 12px;border-bottom:2px solid var(--ink);
-  }
-  table.did td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+      /* tabelas didáticas */
+      table.did {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 14px 0;
+        font-size: 0.93rem;
+      }
+      table.did th {
+        text-align: left;
+        font-family: "Sora", sans-serif;
+        font-size: 0.75rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--ink-soft);
+        padding: 8px 12px;
+        border-bottom: 2px solid var(--ink);
+      }
+      table.did td {
+        padding: 9px 12px;
+        border-bottom: 1px solid var(--line);
+        vertical-align: top;
+      }
 
-  .nota{
-    background:#fffbe6;border:1px solid #f0e4a3;border-radius:10px;
-    padding:12px 16px;margin:14px 0;font-size:.92rem;
-  }
-  .nota strong{color:#8a6d00}
+      .nota {
+        background: #fffbe6;
+        border: 1px solid #f0e4a3;
+        border-radius: 10px;
+        padding: 12px 16px;
+        margin: 14px 0;
+        font-size: 0.92rem;
+      }
+      .nota strong {
+        color: #8a6d00;
+      }
 
-  footer{
-    text-align:center;color:var(--ink-soft);font-size:.85rem;
-    padding:30px 20px 50px;
-  }
+      footer {
+        text-align: center;
+        color: var(--ink-soft);
+        font-size: 0.85rem;
+        padding: 30px 20px 50px;
+      }
 
-  @media (max-width:640px){
-    section.bloco{padding:24px 18px}
-    .bloco h2{font-size:1.25rem}
-  }
-  @media print{
-    .capa{background:#fff;color:#000}
-    section.bloco{break-inside:avoid}
-  }
-</style>
-</head>
-<body>
+      @media (max-width: 640px) {
+        section.bloco {
+          padding: 24px 18px;
+        }
+        .bloco h2 {
+          font-size: 1.25rem;
+        }
+      }
+      @media print {
+        .capa {
+          background: #fff;
+          color: #000;
+        }
+        section.bloco {
+          break-inside: avoid;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ===================== CAPA ===================== -->
+    <header class="capa">
+      <div class="capa-inner">
+        <span class="etiqueta">Guia do aluno · Módulo Front-end</span>
+        <h1>
+          HTML na prática: construindo a página <em>"Bem-cuidado"</em> do zero
+        </h1>
+        <p class="sub">
+          Seu guia de estudo e prática. Aqui você vai revisar a teoria da aula
+          anterior, montar seu ambiente de desenvolvimento do zero (VSCode + Git
+          + GitHub) e construir, passo a passo, um organizador de consultas
+          médicas completo em HTML.
+        </p>
+        <div class="capa-meta">
+          <span>👥 Nível: iniciante (fullstack)</span>
+          <span>📍 Pré-requisito: nenhum — só computador com internet</span>
+          <span
+            >⏱️ Tempo estimado: ~3h30 (faça no seu ritmo — pausa natural no fim
+            do bloco 05)</span
+          >
+          <span
+            >🎯 Ao final: ambiente completo + seu index.html rodando no
+            navegador</span
+          >
+        </div>
+      </div>
+    </header>
 
-<!-- ===================== CAPA ===================== -->
-<header class="capa">
-  <div class="capa-inner">
-    <span class="etiqueta">Roteiro de aula · Módulo Front-end</span>
-    <h1>HTML na prática: construindo a página <em>"Bem-cuidado"</em> do zero</h1>
-    <p class="sub">Guia de fala do instrutor. Aula que retoma a teoria da aula anterior, monta o ambiente de desenvolvimento do zero (VSCode + Git + GitHub) e constrói, junto com a turma, um organizador de consultas médicas completo em HTML.</p>
-    <div class="capa-meta">
-      <span>👥 Público: iniciantes (fullstack)</span>
-      <span>📍 Pré-requisito: nenhum — só computador com internet</span>
-      <span>⏱️ Duração: ~3h30 (ou dois encontros — corte natural no fim do bloco 05)</span>
-      <span>🎯 Entregáveis: ambiente completo + index.html no navegador</span>
+    <!-- ===================== LEGENDA ===================== -->
+    <div class="legenda">
+      <div class="legenda-box">
+        <h2>Como usar este guia</h2>
+        <div class="legenda-itens">
+          <span class="chip"
+            ><span class="dot s"></span>🖥️ Conceito — leia e entenda antes de
+            codar</span
+          >
+          <span class="chip"
+            ><span class="dot t"></span>⌨️ Faça você — hora de digitar no seu
+            computador</span
+          >
+          <span class="chip"
+            ><span class="dot p"></span>✋ Checkpoint — pare e confira se está
+            tudo certo antes de seguir</span
+          >
+        </div>
+      </div>
     </div>
-  </div>
-</header>
 
-<!-- ===================== LEGENDA ===================== -->
-<div class="legenda">
-  <div class="legenda-box">
-    <h2>Como ler este roteiro</h2>
-    <div class="legenda-itens">
-      <span class="chip"><span class="dot s"></span>🖥️ Mostrar na tela — projete o código/tela para a turma</span>
-      <span class="chip"><span class="dot t"></span>⌨️ Digitar junto — todos codam em tempo real com você</span>
-      <span class="chip"><span class="dot p"></span>✋ Pausa — momento de perguntas e checagem da turma</span>
-    </div>
-  </div>
-</div>
+    <!-- ===================== SUMÁRIO ===================== -->
+    <nav class="sumario" aria-label="Sumário do guia">
+      <h2>Sumário</h2>
+      <ol>
+        <li><a href="#s1">Relembrando: o que é HTML?</a></li>
+        <li><a href="#s2">Revisão: tags, elementos e atributos</a></li>
+        <li><a href="#s-vscode">Instalando o VSCode do zero</a></li>
+        <li><a href="#s-git">Instalando o Git</a></li>
+        <li><a href="#s-github">Criando a conta no GitHub</a></li>
+        <li><a href="#s3">Mão na massa: pasta e projeto</a></li>
+        <li><a href="#s4">O esqueleto do documento</a></li>
+        <li><a href="#s5">Construindo o Bem-cuidado</a></li>
+        <li><a href="#s6">Analogias para fixar</a></li>
+        <li><a href="#s7">Dicas de VSCode</a></li>
+        <li><a href="#s8">Boas práticas desde o início</a></li>
+        <li><a href="#s9">Encerramento + desafio</a></li>
+      </ol>
+    </nav>
 
-<!-- ===================== SUMÁRIO ===================== -->
-<nav class="sumario" aria-label="Sumário do roteiro">
-  <h2>Sumário da aula</h2>
-  <ol>
-    <li><a href="#s0">Antes de começar (checklist)</a></li>
-    <li><a href="#s1">Abertura + relembrando o HTML</a></li>
-    <li><a href="#s2">Revisão: tags, elementos e atributos</a></li>
-    <li><a href="#s-vscode">Instalando o VSCode do zero</a></li>
-    <li><a href="#s-git">Instalando o Git</a></li>
-    <li><a href="#s-github">Criando a conta no GitHub</a></li>
-    <li><a href="#s3">Mão na massa: pasta e projeto</a></li>
-    <li><a href="#s4">O esqueleto do documento</a></li>
-    <li><a href="#s5">Construindo o Bem-cuidado</a></li>
-    <li><a href="#s6">Analogias para fixar</a></li>
-    <li><a href="#s7">Dicas de VSCode</a></li>
-    <li><a href="#s8">Boas práticas desde o início</a></li>
-    <li><a href="#s9">Encerramento + desafio</a></li>
-  </ol>
-</nav>
+    <main>
+      <!-- ===================== BLOCO 1 ===================== -->
+      <section class="bloco" id="s1">
+        <div class="bloco-head">
+          <span class="bloco-num">01</span>
+          <h2>Relembrando: o que é HTML?</h2>
+          <span class="tempo">⏱️ ~10 min</span>
+        </div>
 
-<main>
+        <p>
+          <strong>O que você vai fazer neste bloco:</strong> reativar a memória
+          da aula passada em 10 minutos. A revisão vem ANTES da instalação de
+          propósito: relembrar o "porquê" antes do "como" faz você chegar na
+          parte técnica sabendo para que serve cada ferramenta.
+        </p>
 
-<!-- ===================== BLOCO 0 ===================== -->
-<section class="bloco" id="s0">
-  <div class="bloco-head">
-    <span class="bloco-num">00</span>
-    <h2>Antes de começar — checklist do instrutor</h2>
-    <span class="tempo">5 min antes da aula</span>
-  </div>
-  <ul>
-    <li><strong>Teste a internet da sala</strong> e tenha os instaladores baixados num pendrive/pasta compartilhada como plano B: VSCode (Windows e Mac) e Git para Windows. Sala cheia baixando ao mesmo tempo = rede de joelhos.</li>
-    <li>Envie no grupo da turma, antes da aula, os três links oficiais: <code>code.visualstudio.com</code>, <code>git-scm.com</code> e <code>github.com</code> — evita gente clicando em site falso do Google.</li>
-    <li>Tenha uma <strong>conta de e-mail descartável</strong> pronta para demonstrar a criação da conta GitHub ao vivo (nunca exponha sua conta pessoal na tela).</li>
-    <li>Sua máquina: VSCode com <strong>zoom aumentado</strong> (Ctrl <code>+</code> duas ou três vezes), Live Server já instalado e funcionando, terminal testado com <code>git --version</code>.</li>
-    <li>Se possível, uma máquina "limpa" (ou máquina virtual) para instalar o VSCode junto com a turma — instalar de verdade na tela vale mais que mostrar prints.</li>
-    <li>Código final do "Bem-cuidado" em uma aba fechada, só para emergência — <strong>não mostre o resultado final no início</strong>, deixe a curiosidade trabalhar.</li>
-    <li>Peça na aula anterior / no grupo: <strong>todos com um e-mail que acessam na hora</strong> (necessário para confirmar a conta do GitHub em sala).</li>
-  </ul>
-</section>
+        <div class="fala">
+          <p>
+            A aula passada foi teoria: o que é HTML, tags, atributos... Hoje é o
+            grande dia de sujar as mãos — e do jeito completo: você vai montar
+            seu ambiente de desenvolvimento DO ZERO — editor, Git, conta no
+            GitHub — e, com tudo pronto, escrever sua primeira página de
+            verdade. No fim, você terá o computador de um dev e um site
+            funcionando nele.
+          </p>
+          <p>
+            Antes de seguir, teste rápido de memória — sem medo de errar:
+            <strong>você lembra o que significa a sigla HTML?</strong>
+            (Resposta: <em>HyperText Markup Language</em> — linguagem de
+            marcação de hipertexto.)
+          </p>
+        </div>
 
-<!-- ===================== BLOCO 1 ===================== -->
-<section class="bloco" id="s1">
-  <div class="bloco-head">
-    <span class="bloco-num">01</span>
-    <h2>Abertura + relembrando: o que é HTML?</h2>
-    <span class="tempo">⏱️ ~10 min</span>
-  </div>
+        <h3>Recapitulação em 3 frases (a analogia da casa)</h3>
+        <div class="fala">
+          <p>
+            Lembra da casa? Um site é como uma casa: o
+            <span class="hl">HTML é a estrutura</span> — paredes, portas,
+            cômodos. O CSS, que vem nas próximas aulas, é a decoração: cor da
+            parede, móveis, estilo. E o JavaScript é a parte elétrica e o
+            encanamento: o que faz a casa <em>funcionar</em> — luz acende,
+            campainha toca.
+          </p>
+          <p>
+            Hoje você constrói só a estrutura. E olha: uma casa sem pintura é
+            feia, mas fica de pé. Uma casa sem estrutura... nem existe. Por isso
+            HTML vem primeiro.
+          </p>
+        </div>
 
-  <p><strong>Objetivo do bloco:</strong> reativar a memória da aula passada em 10 minutos, sem reexplicar tudo — perguntas rápidas valem mais que monólogo. A revisão vem ANTES da instalação de propósito: relembra o "porquê" antes do "como", e a turma chega na parte técnica sabendo para que serve cada ferramenta.</p>
+        <p>
+          <strong>Ponto importante para guardar:</strong> HTML
+          <span class="hl">não é linguagem de programação</span> — é linguagem
+          de <em>marcação</em>. Ela não toma decisões, não faz contas. Ela
+          <strong>descreve e organiza</strong> conteúdo: "isto é um título",
+          "isto é um parágrafo", "isto é uma tabela".
+        </p>
 
-  <div class="fala">
-    <p>"Bom, pessoal! Aula passada foi teoria: o que é HTML, tags, atributos... Hoje é o grande dia de sujar as mãos — e do jeito completo: a gente vai montar o ambiente de desenvolvimento de vocês DO ZERO — editor, Git, conta no GitHub — e, com tudo pronto, escrever a primeira página de verdade. No fim da aula, vocês saem daqui com o computador de um dev e um site funcionando nele."</p>
-    <p>"Mas antes, teste rápido de memória — sem medo de errar, tá? Quem me diz: o que significa a sigla HTML?"</p>
-  </div>
+        <div class="fala">
+          <p>
+            Pense num texto no Word onde você seleciona algo e marca como
+            "Título 1". O HTML faz isso, só que escrevendo a marcação à mão.
+            Você não está programando lógica ainda — está etiquetando conteúdo
+            para o navegador entender.
+          </p>
+        </div>
 
-  <div class="acao pausa">
-    <span class="rotulo">✋ Pausa</span>
-    <div>
-      <p>Deixe a turma tentar. Resposta esperada: <strong>HyperText Markup Language</strong> — Linguagem de Marcação de Hipertexto. Se ninguém lembrar, dê a primeira palavra e deixe completarem.</p>
-    </div>
-  </div>
+        <h3>O que você vai construir</h3>
+        <div class="acao mostrar">
+          <span class="rotulo">🖥️ Conceito</span>
+          <div>
+            <p>
+              O projeto se chama <strong>"Bem-cuidado"</strong>: um organizador
+              de consultas médicas para a Dona Lúcia — com próximas consultas,
+              histórico, exames anexados e um formulário de lembretes.
+            </p>
+            <p>
+              Pensa naquela avó ou mãe que vive perdendo o papelzinho da
+              consulta — é para ela que você vai construir. Conectar o projeto
+              com a vida real deixa tudo mais fácil de aprender.
+            </p>
+          </div>
+        </div>
+      </section>
 
-  <h3>Recapitulação em 3 frases (a analogia da casa)</h3>
-  <div class="fala">
-    <p>"Lembram da nossa casa? Um site é como uma casa: o <span class="hl">HTML é a estrutura</span> — paredes, portas, cômodos. O CSS, que vem nas próximas aulas, é a decoração: cor da parede, móveis, estilo. E o JavaScript é a parte elétrica e o encanamento: o que faz a casa <em>funcionar</em> — luz acende, campainha toca."</p>
-    <p>"Então hoje a gente constrói só a estrutura. E olha: uma casa sem pintura é feia, mas fica de pé. Uma casa sem estrutura... nem existe. Por isso HTML vem primeiro."</p>
-  </div>
+      <!-- ===================== BLOCO 2 ===================== -->
+      <section class="bloco" id="s2">
+        <div class="bloco-head">
+          <span class="bloco-num">02</span>
+          <h2>Revisão-relâmpago: tags, elementos e atributos</h2>
+          <span class="tempo">⏱️ ~15 min</span>
+        </div>
 
-  <p><strong>Ponto para reforçar:</strong> HTML <span class="hl">não é linguagem de programação</span> — é linguagem de <em>marcação</em>. Ela não toma decisões, não faz contas. Ela <strong>descreve e organiza</strong> conteúdo: "isto é um título", "isto é um parágrafo", "isto é uma tabela".</p>
+        <p>
+          <strong>O que você vai fazer neste bloco:</strong> revisar os 4
+          conceitos-chave da aula passada. Tente responder mentalmente cada
+          pergunta antes de ler a explicação — funciona muito melhor que só ler.
+        </p>
 
-  <div class="fala">
-    <p>"Pensa num texto no Word onde você seleciona algo e marca como 'Título 1'. O HTML faz isso, só que escrevendo a marcação à mão. A gente não está programando lógica ainda — a gente está etiquetando conteúdo pro navegador entender."</p>
-  </div>
+        <h3>2.1 — Tag: a etiqueta</h3>
+        <div class="fala">
+          <p>
+            Tag, em inglês, é <em>etiqueta</em>. É literalmente isso: uma
+            etiqueta que você cola no conteúdo para dizer o que ele é. Toda tag
+            vem entre os sinais de menor e maior: <code>&lt;p&gt;</code>,
+            <code>&lt;h1&gt;</code>, <code>&lt;table&gt;</code>.
+          </p>
+          <p>
+            E quase toda tag anda em dupla: a que abre e a que fecha. A que
+            fecha tem uma barra: <code>&lt;/p&gt;</code>. É como abrir e fechar
+            aspas num texto — se você abre e não fecha, vira bagunça.
+          </p>
+        </div>
 
-  <h3>O que vamos construir hoje</h3>
-  <div class="acao mostrar">
-    <span class="rotulo">🖥️ Mostrar</span>
-    <div>
-      <p>Descreva (sem mostrar o código!) o projeto: <strong>"Bem-cuidado"</strong>, um organizador de consultas médicas para a Dona Lúcia — com próximas consultas, histórico, exames anexados e um formulário de lembretes.</p>
-      <p>Dica: pergunte "quem aqui tem avó/mãe que vive perdendo papelzinho de consulta?" — conectar o projeto com a vida real aumenta o engajamento.</p>
-    </div>
-  </div>
-</section>
+        <div class="acao mostrar">
+          <span class="rotulo">🖥️ Conceito</span>
+          <div><p>Observe a anatomia de uma tag:</p></div>
+        </div>
 
-<!-- ===================== BLOCO 2 ===================== -->
-<section class="bloco" id="s2">
-  <div class="bloco-head">
-    <span class="bloco-num">02</span>
-    <h2>Revisão-relâmpago: tags, elementos e atributos</h2>
-    <span class="tempo">⏱️ ~15 min</span>
-  </div>
-
-  <p><strong>Objetivo do bloco:</strong> revisar os 4 conceitos-chave da aula passada em formato de "quiz relâmpago". Você pergunta, eles respondem, você só corrige e completa.</p>
-
-  <h3>2.1 — Tag: a etiqueta</h3>
-  <div class="fala">
-    <p>"Tag, em inglês, é <em>etiqueta</em>. É literalmente isso: uma etiqueta que você cola no conteúdo pra dizer o que ele é. Toda tag vem entre os sinais de menor e maior: <code>&lt;p&gt;</code>, <code>&lt;h1&gt;</code>, <code>&lt;table&gt;</code>."</p>
-    <p>"E quase toda tag anda em dupla: a que abre e a que fecha. A que fecha tem uma barra: <code>&lt;/p&gt;</code>. É como abrir e fechar aspas num texto — se você abre e não fecha, vira bagunça."</p>
-  </div>
-
-  <div class="acao mostrar">
-    <span class="rotulo">🖥️ Mostrar</span>
-    <div><p>Escreva no editor (pode ser num arquivo de rascunho) e desmonte a anatomia na frente deles:</p></div>
-  </div>
-
-<pre><code><span class="tg">&lt;p&gt;</span>Você tem 2 consultas nesta semana.<span class="tg">&lt;/p&gt;</span>
+        <pre><code><span class="tg">&lt;p&gt;</span>Você tem 2 consultas nesta semana.<span class="tg">&lt;/p&gt;</span>
 <span class="cm">↑ abre     ↑ conteúdo                    ↑ fecha</span></code></pre>
 
-  <h3>2.2 — Elemento: o pacote completo</h3>
-  <p>Elemento = <span class="hl">tag de abertura + conteúdo + tag de fechamento</span>. A tag é a etiqueta; o elemento é a caixa inteira com a etiqueta colada.</p>
+        <h3>2.2 — Elemento: o pacote completo</h3>
+        <p>
+          Elemento =
+          <span class="hl">tag de abertura + conteúdo + tag de fechamento</span
+          >. A tag é a etiqueta; o elemento é a caixa inteira com a etiqueta
+          colada.
+        </p>
 
-  <div class="fala">
-    <p>"Uma exceção pra vocês guardarem: algumas tags não têm conteúdo dentro, então não precisam fechar. São as <strong>tags vazias</strong>, como <code>&lt;br /&gt;</code> (quebra de linha), <code>&lt;input /&gt;</code> (campo de formulário) e <code>&lt;meta /&gt;</code>. Elas são autossuficientes — pensa numa etiqueta que já é o produto inteiro."</p>
-  </div>
+        <div class="fala">
+          <p>
+            Uma exceção para guardar: algumas tags não têm conteúdo dentro,
+            então não precisam fechar. São as <strong>tags vazias</strong>, como
+            <code>&lt;br /&gt;</code> (quebra de linha),
+            <code>&lt;input /&gt;</code> (campo de formulário) e
+            <code>&lt;meta /&gt;</code>. Elas são autossuficientes — pense numa
+            etiqueta que já é o produto inteiro.
+          </p>
+        </div>
 
-  <h3>2.3 — Atributo: a informação extra</h3>
-  <div class="fala">
-    <p>"Atributo é uma informação extra que a gente escreve <em>dentro</em> da tag de abertura, sempre no formato <code>nome="valor"</code>. Pensa assim: a tag diz <strong>o que</strong> o elemento é; o atributo diz <strong>como</strong> ele é ou <strong>detalhes</strong> sobre ele."</p>
-    <p>"Exemplo do mundo real: 'camiseta' é a tag. Tamanho M, cor azul — são os atributos."</p>
-  </div>
+        <h3>2.3 — Atributo: a informação extra</h3>
+        <div class="fala">
+          <p>
+            Atributo é uma informação extra que escrevemos <em>dentro</em> da
+            tag de abertura, sempre no formato <code>nome="valor"</code>. Pense
+            assim: a tag diz <strong>o que</strong> o elemento é; o atributo diz
+            <strong>como</strong> ele é ou <strong>detalhes</strong> sobre ele.
+          </p>
+          <p>
+            Exemplo do mundo real: "camiseta" é a tag. Tamanho M, cor azul — são
+            os atributos.
+          </p>
+        </div>
 
-<pre><code><span class="tg">&lt;input</span> <span class="at">id=</span><span class="vl">"email"</span> <span class="at">type=</span><span class="vl">"email"</span> <span class="at">required</span> <span class="tg">/&gt;</span>
+        <pre><code><span class="tg">&lt;input</span> <span class="at">id=</span><span class="vl">"email"</span> <span class="at">type=</span><span class="vl">"email"</span> <span class="at">required</span> <span class="tg">/&gt;</span>
 <span class="cm">        ↑ atributo   ↑ atributo      ↑ atributo sem valor (booleano)</span></code></pre>
 
-  <h3>2.4 — A estrutura básica de todo documento</h3>
-  <div class="acao mostrar">
-    <span class="rotulo">🖥️ Mostrar</span>
-    <div><p>Desenhe (pode ser à mão, no quadro ou num diagrama) as 4 camadas. Não digite ainda — é só o mapa mental:</p></div>
-  </div>
+        <h3>2.4 — A estrutura básica de todo documento</h3>
+        <div class="acao mostrar">
+          <span class="rotulo">🖥️ Conceito</span>
+          <div>
+            <p>
+              Este é o mapa mental das 4 camadas de todo documento HTML. Não
+              precisa digitar ainda — só entender:
+            </p>
+          </div>
+        </div>
 
-<pre><code><span class="tg">&lt;!doctype html&gt;</span>   <span class="cm">← "Navegador, isto é HTML moderno (HTML5)"</span>
+        <pre><code><span class="tg">&lt;!doctype html&gt;</span>   <span class="cm">← "Navegador, isto é HTML moderno (HTML5)"</span>
 <span class="tg">&lt;html&gt;</span>            <span class="cm">← a raiz: tudo mora aqui dentro</span>
   <span class="tg">&lt;head&gt;</span>          <span class="cm">← os bastidores: infos PARA O NAVEGADOR</span>
   <span class="tg">&lt;/head&gt;</span>
@@ -403,275 +696,579 @@
   <span class="tg">&lt;/body&gt;</span>
 <span class="tg">&lt;/html&gt;</span></code></pre>
 
-  <div class="fala">
-    <p>"Guardem essa dupla: <span class="hl">head é o bastidor, body é o palco</span>. O que está no head o público não vê — mas sem bastidor, o show não acontece."</p>
-  </div>
+        <div class="fala">
+          <p>
+            Guarde essa dupla:
+            <span class="hl">head é o bastidor, body é o palco</span>. O que
+            está no head o público não vê — mas sem bastidor, o show não
+            acontece.
+          </p>
+        </div>
 
-  <div class="acao pausa">
-    <span class="rotulo">✋ Pausa</span>
-    <div>
-      <p>Checagem rápida antes de seguir: <em>"Alguém me dá um exemplo de coisa que fica no head? E no body?"</em> Se a turma travar aqui, vale mais 2 minutos de revisão — esse conceito sustenta o resto da aula. Gancho para o próximo bloco: <em>"Teoria revisada. Mas onde a gente ESCREVE esse HTML? É o que vamos instalar agora."</em></p>
-    </div>
-  </div>
-</section>
+        <div class="acao pausa">
+          <span class="rotulo">✋ Checkpoint</span>
+          <div>
+            <p>
+              Antes de seguir, responda para si mesmo:
+              <em>qual é um exemplo de coisa que fica no head? E no body?</em>
+              Se travou aqui, releia a seção 2.4 — esse conceito sustenta todo o
+              resto do guia. Teoria revisada? Então vem a próxima pergunta: onde
+              você ESCREVE esse HTML? É o que vamos instalar agora.
+            </p>
+          </div>
+        </div>
+      </section>
 
-<!-- ===================== BLOCO 3 · INSTALAÇÃO: VSCODE ===================== -->
-<section class="bloco" id="s-vscode">
-  <div class="bloco-head">
-    <span class="bloco-num">03</span>
-    <h2>Instalando o VSCode do zero</h2>
-    <span class="tempo">⏱️ ~20 min</span>
-  </div>
+      <!-- ===================== BLOCO 3 · INSTALAÇÃO: VSCODE ===================== -->
+      <section class="bloco" id="s-vscode">
+        <div class="bloco-head">
+          <span class="bloco-num">03</span>
+          <h2>Instalando o VSCode do zero</h2>
+          <span class="tempo">⏱️ ~20 min</span>
+        </div>
 
-  <p><strong>Objetivo do bloco:</strong> todo mundo com o VSCode instalado, aberto e reconhecendo a interface. Enquanto os downloads rodam, aproveite pra conversar — o tempo de download é seu aliado, não inimigo.</p>
+        <p>
+          <strong>O que você vai fazer neste bloco:</strong> instalar o VSCode,
+          abrir pela primeira vez e reconhecer as partes principais da
+          interface. Enquanto o download roda, aproveite para ler a próxima
+          seção — o tempo de download é seu aliado.
+        </p>
 
-  <h3>3.1 — O que é um editor de código (e por que não usar o Word)</h3>
-  <div class="fala">
-    <p>"Antes de baixar qualquer coisa: por que a gente precisa de um programa especial pra escrever código? Não dá pra usar o Word? Não dá — e o motivo é interessante. O Word esconde marcação invisível dentro do arquivo: formatação, fontes, metadados. O navegador leria essa sujeira toda e quebraria."</p>
-    <p>"Código precisa de <span class="hl">texto puro</span>. O Bloco de Notas até serviria... mas seria como cozinhar um banquete com uma faca sem ponta. O editor de código é a cozinha profissional: ele colore o código, aponta erros, completa o que você começa a digitar. E o VSCode é o mais usado do mundo — de estagiário a engenheiro do Google. Gratuito, da Microsoft."</p>
-  </div>
+        <h3>3.1 — O que é um editor de código (e por que não usar o Word)</h3>
+        <div class="fala">
+          <p>
+            Antes de baixar qualquer coisa: por que você precisa de um programa
+            especial para escrever código? Não dá para usar o Word? Não dá — e o
+            motivo é interessante. O Word esconde marcação invisível dentro do
+            arquivo: formatação, fontes, metadados. O navegador leria essa
+            sujeira toda e quebraria.
+          </p>
+          <p>
+            Código precisa de <span class="hl">texto puro</span>. O Bloco de
+            Notas até serviria... mas seria como cozinhar um banquete com uma
+            faca sem ponta. O editor de código é a cozinha profissional: ele
+            colore o código, aponta erros, completa o que você começa a digitar.
+            E o VSCode é o mais usado do mundo — de estagiário a engenheiro do
+            Google. Gratuito, da Microsoft.
+          </p>
+        </div>
 
-  <h3>3.2 — Download e instalação passo a passo</h3>
-  <div class="acao mostrar">
-    <span class="rotulo">🖥️ Mostrar</span>
-    <div><p>Projete o site oficial e faça cada clique na tela ANTES de mandar a turma repetir. Alerte: <em>"baixem sempre do site oficial — pesquisar 'baixar vscode' no Google pode levar a sites falsos com propaganda ou vírus."</em></p></div>
-  </div>
+        <h3>3.2 — Download e instalação passo a passo</h3>
+        <div class="nota">
+          <strong>Atenção:</strong> baixe sempre do site oficial — pesquisar
+          "baixar vscode" no Google pode levar a sites falsos com propaganda ou
+          vírus.
+        </div>
 
-  <div class="acao digitar">
-    <span class="rotulo">⌨️ Digitar junto</span>
-    <div>
-      <p>1. Abram o navegador e digitem na barra de endereço: <code>code.visualstudio.com</code></p>
-      <p>2. Cliquem no botão grande de <strong>Download</strong> — o site detecta o sistema sozinho (Windows, Mac ou Linux).</p>
-      <p>3. <strong>Windows:</strong> executem o instalador baixado → aceitem o contrato → <strong>Next</strong> nas telas seguintes, <span class="hl">com UMA atenção especial</span>: na tela "Selecionar Tarefas Adicionais", marquem as caixas <em>"Adicionar ação 'Abrir com o Code' ao menu de contexto de arquivo"</em> e <em>"...de diretório"</em>. Expliquem que isso cria o atalho de botão direito → Abrir com VSCode, que vamos usar a vida inteira. A opção "Adicionar ao PATH" já vem marcada — deixem assim.</p>
-      <p>4. <strong>Mac:</strong> abram o .zip baixado e arrastem o ícone do Visual Studio Code para a pasta Aplicativos (Applications). Só isso.</p>
-      <p>5. Finish/concluir → o VSCode abre pela primeira vez.</p>
-    </div>
-  </div>
+        <div class="acao digitar">
+          <span class="rotulo">⌨️ Faça você</span>
+          <div>
+            <p>
+              1. Abra o navegador e digite na barra de endereço:
+              <code>code.visualstudio.com</code>
+            </p>
+            <p>
+              2. Clique no botão grande de <strong>Download</strong> — o site
+              detecta seu sistema sozinho (Windows, Mac ou Linux).
+            </p>
+            <p>
+              3. <strong>Windows:</strong> execute o instalador baixado → aceite
+              o contrato → <strong>Next</strong> nas telas seguintes,
+              <span class="hl">com UMA atenção especial</span>: na tela
+              "Selecionar Tarefas Adicionais", marque as caixas
+              <em
+                >"Adicionar ação 'Abrir com o Code' ao menu de contexto de
+                arquivo"</em
+              >
+              e <em>"...de diretório"</em>. Isso cria o atalho de botão direito
+              → Abrir com VSCode, que você vai usar a vida inteira. A opção
+              "Adicionar ao PATH" já vem marcada — deixe assim.
+            </p>
+            <p>
+              4. <strong>Mac:</strong> abra o .zip baixado e arraste o ícone do
+              Visual Studio Code para a pasta Aplicativos (Applications). Só
+              isso.
+            </p>
+            <p>5. Finish/concluir → o VSCode abre pela primeira vez.</p>
+          </div>
+        </div>
 
-  <div class="nota">
-    <strong>Problemas comuns (circule pela sala):</strong> download bloqueado pelo antivírus (autorizar); aviso de "aplicativo de fonte desconhecida" no Mac (botão direito → Abrir); computador sem permissão de administrador (no Windows, o instalador "User Installer" padrão NÃO exige admin — se travar, é outro motivo).
-  </div>
+        <div class="nota">
+          <strong>Problemas comuns (e como resolver):</strong> download
+          bloqueado pelo antivírus (autorize); aviso de "aplicativo de fonte
+          desconhecida" no Mac (botão direito → Abrir); computador sem permissão
+          de administrador (no Windows, o instalador "User Installer" padrão NÃO
+          exige admin — se travar, é outro motivo). Não conseguiu resolver?
+          Anote a dúvida e leve para a aula/grupo.
+        </div>
 
-  <h3>3.3 — Primeiro contato: tour guiado pela interface</h3>
-  <div class="fala">
-    <p>"Respira. Essa tela escura cheia de coisa assusta no primeiro dia — em duas semanas ela vai ser sua segunda casa. Vamos nomear só as 4 partes que importam agora."</p>
-  </div>
-  <div class="acao mostrar">
-    <span class="rotulo">🖥️ Mostrar</span>
-    <div>
-      <p>Aponte na tela, um por vez, e peça pra acharem no computador deles:</p>
-      <p>1. <strong>Barra lateral esquerda</strong> (ícones) — o "menu de ferramentas". O primeiro ícone (folhas) é o <strong>Explorer</strong>: onde os arquivos do projeto aparecem.</p>
-      <p>2. <strong>Área central</strong> — o editor, onde o código é escrito. Hoje mostra a tela de boas-vindas.</p>
-      <p>3. <strong>Ícone de blocos</strong> na barra lateral — as <strong>Extensões</strong>: a "lojinha de aplicativos" do VSCode. Vamos usar já já.</p>
-      <p>4. <strong>Terminal integrado</strong> — apertem <code>Ctrl + '</code> (Ctrl + aspas/crase). <em>"Essa janelinha preta que abriu embaixo é um terminal: um jeito de conversar com o computador por texto. Vamos precisar dele daqui a pouco pra verificar o Git. Pode fechar no X por enquanto."</em></p>
-    </div>
-  </div>
+        <h3>3.3 — Primeiro contato: tour pela interface</h3>
+        <div class="fala">
+          <p>
+            Respira. Essa tela escura cheia de coisa assusta no primeiro dia —
+            em duas semanas ela vai ser sua segunda casa. Por enquanto, você só
+            precisa conhecer 4 partes.
+          </p>
+        </div>
+        <div class="acao mostrar">
+          <span class="rotulo">🖥️ Conceito</span>
+          <div>
+            <p>Encontre cada uma delas na sua tela, uma por vez:</p>
+            <p>
+              1. <strong>Barra lateral esquerda</strong> (ícones) — o "menu de
+              ferramentas". O primeiro ícone (folhas) é o
+              <strong>Explorer</strong>: onde os arquivos do projeto aparecem.
+            </p>
+            <p>
+              2. <strong>Área central</strong> — o editor, onde o código é
+              escrito. Hoje mostra a tela de boas-vindas.
+            </p>
+            <p>
+              3. <strong>Ícone de blocos</strong> na barra lateral — as
+              <strong>Extensões</strong>: a "lojinha de aplicativos" do VSCode.
+              Você vai usar já já.
+            </p>
+            <p>
+              4. <strong>Terminal integrado</strong> — aperte
+              <code>Ctrl + '</code> (Ctrl + aspas/crase). Essa janelinha preta
+              que abriu embaixo é um terminal: um jeito de conversar com o
+              computador por texto. Você vai precisar dele daqui a pouco para
+              verificar o Git. Pode fechar no X por enquanto.
+            </p>
+          </div>
+        </div>
 
-  <h3>3.4 — (Opcional) VSCode em português</h3>
-  <div class="fala">
-    <p>"O VSCode vem em inglês. Dá pra deixar em português instalando uma extensão — vou mostrar como, MAS um conselho de amigo: tentem se acostumar com o inglês. Quase todo tutorial, documentação e mensagem de erro do mundo dev está em inglês, e os menus do editor são um ótimo treino gratuito. Quem preferir português, sem problema nenhum: ícone de Extensões → buscar <strong>Portuguese (Brazil) Language Pack</strong> → Install → reiniciar quando pedir."</p>
-  </div>
+        <h3>3.4 — (Opcional) VSCode em português</h3>
+        <div class="fala">
+          <p>
+            O VSCode vem em inglês. Dá para deixar em português instalando uma
+            extensão — MAS um conselho de amigo: tente se acostumar com o
+            inglês. Quase todo tutorial, documentação e mensagem de erro do
+            mundo dev está em inglês, e os menus do editor são um ótimo treino
+            gratuito. Se preferir português, sem problema nenhum: ícone de
+            Extensões → buscar
+            <strong>Portuguese (Brazil) Language Pack</strong> → Install →
+            reiniciar quando pedir.
+          </p>
+        </div>
 
-  <div class="acao pausa">
-    <span class="rotulo">✋ Pausa</span>
-    <div><p>Checkpoint obrigatório: <em>"Levanta a mão quem está com o VSCode aberto na tela de boas-vindas."</em> Ninguém segue para o Git sem isso. Alunos prontos podem explorar a tela de boas-vindas enquanto você atende os travados.</p></div>
-  </div>
-</section>
+        <div class="acao pausa">
+          <span class="rotulo">✋ Checkpoint</span>
+          <div>
+            <p>
+              Antes de seguir para o Git:
+              <strong>o VSCode está aberto na tela de boas-vindas?</strong> Não
+              avance sem isso. Se está tudo certo, aproveite para explorar a
+              tela de boas-vindas por um minuto.
+            </p>
+          </div>
+        </div>
+      </section>
 
-<!-- ===================== BLOCO 4 · INSTALAÇÃO: GIT ===================== -->
-<section class="bloco" id="s-git">
-  <div class="bloco-head">
-    <span class="bloco-num">04</span>
-    <h2>Instalando o Git</h2>
-    <span class="tempo">⏱️ ~20 min</span>
-  </div>
+      <!-- ===================== BLOCO 4 · INSTALAÇÃO: GIT ===================== -->
+      <section class="bloco" id="s-git">
+        <div class="bloco-head">
+          <span class="bloco-num">04</span>
+          <h2>Instalando o Git</h2>
+          <span class="tempo">⏱️ ~20 min</span>
+        </div>
 
-  <h3>4.1 — O que é Git, em 60 segundos</h3>
-  <div class="fala">
-    <p>"Quem aqui já jogou videogame e salvou o jogo antes de uma fase difícil? Então: o <span class="hl">Git é o botão de salvar o jogo do programador</span>. Ele guarda 'fotografias' do seu projeto ao longo do tempo. Quebrou tudo? Volta pra fotografia de ontem. Quer saber o que mudou semana passada? Está tudo registrado."</p>
-    <p>"Hoje a gente só instala e configura. Usar de verdade — os famosos commits — é assunto de uma aula inteira. Mas instalar hoje significa que na hora certa está tudo pronto."</p>
-  </div>
+        <h3>4.1 — O que é Git, em 60 segundos</h3>
+        <div class="fala">
+          <p>
+            Você já jogou videogame e salvou o jogo antes de uma fase difícil?
+            Então: o
+            <span class="hl">Git é o botão de salvar o jogo do programador</span
+            >. Ele guarda "fotografias" do seu projeto ao longo do tempo.
+            Quebrou tudo? Volta para a fotografia de ontem. Quer saber o que
+            mudou semana passada? Está tudo registrado.
+          </p>
+          <p>
+            Hoje você só instala e configura. Usar de verdade — os famosos
+            commits — é assunto de uma aula inteira. Mas instalar hoje significa
+            que, na hora certa, está tudo pronto.
+          </p>
+        </div>
 
-  <h3>4.2 — Download e instalação</h3>
-  <div class="acao digitar">
-    <span class="rotulo">⌨️ Digitar junto</span>
-    <div>
-      <p>1. Naveguem até <code>git-scm.com</code> → botão <strong>Download for Windows</strong> (ou Mac/Linux).</p>
-      <p>2. <strong>Windows — atenção, aviso importante antes de abrir:</strong> <em>"esse instalador tem umas DEZ telas de opções e vocês não precisam entender nenhuma agora. A regra é: <span class="hl">Next em tudo</span>, com duas exceções que eu vou avisar."</em></p>
-      <p>&nbsp;&nbsp;&nbsp;• Exceção 1 — tela <em>"Choosing the default editor used by Git"</em>: troquem o Vim (padrão) por <strong>"Use Visual Studio Code as Git's default editor"</strong>. Explique: <em>"Vim é um editor de terminal que já fez muito marinheiro de primeira viagem ficar preso sem saber sair. Escolham o VSCode que acabamos de instalar."</em></p>
-      <p>&nbsp;&nbsp;&nbsp;• Exceção 2 — tela <em>"Adjusting the name of the initial branch"</em>: marquem <strong>"Override the default branch name"</strong> e confirmem que está escrito <code>main</code>. Explique: <em>"É o nome da 'linha do tempo' principal do projeto — main é o padrão moderno, o mesmo que o GitHub usa."</em></p>
-      <p>&nbsp;&nbsp;&nbsp;• Todo o resto: Next, Next, Next → Install → Finish.</p>
-      <p>3. <strong>Mac:</strong> abram o Terminal (Cmd + Espaço, digitem "terminal") e rodem <code>git --version</code>. Se o Git não existir, o próprio Mac oferece instalar as ferramentas de desenvolvedor — cliquem em Instalar e aguardem.</p>
-      <p>4. <strong>Linux:</strong> no terminal, <code>sudo apt install git</code> (Ubuntu/Mint e derivados).</p>
-    </div>
-  </div>
+        <h3>4.2 — Download e instalação</h3>
+        <div class="acao digitar">
+          <span class="rotulo">⌨️ Faça você</span>
+          <div>
+            <p>
+              1. Navegue até <code>git-scm.com</code> → botão
+              <strong>Download for Windows</strong> (ou Mac/Linux).
+            </p>
+            <p>
+              2.
+              <strong>Windows — aviso importante antes de abrir:</strong> esse
+              instalador tem umas DEZ telas de opções e você não precisa
+              entender nenhuma agora. A regra é:
+              <span class="hl">Next em tudo</span>, com duas exceções:
+            </p>
+            <p>
+              &nbsp;&nbsp;&nbsp;• Exceção 1 — tela
+              <em>"Choosing the default editor used by Git"</em>: troque o Vim
+              (padrão) por
+              <strong>"Use Visual Studio Code as Git's default editor"</strong>.
+              Por quê? Vim é um editor de terminal que já fez muito marinheiro
+              de primeira viagem ficar preso sem saber sair. Escolha o VSCode
+              que você acabou de instalar.
+            </p>
+            <p>
+              &nbsp;&nbsp;&nbsp;• Exceção 2 — tela
+              <em>"Adjusting the name of the initial branch"</em>: marque
+              <strong>"Override the default branch name"</strong> e confirme que
+              está escrito <code>main</code>. Esse é o nome da "linha do tempo"
+              principal do projeto — main é o padrão moderno, o mesmo que o
+              GitHub usa.
+            </p>
+            <p>
+              &nbsp;&nbsp;&nbsp;• Todo o resto: Next, Next, Next → Install →
+              Finish.
+            </p>
+            <p>
+              3. <strong>Mac:</strong> abra o Terminal (Cmd + Espaço, digite
+              "terminal") e rode <code>git --version</code>. Se o Git não
+              existir, o próprio Mac oferece instalar as ferramentas de
+              desenvolvedor — clique em Instalar e aguarde.
+            </p>
+            <p>
+              4. <strong>Linux:</strong> no terminal,
+              <code>sudo apt install git</code> (Ubuntu/Mint e derivados).
+            </p>
+          </div>
+        </div>
 
-  <h3>4.3 — Verificando se funcionou (primeiro comando de terminal da turma!)</h3>
-  <div class="acao digitar">
-    <span class="rotulo">⌨️ Digitar junto</span>
-    <div>
-      <p>De volta ao VSCode: <code>Ctrl + '</code> para abrir o terminal integrado. Todos digitam e apertam Enter:</p>
-    </div>
-  </div>
+        <h3>
+          4.3 — Verificando se funcionou (seu primeiro comando de terminal!)
+        </h3>
+        <div class="acao digitar">
+          <span class="rotulo">⌨️ Faça você</span>
+          <div>
+            <p>
+              De volta ao VSCode: <code>Ctrl + '</code> para abrir o terminal
+              integrado. Digite e aperte Enter:
+            </p>
+          </div>
+        </div>
 
-<pre><code>git --version</code></pre>
+        <pre><code>git --version</code></pre>
 
-  <div class="fala">
-    <p>"Se apareceu algo como <code>git version 2.45...</code>, parabéns: vocês acabaram de executar o primeiro comando de terminal da vida de vocês. Número diferente do meu? Normal, é só a versão. Deu 'git não é reconhecido'? Me chama — geralmente é só fechar e reabrir o VSCode, porque ele precisa 'recarregar' pra enxergar programas recém-instalados."</p>
-  </div>
+        <div class="fala">
+          <p>
+            Se apareceu algo como <code>git version 2.45...</code>, parabéns:
+            você acabou de executar o primeiro comando de terminal da sua vida.
+            Número de versão diferente do exemplo? Normal. Deu "git não é
+            reconhecido"? Geralmente é só fechar e reabrir o VSCode, porque ele
+            precisa "recarregar" para enxergar programas recém-instalados.
+          </p>
+        </div>
 
-  <h3>4.4 — Apresentando-se ao Git (configuração de identidade)</h3>
-  <div class="fala">
-    <p>"Toda fotografia que o Git tira leva uma assinatura: quem fez essa mudança. Então a primeira coisa depois de instalar é se apresentar. São dois comandos, e vocês vão digitar com os SEUS dados, não com os meus."</p>
-  </div>
+        <h3>4.4 — Apresentando-se ao Git (configuração de identidade)</h3>
+        <div class="fala">
+          <p>
+            Toda fotografia que o Git tira leva uma assinatura: quem fez essa
+            mudança. Então a primeira coisa depois de instalar é se apresentar.
+            São dois comandos — digite com os SEUS dados, não com os do exemplo.
+          </p>
+        </div>
 
-  <div class="acao digitar">
-    <span class="rotulo">⌨️ Digitar junto</span>
-    <div><p>No terminal, um comando por vez (substituindo pelos dados reais — e <span class="hl">anotem o e-mail usado</span>, porque a conta do GitHub daqui a pouco DEVE usar o mesmo):</p></div>
-  </div>
+        <div class="acao digitar">
+          <span class="rotulo">⌨️ Faça você</span>
+          <div>
+            <p>
+              No terminal, um comando por vez, substituindo pelos seus dados
+              reais — e <span class="hl">anote o e-mail usado</span>, porque a
+              conta do GitHub daqui a pouco DEVE usar o mesmo:
+            </p>
+          </div>
+        </div>
 
-<pre><code>git config --global user.name "Maria Silva"
+        <pre><code>git config --global user.name "Maria Silva"
 git config --global user.email "maria.silva@email.com"</code></pre>
 
-  <p><strong>Explicar a anatomia do comando</strong> (primeira leitura de "computês" da turma): <code>git</code> chama o programa → <code>config</code> é a ação (configurar) → <code>--global</code> significa "para todos os projetos deste computador" → <code>user.name</code> é qual configuração → e as aspas guardam o valor. <em>"Reparem: até comando de terminal tem a mesma lógica de nome="valor" dos atributos HTML que revisamos. Programação é padrão se repetindo."</em></p>
+        <p>
+          <strong>Anatomia do comando</strong> (sua primeira leitura de
+          "computês"): <code>git</code> chama o programa → <code>config</code> é
+          a ação (configurar) → <code>--global</code> significa "para todos os
+          projetos deste computador" → <code>user.name</code> é qual
+          configuração → e as aspas guardam o valor. Repare: até comando de
+          terminal tem a mesma lógica de nome="valor" dos atributos HTML que
+          você revisou. Programação é padrão se repetindo.
+        </p>
 
-  <div class="acao digitar">
-    <span class="rotulo">⌨️ Digitar junto</span>
-    <div><p>Conferência final — este comando mostra o que foi salvo:</p></div>
-  </div>
+        <div class="acao digitar">
+          <span class="rotulo">⌨️ Faça você</span>
+          <div>
+            <p>Conferência final — este comando mostra o que foi salvo:</p>
+          </div>
+        </div>
 
-<pre><code>git config --global --list</code></pre>
+        <pre><code>git config --global --list</code></pre>
 
-  <div class="acao pausa">
-    <span class="rotulo">✋ Pausa</span>
-    <div><p>Checkpoint: <em>"Todo mundo vendo o próprio nome e e-mail na tela do terminal?"</em> Erro comum: digitar o comando com aspas "curvas" (copiou de PDF/WhatsApp) — as aspas precisam ser as retas do teclado.</p></div>
-  </div>
-</section>
+        <div class="acao pausa">
+          <span class="rotulo">✋ Checkpoint</span>
+          <div>
+            <p>
+              <strong>Seu nome e e-mail apareceram na tela do terminal?</strong>
+              Erro comum: digitar o comando com aspas "curvas" (copiadas de
+              PDF/WhatsApp) — as aspas precisam ser as retas do teclado.
+            </p>
+          </div>
+        </div>
+      </section>
 
-<!-- ===================== BLOCO 5 · CONTA NO GITHUB ===================== -->
-<section class="bloco" id="s-github">
-  <div class="bloco-head">
-    <span class="bloco-num">05</span>
-    <h2>Criando a conta no GitHub</h2>
-    <span class="tempo">⏱️ ~15 min</span>
-  </div>
+      <!-- ===================== BLOCO 5 · CONTA NO GITHUB ===================== -->
+      <section class="bloco" id="s-github">
+        <div class="bloco-head">
+          <span class="bloco-num">05</span>
+          <h2>Criando a conta no GitHub</h2>
+          <span class="tempo">⏱️ ~15 min</span>
+        </div>
 
-  <h3>5.1 — Git vs GitHub: não é a mesma coisa</h3>
-  <div class="fala">
-    <p>"Pergunta clássica de iniciante — e de entrevista de estágio: qual a diferença entre Git e GitHub? Analogia: <span class="hl">o Git é a câmera fotográfica; o GitHub é o Instagram</span>. O Git tira as 'fotos' do projeto aí na sua máquina. O GitHub é o lugar na internet onde você publica essas fotos: pra guardar na nuvem, pra trabalhar em equipe e — muito importante pra vocês — pra mostrar seu trabalho pro mundo."</p>
-    <p>"O perfil do GitHub de vocês vai virar o portfólio de vocês. Recrutador de tecnologia olha GitHub como olha currículo. A conta que a gente cria hoje é a mesma que, daqui a alguns meses, vai estar no LinkedIn de vocês. Então capricha."</p>
-  </div>
+        <h3>5.1 — Git vs GitHub: não é a mesma coisa</h3>
+        <div class="fala">
+          <p>
+            Pergunta clássica de iniciante — e de entrevista de estágio: qual a
+            diferença entre Git e GitHub? Analogia:
+            <span class="hl"
+              >o Git é a câmera fotográfica; o GitHub é o Instagram</span
+            >. O Git tira as "fotos" do projeto aí na sua máquina. O GitHub é o
+            lugar na internet onde você publica essas fotos: para guardar na
+            nuvem, para trabalhar em equipe e — muito importante — para mostrar
+            seu trabalho para o mundo.
+          </p>
+          <p>
+            O seu perfil do GitHub vai virar o seu portfólio. Recrutador de
+            tecnologia olha GitHub como olha currículo. A conta que você cria
+            hoje é a mesma que, daqui a alguns meses, vai estar no seu LinkedIn.
+            Então capricha.
+          </p>
+        </div>
 
-  <h3>5.2 — Criando a conta, passo a passo</h3>
-  <div class="acao mostrar">
-    <span class="rotulo">🖥️ Mostrar</span>
-    <div><p>Faça o fluxo na tela com uma conta de demonstração descartável. Aviso de privacidade: peça para a turma digitar as próprias senhas SEM você projetar a tela deles, óbvio — e nunca peça pra ninguém falar senha em voz alta.</p></div>
-  </div>
+        <h3>5.2 — Criando a conta, passo a passo</h3>
+        <div class="nota">
+          <strong>Segurança:</strong> nunca compartilhe sua senha com ninguém,
+          nem digite senhas com a tela sendo projetada ou compartilhada.
+        </div>
 
-  <div class="acao digitar">
-    <span class="rotulo">⌨️ Digitar junto</span>
-    <div>
-      <p>1. Naveguem até <code>github.com</code> → botão <strong>Sign up</strong> (canto superior direito).</p>
-      <p>2. <strong>E-mail:</strong> usem <span class="hl">o mesmo e-mail do git config</span> de 5 minutos atrás. É isso que conecta as fotografias do Git à conta de vocês.</p>
-      <p>3. <strong>Senha:</strong> forte e guardada num lugar seguro (gerenciador de senhas, se usarem).</p>
-      <p>4. <strong>Username:</strong> momento importante — <em>"esse nome vira o endereço público de vocês: github.com/seunome. Vai pro currículo. Dica: nome profissional, curto, sem números aleatórios. 'mariasilva-dev' envelhece melhor que 'mariazinha_xx99'."</em> Se o nome desejado estiver ocupado, variações com hífen ou sobrenome resolvem.</p>
-      <p>5. Resolvam a verificação "prove que você é humano" (o quebra-cabeça).</p>
-      <p>6. O GitHub envia um <strong>código de confirmação por e-mail</strong> — abram o e-mail em outra aba, copiem o código e colem. <em>"Não chegou? Confiram a caixa de spam."</em></p>
-      <p>7. Nas perguntas de personalização ("quantos membros no time?", etc.), podem pular (Skip) ou responder qualquer coisa — não muda nada.</p>
-      <p>8. No plano, escolham <strong>Free</strong>. <em>"O plano gratuito do GitHub é absurdamente completo — vocês vão passar o curso inteiro sem pagar nada."</em></p>
-    </div>
-  </div>
+        <div class="acao digitar">
+          <span class="rotulo">⌨️ Faça você</span>
+          <div>
+            <p>
+              1. Navegue até <code>github.com</code> → botão
+              <strong>Sign up</strong> (canto superior direito).
+            </p>
+            <p>
+              2. <strong>E-mail:</strong> use
+              <span class="hl">o mesmo e-mail do git config</span> de 5 minutos
+              atrás. É isso que conecta as fotografias do Git à sua conta.
+            </p>
+            <p>
+              3. <strong>Senha:</strong> forte e guardada num lugar seguro
+              (gerenciador de senhas, se você usar).
+            </p>
+            <p>
+              4. <strong>Username:</strong> momento importante — esse nome vira
+              seu endereço público: github.com/seunome. Vai para o currículo.
+              Dica: nome profissional, curto, sem números aleatórios.
+              "mariasilva-dev" envelhece melhor que "mariazinha_xx99". Se o nome
+              desejado estiver ocupado, variações com hífen ou sobrenome
+              resolvem.
+            </p>
+            <p>
+              5. Resolva a verificação "prove que você é humano" (o
+              quebra-cabeça).
+            </p>
+            <p>
+              6. O GitHub envia um
+              <strong>código de confirmação por e-mail</strong> — abra seu
+              e-mail em outra aba, copie o código e cole. Não chegou? Confira a
+              caixa de spam.
+            </p>
+            <p>
+              7. Nas perguntas de personalização ("quantos membros no time?",
+              etc.), pode pular (Skip) ou responder qualquer coisa — não muda
+              nada.
+            </p>
+            <p>
+              8. No plano, escolha <strong>Free</strong>. O plano gratuito do
+              GitHub é absurdamente completo — você vai passar o curso inteiro
+              sem pagar nada.
+            </p>
+          </div>
+        </div>
 
-  <h3>5.3 — Fechando o ciclo do ambiente</h3>
-  <div class="fala">
-    <p>"Olha o que vocês têm agora: um editor profissional, uma máquina do tempo instalada e configurada com a identidade de vocês, e um portfólio público na internet com zero repositórios... por enquanto. Quando a gente conectar o VSCode ao GitHub pela primeira vez — na aula de Git — o próprio VSCode vai abrir o navegador e pedir pra vocês autorizarem com essa conta. Por isso ela precisava existir hoje."</p>
-    <p>"Ambiente pronto. Agora vem a parte boa: usar ele de verdade."</p>
-  </div>
+        <h3>5.3 — Fechando o ciclo do ambiente</h3>
+        <div class="fala">
+          <p>
+            Olha o que você tem agora: um editor profissional, uma máquina do
+            tempo instalada e configurada com a sua identidade, e um portfólio
+            público na internet com zero repositórios... por enquanto. Quando
+            você conectar o VSCode ao GitHub pela primeira vez — na aula de Git
+            — o próprio VSCode vai abrir o navegador e pedir para você autorizar
+            com essa conta. Por isso ela precisava existir hoje.
+          </p>
+          <p>Ambiente pronto. Agora vem a parte boa: usar ele de verdade.</p>
+        </div>
 
-  <div class="acao pausa">
-    <span class="rotulo">✋ Pausa</span>
-    <div><p><strong>Intervalo de 10 minutos</strong> — encaixa perfeitamente aqui: fim da instalação, começo do código. Aproveite para atender individualmente quem ficou com pendência (download travado, e-mail que não chegou). Ninguém precisa do GitHub funcionando para acompanhar o resto da aula — dá pra resolver depois sem atrasar a turma.</p></div>
-  </div>
-</section>
+        <div class="acao pausa">
+          <span class="rotulo">✋ Checkpoint</span>
+          <div>
+            <p>
+              <strong>Pausa de 10 minutos — você merece.</strong> Este é o corte
+              natural do guia: fim da instalação, começo do código. Se ficou
+              alguma pendência (download travado, e-mail que não chegou), este é
+              o momento de resolver com calma. E se o GitHub não funcionou
+              ainda, tudo bem: você não precisa dele para acompanhar o resto do
+              guia — dá para resolver depois.
+            </p>
+          </div>
+        </div>
+      </section>
 
-<!-- ===================== BLOCO 3 ===================== -->
-<section class="bloco" id="s3">
-  <div class="bloco-head">
-    <span class="bloco-num">06</span>
-    <h2>Mão na massa: criando a pasta e o projeto</h2>
-    <span class="tempo">⏱️ ~15 min</span>
-  </div>
+      <!-- ===================== BLOCO 6 ===================== -->
+      <section class="bloco" id="s3">
+        <div class="bloco-head">
+          <span class="bloco-num">06</span>
+          <h2>Mão na massa: criando a pasta e o projeto</h2>
+          <span class="tempo">⏱️ ~15 min</span>
+        </div>
 
-  <p><strong>Objetivo do bloco:</strong> todo mundo com a pasta criada, aberta no VSCode e com o arquivo <code>index.html</code> existindo. Ninguém avança sem isso — circule pela sala e confira as telas.</p>
+        <p>
+          <strong>O que você vai fazer neste bloco:</strong> criar a pasta do
+          projeto, abri-la no VSCode e criar o arquivo <code>index.html</code>.
+          Não avance sem esses três itens prontos.
+        </p>
 
-  <h3>6.1 — Criando a pasta do projeto</h3>
-  <div class="fala">
-    <p>"Regra de ouro que vocês vão levar pra vida: <span class="hl">todo projeto vive dentro de uma pasta própria</span>. Nunca, jamais, criem arquivo solto na Área de Trabalho ou dentro de Downloads. Projeto é como gaveta: cada um tem a sua."</p>
-  </div>
+        <h3>6.1 — Criando a pasta do projeto</h3>
+        <div class="fala">
+          <p>
+            Regra de ouro que você vai levar para a vida:
+            <span class="hl">todo projeto vive dentro de uma pasta própria</span
+            >. Nunca, jamais, crie arquivo solto na Área de Trabalho ou dentro
+            de Downloads. Projeto é como gaveta: cada um tem a sua.
+          </p>
+        </div>
 
-  <div class="acao digitar">
-    <span class="rotulo">⌨️ Digitar junto</span>
-    <div>
-      <p>Todos criam agora, junto com você:</p>
-      <p>1. Abram o Explorador de Arquivos (Windows) ou Finder (Mac).</p>
-      <p>2. Naveguem até Documentos e criem uma pasta chamada <code>projetos</code> (se ainda não existir).</p>
-      <p>3. Dentro dela, criem a pasta <code>bem-cuidado</code>.</p>
-    </div>
-  </div>
+        <div class="acao digitar">
+          <span class="rotulo">⌨️ Faça você</span>
+          <div>
+            <p>1. Abra o Explorador de Arquivos (Windows) ou Finder (Mac).</p>
+            <p>
+              2. Navegue até Documentos e crie uma pasta chamada
+              <code>projetos</code> (se ainda não existir).
+            </p>
+            <p>3. Dentro dela, crie a pasta <code>bem-cuidado</code>.</p>
+          </div>
+        </div>
 
-  <div class="nota">
-    <strong>Reforce a nomenclatura agora</strong> (previne dor de cabeça futura): nomes de pastas e arquivos sempre em <strong>minúsculas</strong>, <strong>sem espaços</strong> (use hífen: <code>bem-cuidado</code>, não <code>Bem Cuidado</code>), <strong>sem acentos ou ç</strong>. Explique: espaços e acentos quebram links e comandos no futuro — melhor criar o hábito hoje.
-  </div>
+        <div class="nota">
+          <strong>Nomenclatura desde já</strong> (previne dor de cabeça futura):
+          nomes de pastas e arquivos sempre em <strong>minúsculas</strong>,
+          <strong>sem espaços</strong> (use hífen: <code>bem-cuidado</code>, não
+          <code>Bem Cuidado</code>), <strong>sem acentos ou ç</strong>. Espaços
+          e acentos quebram links e comandos no futuro — melhor criar o hábito
+          hoje.
+        </div>
 
-  <h3>6.2 — Abrindo a pasta no VSCode + o conceito de pasta raiz</h3>
-  <div class="acao digitar">
-    <span class="rotulo">⌨️ Digitar junto</span>
-    <div>
-      <p>No VSCode: <strong>File → Open Folder</strong> (Arquivo → Abrir Pasta) e selecionem a pasta <code>bem-cuidado</code>. Atalho: <code>Ctrl + K, Ctrl + O</code>.</p>
-    </div>
-  </div>
+        <h3>6.2 — Abrindo a pasta no VSCode + o conceito de pasta raiz</h3>
+        <div class="acao digitar">
+          <span class="rotulo">⌨️ Faça você</span>
+          <div>
+            <p>
+              No VSCode: <strong>File → Open Folder</strong> (Arquivo → Abrir
+              Pasta) e selecione a pasta <code>bem-cuidado</code>. Atalho:
+              <code>Ctrl + K, Ctrl + O</code>.
+            </p>
+          </div>
+        </div>
 
-  <div class="fala">
-    <p>"Percebam uma coisa importante: a gente abriu a <strong>pasta</strong>, não um arquivo. O VSCode agora enxerga essa pasta como o universo do nosso projeto. Essa pasta principal tem um nome: <span class="hl">pasta raiz</span> — em inglês, <em>root</em>."</p>
-    <p>"Por que 'raiz'? Pensa numa árvore de cabeça pra baixo: a raiz fica no topo, e tudo cresce a partir dela. Toda subpasta — imagens, estilos, scripts — vai nascer de dentro da raiz. Quando alguém falar 'na raiz do projeto', é aqui: o primeiro nível da pasta principal."</p>
-  </div>
+        <div class="fala">
+          <p>
+            Perceba uma coisa importante: você abriu a <strong>pasta</strong>,
+            não um arquivo. O VSCode agora enxerga essa pasta como o universo do
+            seu projeto. Essa pasta principal tem um nome:
+            <span class="hl">pasta raiz</span> — em inglês, <em>root</em>.
+          </p>
+          <p>
+            Por que "raiz"? Pense numa árvore de cabeça para baixo: a raiz fica
+            no topo, e tudo cresce a partir dela. Toda subpasta — imagens,
+            estilos, scripts — vai nascer de dentro da raiz. Quando alguém falar
+            "na raiz do projeto", é aqui: o primeiro nível da pasta principal.
+          </p>
+        </div>
 
-  <h3>6.3 — Criando o index.html</h3>
-  <div class="acao digitar">
-    <span class="rotulo">⌨️ Digitar junto</span>
-    <div>
-      <p>No painel esquerdo (Explorer), passem o mouse sobre o nome da pasta → cliquem no ícone <strong>New File</strong> (folhinha com +) → digitem <code>index.html</code> e Enter.</p>
-    </div>
-  </div>
+        <h3>6.3 — Criando o index.html</h3>
+        <div class="acao digitar">
+          <span class="rotulo">⌨️ Faça você</span>
+          <div>
+            <p>
+              No painel esquerdo (Explorer), passe o mouse sobre o nome da pasta
+              → clique no ícone <strong>New File</strong> (folhinha com +) →
+              digite <code>index.html</code> e Enter.
+            </p>
+          </div>
+        </div>
 
-  <div class="fala">
-    <p>"Por que <em>index</em>? Convenção histórica e universal: quando você acessa um site tipo <code>meusite.com</code>, o servidor procura automaticamente um arquivo chamado <code>index.html</code> pra mostrar. Index é o 'índice', a porta de entrada. Toda página inicial de projeto se chama index — gravem isso."</p>
-    <p>"E a extensão <code>.html</code> diz ao computador e ao VSCode que idioma esse arquivo fala. Reparem que o ícone do arquivo já mudou — o VSCode entendeu."</p>
-  </div>
+        <div class="fala">
+          <p>
+            Por que <em>index</em>? Convenção histórica e universal: quando
+            alguém acessa um site tipo <code>meusite.com</code>, o servidor
+            procura automaticamente um arquivo chamado
+            <code>index.html</code> para mostrar. Index é o "índice", a porta de
+            entrada. Toda página inicial de projeto se chama index — grave isso.
+          </p>
+          <p>
+            E a extensão <code>.html</code> diz ao computador e ao VSCode que
+            idioma esse arquivo fala. Repare que o ícone do arquivo já mudou — o
+            VSCode entendeu.
+          </p>
+        </div>
 
-  <div class="acao pausa">
-    <span class="rotulo">✋ Pausa</span>
-    <div><p>Antes de codar: <em>"Todo mundo com o index.html aberto e o nome da pasta bem-cuidado aparecendo no topo do Explorer? Levanta a mão quem travou."</em> Resolva os travados agora — a partir daqui é digitação contínua.</p></div>
-  </div>
-</section>
+        <div class="acao pausa">
+          <span class="rotulo">✋ Checkpoint</span>
+          <div>
+            <p>
+              Antes de codar:
+              <strong
+                >o index.html está aberto e o nome da pasta bem-cuidado aparece
+                no topo do Explorer?</strong
+              >
+              Se algo travou, resolva agora — a partir daqui é digitação
+              contínua.
+            </p>
+          </div>
+        </div>
+      </section>
 
-<!-- ===================== BLOCO 4 ===================== -->
-<section class="bloco" id="s4">
-  <div class="bloco-head">
-    <span class="bloco-num">07</span>
-    <h2>O esqueleto do documento (e a mágica do Emmet)</h2>
-    <span class="tempo">⏱️ ~20 min</span>
-  </div>
+      <!-- ===================== BLOCO 7 ===================== -->
+      <section class="bloco" id="s4">
+        <div class="bloco-head">
+          <span class="bloco-num">07</span>
+          <h2>O esqueleto do documento (e a mágica do Emmet)</h2>
+          <span class="tempo">⏱️ ~20 min</span>
+        </div>
 
-  <h3>7.1 — Primeiro à mão, depois com atalho</h3>
-  <p><strong>Decisão pedagógica:</strong> na primeira vez, digite o esqueleto <em>à mão</em> com eles. Só depois apresente o atalho. Quem aprende o atalho antes do conceito nunca entende o que o atalho gera.</p>
+        <h3>7.1 — Primeiro à mão, depois com atalho</h3>
+        <p>
+          <strong>Importante:</strong> na primeira vez, digite o esqueleto
+          <em>à mão</em>, linha por linha. Só depois você vai conhecer o atalho.
+          Quem aprende o atalho antes do conceito nunca entende o que o atalho
+          gera — não pule esta etapa!
+        </p>
 
-  <div class="acao digitar">
-    <span class="rotulo">⌨️ Digitar junto</span>
-    <div><p>Linha por linha, comentando cada uma. Digite devagar — a velocidade da aula é a velocidade do aluno mais perdido:</p></div>
-  </div>
+        <div class="acao digitar">
+          <span class="rotulo">⌨️ Faça você</span>
+          <div>
+            <p>
+              Digite linha por linha, lendo os comentários de cada uma. Sem
+              pressa — velocidade vem com o tempo:
+            </p>
+          </div>
+        </div>
 
-<pre><code><span class="cm">&lt;!-- Declara que este documento é HTML5 --&gt;</span>
+        <pre><code><span class="cm">&lt;!-- Declara que este documento é HTML5 --&gt;</span>
 <span class="tg">&lt;!doctype html&gt;</span>
 
 <span class="cm">&lt;!-- Raiz do documento. lang="pt-BR" avisa o idioma da página --&gt;</span>
@@ -689,71 +1286,160 @@ git config --global user.email "maria.silva@email.com"</code></pre>
   <span class="tg">&lt;/body&gt;</span>
 <span class="tg">&lt;/html&gt;</span></code></pre>
 
-  <h3>7.2 — Explicando linha por linha (roteiro de fala)</h3>
-  <table class="did">
-    <thead><tr><th>Linha</th><th>O que dizer para a turma</th></tr></thead>
-    <tbody>
-      <tr><td><code>&lt;!doctype html&gt;</code></td><td>"É o crachá do documento. A primeira coisa que o navegador lê. Sem ele, o navegador entra num 'modo antigo' e pode renderizar tudo torto. Não é uma tag de verdade — é uma declaração, por isso não fecha."</td></tr>
-      <tr><td><code>lang="pt-BR"</code></td><td>"Nosso primeiro atributo em ação! Ele avisa o idioma pra três públicos: leitores de tela (acessibilidade — a voz lê com sotaque certo), o Google (SEO) e o corretor do navegador."</td></tr>
-      <tr><td><code>&lt;meta charset="UTF-8" /&gt;</code></td><td>"Meta = informação sobre a página. UTF-8 é a tabela de caracteres que inclui ç, ã, é... Esquecer essa linha = página cheia de simbolos estranhos tipo 'GestÃ£o'. Quem nunca viu isso num site?"</td></tr>
-      <tr><td><code>&lt;meta name="viewport" ... /&gt;</code></td><td>"Traduzindo o content: 'a largura da página = largura do aparelho, começando com zoom de 100%'. É o que impede o site de aparecer minúsculo no celular."</td></tr>
-      <tr><td><code>&lt;title&gt;</code></td><td>"O texto da abinha do navegador. Também é o que aparece de azul nos resultados do Google. Único texto 'visível' que mora no head."</td></tr>
-    </tbody>
-  </table>
+        <h3>7.2 — Entendendo linha por linha</h3>
+        <table class="did">
+          <thead>
+            <tr>
+              <th>Linha</th>
+              <th>O que ela significa</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>&lt;!doctype html&gt;</code></td>
+              <td>
+                É o crachá do documento. A primeira coisa que o navegador lê.
+                Sem ele, o navegador entra num "modo antigo" e pode renderizar
+                tudo torto. Não é uma tag de verdade — é uma declaração, por
+                isso não fecha.
+              </td>
+            </tr>
+            <tr>
+              <td><code>lang="pt-BR"</code></td>
+              <td>
+                Seu primeiro atributo em ação! Ele avisa o idioma para três
+                públicos: leitores de tela (acessibilidade — a voz lê com o
+                sotaque certo), o Google (SEO) e o corretor do navegador.
+              </td>
+            </tr>
+            <tr>
+              <td><code>&lt;meta charset="UTF-8" /&gt;</code></td>
+              <td>
+                Meta = informação sobre a página. UTF-8 é a tabela de caracteres
+                que inclui ç, ã, é... Esquecer essa linha = página cheia de
+                símbolos estranhos tipo "GestÃ£o". Você provavelmente já viu
+                isso em algum site.
+              </td>
+            </tr>
+            <tr>
+              <td><code>&lt;meta name="viewport" ... /&gt;</code></td>
+              <td>
+                Traduzindo o content: "a largura da página = largura do
+                aparelho, começando com zoom de 100%". É o que impede o site de
+                aparecer minúsculo no celular.
+              </td>
+            </tr>
+            <tr>
+              <td><code>&lt;title&gt;</code></td>
+              <td>
+                O texto da abinha do navegador. Também é o que aparece de azul
+                nos resultados do Google. Único texto "visível" que mora no
+                head.
+              </td>
+            </tr>
+          </tbody>
+        </table>
 
-  <h3>7.3 — Agora sim: a mágica do Emmet</h3>
-  <div class="fala">
-    <p>"Vocês digitaram tudo à mão, sofreram um pouquinho... agora vou contar um segredo. Apaguem TUDO. Confia."</p>
-  </div>
+        <h3>7.3 — Agora sim: a mágica do Emmet</h3>
+        <div class="fala">
+          <p>
+            Você digitou tudo à mão, sofreu um pouquinho... agora vem um
+            segredo. Apague TUDO. Confia.
+          </p>
+        </div>
 
-  <div class="acao digitar">
-    <span class="rotulo">⌨️ Digitar junto</span>
-    <div>
-      <p>Com o arquivo vazio, todos digitam apenas <code>!</code> e apertam <code>Tab</code> (ou Enter na sugestão).</p>
-      <p>💥 O esqueleto inteiro aparece. Deixe o "uau" acontecer.</p>
-    </div>
-  </div>
+        <div class="acao digitar">
+          <span class="rotulo">⌨️ Faça você</span>
+          <div>
+            <p>
+              Com o arquivo vazio, digite apenas <code>!</code> e aperte
+              <code>Tab</code> (ou Enter na sugestão).
+            </p>
+            <p>💥 O esqueleto inteiro aparece. Pode se impressionar.</p>
+          </div>
+        </div>
 
-  <div class="fala">
-    <p>"Isso se chama <span class="hl">Emmet</span> — vem instalado no VSCode. Ele expande abreviações em HTML completo. Mas reparem num detalhe: ele gerou <code>lang="en"</code>. O Emmet não sabe que somos brasileiros — troquem para <code>pt-BR</code>. Atalho nunca substitui atenção."</p>
-  </div>
+        <div class="fala">
+          <p>
+            Isso se chama <span class="hl">Emmet</span> — vem instalado no
+            VSCode. Ele expande abreviações em HTML completo. Mas repare num
+            detalhe: ele gerou <code>lang="en"</code>. O Emmet não sabe que você
+            é brasileiro — troque para <code>pt-BR</code>. Atalho nunca
+            substitui atenção.
+          </p>
+        </div>
 
-  <h3>7.4 — Ver no navegador pela primeira vez</h3>
-  <div class="acao digitar">
-    <span class="rotulo">⌨️ Digitar junto</span>
-    <div>
-      <p>Dentro do <code>&lt;body&gt;</code>, todos escrevem: <code>&lt;h1&gt;Olá, mundo!&lt;/h1&gt;</code>. Salvem com <code>Ctrl + S</code>.</p>
-      <p>Depois: botão direito no arquivo → <strong>Reveal in File Explorer</strong> → dois cliques no index.html para abrir no navegador.</p>
-    </div>
-  </div>
+        <h3>7.4 — Ver no navegador pela primeira vez</h3>
+        <div class="acao digitar">
+          <span class="rotulo">⌨️ Faça você</span>
+          <div>
+            <p>
+              Dentro do <code>&lt;body&gt;</code>, escreva:
+              <code>&lt;h1&gt;Olá, mundo!&lt;/h1&gt;</code>. Salve com
+              <code>Ctrl + S</code>.
+            </p>
+            <p>
+              Depois: botão direito no arquivo →
+              <strong>Reveal in File Explorer</strong> → dois cliques no
+              index.html para abrir no navegador.
+            </p>
+          </div>
+        </div>
 
-  <div class="fala">
-    <p>"Parabéns: vocês acabaram de publicar a primeira página de vocês... pro público de uma pessoa. 😄 Mais tarde eu mostro um jeito bem melhor de visualizar isso, com atualização automática. Por enquanto, lembrem: <span class="hl">mudou o código → Ctrl+S → F5 no navegador</span>."</p>
-  </div>
+        <div class="fala">
+          <p>
+            Parabéns: você acabou de publicar sua primeira página... para o
+            público de uma pessoa. 😄 Mais adiante no guia tem um jeito bem
+            melhor de visualizar isso, com atualização automática. Por enquanto,
+            lembre:
+            <span class="hl">mudou o código → Ctrl+S → F5 no navegador</span>.
+          </p>
+        </div>
 
-  <div class="acao pausa">
-    <span class="rotulo">✋ Pausa</span>
-    <div><p>Intervalo natural. Quem não viu o "Olá, mundo!" no navegador recebe ajuda agora (erros comuns: esqueceu de salvar, criou o arquivo fora da pasta, digitou <code>index.htm</code>).</p></div>
-  </div>
-</section>
+        <div class="acao pausa">
+          <span class="rotulo">✋ Checkpoint</span>
+          <div>
+            <p>
+              Pausa natural.
+              <strong>O "Olá, mundo!" apareceu no navegador?</strong> Se não: os
+              erros mais comuns são esquecer de salvar, criar o arquivo fora da
+              pasta ou digitar <code>index.htm</code> (sem o L).
+            </p>
+          </div>
+        </div>
+      </section>
 
-<!-- ===================== BLOCO 5 ===================== -->
-<section class="bloco" id="s5">
-  <div class="bloco-head">
-    <span class="bloco-num">08</span>
-    <h2>Construindo o Bem-cuidado, seção por seção</h2>
-    <span class="tempo">⏱️ ~60 min (coração da aula)</span>
-  </div>
+      <!-- ===================== BLOCO 8 ===================== -->
+      <section class="bloco" id="s5">
+        <div class="bloco-head">
+          <span class="bloco-num">08</span>
+          <h2>Construindo o Bem-cuidado, seção por seção</h2>
+          <span class="tempo">⏱️ ~60 min (coração do guia)</span>
+        </div>
 
-  <p><strong>Método:</strong> para cada parte — (1) explique o conceito, (2) digite junto, (3) salve e veja no navegador. O feedback visual constante é o que mantém iniciante motivado. <strong>Nunca digite mais de ~10 linhas sem olhar o resultado.</strong></p>
+        <p>
+          <strong>Método:</strong> para cada parte — (1) leia o conceito, (2)
+          digite o código, (3) salve e veja no navegador. O feedback visual
+          constante é o que mantém a motivação.
+          <strong
+            >Nunca digite mais de ~10 linhas sem olhar o resultado.</strong
+          >
+        </p>
 
-  <h3>8.1 — Head completo: conectando fontes externas</h3>
-  <div class="acao mostrar">
-    <span class="rotulo">🖥️ Mostrar</span>
-    <div><p>Antes de digitar, explique o conceito de <strong>recursos externos</strong>: o HTML pode "chamar" arquivos de fora — folhas de estilo, fontes, imagens.</p></div>
-  </div>
+        <h3>8.1 — Head completo: conectando fontes externas</h3>
+        <div class="acao mostrar">
+          <span class="rotulo">🖥️ Conceito</span>
+          <div>
+            <p>
+              Antes de digitar, entenda o conceito de
+              <strong>recursos externos</strong>: o HTML pode "chamar" arquivos
+              de fora — folhas de estilo, fontes, imagens. É o que você vai
+              fazer agora, dentro do head:
+            </p>
+          </div>
+        </div>
 
-<pre><code><span class="cm">&lt;!-- Link de conexão com o arquivo de estilos (criaremos na aula de CSS) --&gt;</span>
+        <pre><code><span class="cm">&lt;!-- Link de conexão com o arquivo de estilos (você criará na aula de CSS) --&gt;</span>
 <span class="tg">&lt;link</span> <span class="at">rel=</span><span class="vl">"stylesheet"</span> <span class="at">href=</span><span class="vl">"styles.css"</span> <span class="tg">/&gt;</span>
 
 <span class="cm">&lt;!-- Importação de fonte do Google Fonts --&gt;</span>
@@ -761,19 +1447,33 @@ git config --global user.email "maria.silva@email.com"</code></pre>
 <span class="tg">&lt;link</span> <span class="at">rel=</span><span class="vl">"preconnect"</span> <span class="at">href=</span><span class="vl">"https://fonts.gstatic.com"</span> <span class="at">crossorigin</span> <span class="tg">/&gt;</span>
 <span class="tg">&lt;link</span> <span class="at">href=</span><span class="vl">"https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap"</span> <span class="at">rel=</span><span class="vl">"stylesheet"</span> <span class="tg">/&gt;</span></code></pre>
 
-  <div class="fala">
-    <p>"A tag <code>&lt;link&gt;</code> é o 'cabo' que conecta nosso HTML a outros arquivos. Dois atributos importam: <code>rel</code> diz a <em>relação</em> ('esse arquivo é uma folha de estilo') e <code>href</code> diz o <em>endereço</em>."</p>
-    <p>"E esse <code>preconnect</code>? Analogia: é como ligar pro restaurante avisando que você está chegando — quando você chega, a mesa já está pronta. O navegador abre a conexão com o servidor de fontes ANTES de precisar dela. Página mais rápida."</p>
-    <p>"O <code>styles.css</code> ainda nem existe — e tá tudo bem! O navegador procura, não acha, e segue a vida. É o nosso gancho pra aula de CSS."</p>
-  </div>
+        <div class="fala">
+          <p>
+            A tag <code>&lt;link&gt;</code> é o "cabo" que conecta seu HTML a
+            outros arquivos. Dois atributos importam: <code>rel</code> diz a
+            <em>relação</em> ("esse arquivo é uma folha de estilo") e
+            <code>href</code> diz o <em>endereço</em>.
+          </p>
+          <p>
+            E esse <code>preconnect</code>? Analogia: é como ligar para o
+            restaurante avisando que você está chegando — quando você chega, a
+            mesa já está pronta. O navegador abre a conexão com o servidor de
+            fontes ANTES de precisar dela. Página mais rápida.
+          </p>
+          <p>
+            O <code>styles.css</code> ainda nem existe — e está tudo bem! O
+            navegador procura, não acha, e segue a vida. É o gancho para a aula
+            de CSS.
+          </p>
+        </div>
 
-  <h3>8.2 — Header: o topo da página + navegação</h3>
-  <div class="acao digitar">
-    <span class="rotulo">⌨️ Digitar junto</span>
-    <div><p>Dentro do body:</p></div>
-  </div>
+        <h3>8.2 — Header: o topo da página + navegação</h3>
+        <div class="acao digitar">
+          <span class="rotulo">⌨️ Faça você</span>
+          <div><p>Dentro do body:</p></div>
+        </div>
 
-<pre><code><span class="cm">&lt;!-- &lt;header&gt; = identidade do site / saudação --&gt;</span>
+        <pre><code><span class="cm">&lt;!-- &lt;header&gt; = identidade do site / saudação --&gt;</span>
 <span class="tg">&lt;header</span> <span class="at">class=</span><span class="vl">"topo"</span><span class="tg">&gt;</span>
   <span class="tg">&lt;div</span> <span class="at">class=</span><span class="vl">"logo"</span><span class="tg">&gt;</span>🩺 Bem-cuidado<span class="tg">&lt;/div&gt;</span>
   <span class="tg">&lt;nav</span> <span class="at">aria-label=</span><span class="vl">"principal"</span><span class="tg">&gt;</span>
@@ -784,21 +1484,55 @@ git config --global user.email "maria.silva@email.com"</code></pre>
   <span class="tg">&lt;/nav&gt;</span>
 <span class="tg">&lt;/header&gt;</span></code></pre>
 
-  <p><strong>Pontos de fala, linha a linha:</strong></p>
-  <ul>
-    <li><code>&lt;header&gt;</code> — "É uma <span class="hl">tag semântica</span>: o nome dela já diz o que ela é. Header = cabeçalho. A gente poderia usar uma <code>&lt;div&gt;</code>? Poderia. Mas div não diz nada — é uma caixa sem etiqueta. Tags semânticas ajudam o Google e leitores de tela a entenderem a página."</li>
-    <li><code>class="topo"</code> — "Class é um atributo de 'apelido'. Não muda nada visualmente hoje, mas é o gancho que o CSS vai usar pra estilizar. Estamos deixando pontos de encaixe prontos."</li>
-    <li><code>&lt;nav&gt;</code> — "Outra semântica: navegação. E o <code>aria-label="principal"</code> é acessibilidade: um leitor de tela anuncia 'navegação principal' pra quem não enxerga a tela."</li>
-    <li><code>&lt;a href="#proximas"&gt;</code> — "O 'a' vem de <em>anchor</em>, âncora. Quando o href começa com <code>#</code>, o link não vai pra outro site: ele rola a página até o elemento que tiver <code>id="proximas"</code>. A gente ainda vai criar esse id — o link é a fechadura, o id é a chave."</li>
-  </ul>
+        <p><strong>Entendendo linha a linha:</strong></p>
+        <ul>
+          <li>
+            <code>&lt;header&gt;</code> — é uma
+            <span class="hl">tag semântica</span>: o nome dela já diz o que ela
+            é. Header = cabeçalho. Você poderia usar uma
+            <code>&lt;div&gt;</code>? Poderia. Mas div não diz nada — é uma
+            caixa sem etiqueta. Tags semânticas ajudam o Google e leitores de
+            tela a entenderem a página.
+          </li>
+          <li>
+            <code>class="topo"</code> — class é um atributo de "apelido". Não
+            muda nada visualmente hoje, mas é o gancho que o CSS vai usar para
+            estilizar. Você está deixando pontos de encaixe prontos.
+          </li>
+          <li>
+            <code>&lt;nav&gt;</code> — outra semântica: navegação. E o
+            <code>aria-label="principal"</code> é acessibilidade: um leitor de
+            tela anuncia "navegação principal" para quem não enxerga a tela.
+          </li>
+          <li>
+            <code>&lt;a href="#proximas"&gt;</code> — o "a" vem de
+            <em>anchor</em>, âncora. Quando o href começa com <code>#</code>, o
+            link não vai para outro site: ele rola a página até o elemento que
+            tiver <code>id="proximas"</code>. Você ainda vai criar esse id — o
+            link é a fechadura, o id é a chave.
+          </li>
+        </ul>
 
-  <div class="acao pausa">
-    <span class="rotulo">✋ Pausa</span>
-    <div><p>Pergunte: <em>"Se eu clicar em 'Histórico' agora, o que acontece?"</em> Resposta: nada visível ainda, porque não existe elemento com <code>id="historico"</code>. Ótimo momento pra fixar a relação href ↔ id.</p></div>
-  </div>
+        <div class="acao pausa">
+          <span class="rotulo">✋ Checkpoint</span>
+          <div>
+            <p>
+              Pense:
+              <em>se eu clicar em "Histórico" agora, o que acontece?</em>
+              Resposta: nada visível ainda, porque não existe elemento com
+              <code>id="historico"</code>. Guarde essa relação href ↔ id — ela
+              vai aparecer já já.
+            </p>
+          </div>
+        </div>
 
-  <h3>8.3 — Main + a primeira section</h3>
-<pre><code><span class="cm">&lt;!-- &lt;main&gt; deve existir UMA única vez por página --&gt;</span>
+        <h3>8.3 — Main + a primeira section</h3>
+        <div class="acao digitar">
+          <span class="rotulo">⌨️ Faça você</span>
+          <div><p>Abaixo do header, ainda dentro do body:</p></div>
+        </div>
+
+        <pre><code><span class="cm">&lt;!-- &lt;main&gt; deve existir UMA única vez por página --&gt;</span>
 <span class="tg">&lt;main&gt;</span>
   <span class="tg">&lt;section</span> <span class="at">class=</span><span class="vl">"saudacao"</span><span class="tg">&gt;</span>
     <span class="tg">&lt;h1&gt;</span>Olá, Dona Lúcia 👋<span class="tg">&lt;/h1&gt;</span>
@@ -806,17 +1540,26 @@ git config --global user.email "maria.silva@email.com"</code></pre>
   <span class="tg">&lt;/section&gt;</span>
 <span class="tg">&lt;/main&gt;</span></code></pre>
 
-  <div class="fala">
-    <p>"Três regras de ouro aqui. Um: <code>&lt;main&gt;</code> é o conteúdo principal e <span class="hl">só pode existir um por página</span> — como só existe um miolo num livro. Dois: <code>&lt;h1&gt;</code> é o título mais importante e a boa prática é ter <strong>apenas um h1 por página</strong>. Os títulos vão de h1 a h6, como capítulos e subcapítulos. Três: <code>&lt;strong&gt;</code> não é só 'negrito' — é ênfase de importância. O visual é consequência; o significado vem primeiro."</p>
-  </div>
+        <div class="fala">
+          <p>
+            Três regras de ouro aqui. Um: <code>&lt;main&gt;</code> é o conteúdo
+            principal e <span class="hl">só pode existir um por página</span> —
+            como só existe um miolo num livro. Dois: <code>&lt;h1&gt;</code> é o
+            título mais importante e a boa prática é ter
+            <strong>apenas um h1 por página</strong>. Os títulos vão de h1 a h6,
+            como capítulos e subcapítulos. Três: <code>&lt;strong&gt;</code> não
+            é só "negrito" — é ênfase de importância. O visual é consequência; o
+            significado vem primeiro.
+          </p>
+        </div>
 
-  <h3>8.4 — Próximas consultas: section, article e time</h3>
-  <div class="acao digitar">
-    <span class="rotulo">⌨️ Digitar junto</span>
-    <div><p>Ainda dentro do main, abaixo da saudação:</p></div>
-  </div>
+        <h3>8.4 — Próximas consultas: section, article e time</h3>
+        <div class="acao digitar">
+          <span class="rotulo">⌨️ Faça você</span>
+          <div><p>Ainda dentro do main, abaixo da saudação:</p></div>
+        </div>
 
-<pre><code><span class="tg">&lt;section</span> <span class="at">id=</span><span class="vl">"proximas"</span> <span class="at">aria-labelledby=</span><span class="vl">"t-proximas"</span><span class="tg">&gt;</span>
+        <pre><code><span class="tg">&lt;section</span> <span class="at">id=</span><span class="vl">"proximas"</span> <span class="at">aria-labelledby=</span><span class="vl">"t-proximas"</span><span class="tg">&gt;</span>
   <span class="tg">&lt;h2</span> <span class="at">id=</span><span class="vl">"t-proximas"</span><span class="tg">&gt;</span>Próximas consultas<span class="tg">&lt;/h2&gt;</span>
 
   <span class="cm">&lt;!-- Cada consulta é um &lt;article&gt;: faz sentido por si só --&gt;</span>
@@ -828,25 +1571,78 @@ git config --global user.email "maria.silva@email.com"</code></pre>
   <span class="tg">&lt;/article&gt;</span>
 <span class="tg">&lt;/section&gt;</span></code></pre>
 
-  <p><strong>Conceitos-chave para aprofundar (este é o trecho mais rico da aula):</strong></p>
-  <ul>
-    <li><strong>section vs article vs div</strong> — "Section é um capítulo temático da página. Article é um conteúdo que <span class="hl">faz sentido sozinho, fora do contexto</span>: se eu recortar essa consulta e colar num e-mail, ela ainda se explica — tem data, médico, local. Isso é um article. Já a div é a caixa genérica: use quando nenhuma tag semântica servir."</li>
-    <li><strong>O id apareceu!</strong> — "Lembram do link <code>#proximas</code> no menu? Acabamos de criar a chave. Salvem, atualizem o navegador e cliquem no link do menu. Funcionou? Isso é a dupla href/id em ação. E atenção: <span class="hl">id é único</span> — não podem existir dois elementos com o mesmo id na página. É como CPF."</li>
-    <li><strong>aria-labelledby</strong> — "Conecta a section ao seu título pelo id. Leitor de tela anuncia: 'seção: Próximas consultas'. Acessibilidade não é extra — no nosso projeto, a Dona Lúcia pode ter baixa visão. A gente constrói pra todo mundo desde a primeira linha."</li>
-    <li><strong>&lt;time&gt; com datetime</strong> — "Pro humano, mostramos 'Qua, 08/jul · 14h30' — bonitinho, em português. Pra máquina, o atributo datetime carrega o formato ISO: <code>2026-07-08T14:30</code>, ano-mês-dia T hora. Por que os dois? Porque buscadores e leitores de tela entendem o formato padrão, e o usuário lê o formato amigável. É a mesma informação em dois idiomas: humanês e computês."</li>
-  </ul>
+        <p>
+          <strong
+            >Conceitos-chave (este é o trecho mais rico do guia — leia com
+            atenção):</strong
+          >
+        </p>
+        <ul>
+          <li>
+            <strong>section vs article vs div</strong> — section é um capítulo
+            temático da página. Article é um conteúdo que
+            <span class="hl">faz sentido sozinho, fora do contexto</span>: se
+            você recortar essa consulta e colar num e-mail, ela ainda se explica
+            — tem data, médico, local. Isso é um article. Já a div é a caixa
+            genérica: use quando nenhuma tag semântica servir.
+          </li>
+          <li>
+            <strong>O id apareceu!</strong> — Lembra do link
+            <code>#proximas</code> no menu? Você acabou de criar a chave. Salve,
+            atualize o navegador e clique no link do menu. Funcionou? Isso é a
+            dupla href/id em ação. E atenção:
+            <span class="hl">id é único</span> — não podem existir dois
+            elementos com o mesmo id na página. É como CPF.
+          </li>
+          <li>
+            <strong>aria-labelledby</strong> — conecta a section ao seu título
+            pelo id. Leitor de tela anuncia: "seção: Próximas consultas".
+            Acessibilidade não é extra — no nosso projeto, a Dona Lúcia pode ter
+            baixa visão. A gente constrói para todo mundo desde a primeira
+            linha.
+          </li>
+          <li>
+            <strong>&lt;time&gt; com datetime</strong> — para o humano,
+            mostramos "Qua, 08/jul · 14h30" — bonitinho, em português. Para a
+            máquina, o atributo datetime carrega o formato ISO:
+            <code>2026-07-08T14:30</code>, ano-mês-dia T hora. Por que os dois?
+            Porque buscadores e leitores de tela entendem o formato padrão, e o
+            usuário lê o formato amigável. É a mesma informação em dois idiomas:
+            humanês e computês.
+          </li>
+        </ul>
 
-  <div class="acao digitar">
-    <span class="rotulo">⌨️ Digitar junto</span>
-    <div><p>Exercício incremental (sozinhos, 3 min): <em>"Agora criem VOCÊS o segundo article: um Ultrassom abdominal, sexta 10/jul às 09h00, na Clínica Imagem, com a observação 'Jejum de 8h'. Usem o primeiro como modelo."</em> Depois mostre a resposta na tela para conferirem.</p></div>
-  </div>
+        <div class="acao digitar">
+          <span class="rotulo">⌨️ Faça você</span>
+          <div>
+            <p>
+              <strong>Desafio rápido (sozinho, ~3 min):</strong> crie VOCÊ o
+              segundo article: um <em>Ultrassom abdominal</em>, sexta 10/jul às
+              09h00, na <em>Clínica Imagem</em>, com a observação "Jejum de 8h".
+              Use o primeiro como modelo — e só depois compare com o que você
+              fez.
+            </p>
+          </div>
+        </div>
 
-  <h3>8.5 — Histórico: quando usar tabela</h3>
-  <div class="fala">
-    <p>"Tabela em HTML tem má fama porque antigamente usavam pra montar o layout inteiro do site — era uma gambiarra. A regra moderna é simples: <span class="hl">tabela serve para dados tabulares</span> — informação que naturalmente vive em linhas e colunas, tipo planilha. Histórico de consultas com data, profissional e observação? Caso perfeito."</p>
-  </div>
+        <h3>8.5 — Histórico: quando usar tabela</h3>
+        <div class="fala">
+          <p>
+            Tabela em HTML tem má fama porque antigamente usavam para montar o
+            layout inteiro do site — era uma gambiarra. A regra moderna é
+            simples: <span class="hl">tabela serve para dados tabulares</span> —
+            informação que naturalmente vive em linhas e colunas, tipo planilha.
+            Histórico de consultas com data, profissional e observação? Caso
+            perfeito.
+          </p>
+        </div>
 
-<pre><code><span class="tg">&lt;section</span> <span class="at">id=</span><span class="vl">"historico"</span> <span class="at">aria-labelledby=</span><span class="vl">"t-historico"</span><span class="tg">&gt;</span>
+        <div class="acao digitar">
+          <span class="rotulo">⌨️ Faça você</span>
+          <div><p>Abaixo da section de próximas consultas:</p></div>
+        </div>
+
+        <pre><code><span class="tg">&lt;section</span> <span class="at">id=</span><span class="vl">"historico"</span> <span class="at">aria-labelledby=</span><span class="vl">"t-historico"</span><span class="tg">&gt;</span>
   <span class="tg">&lt;h2</span> <span class="at">id=</span><span class="vl">"t-historico"</span><span class="tg">&gt;</span>Histórico médico<span class="tg">&lt;/h2&gt;</span>
 
   <span class="tg">&lt;table&gt;</span>
@@ -868,26 +1664,70 @@ git config --global user.email "maria.silva@email.com"</code></pre>
   <span class="tg">&lt;/table&gt;</span>
 <span class="tg">&lt;/section&gt;</span></code></pre>
 
-  <p><strong>Anatomia da tabela — a analogia da planilha:</strong></p>
-  <table class="did">
-    <thead><tr><th>Tag</th><th>Tradução</th><th>Como explicar</th></tr></thead>
-    <tbody>
-      <tr><td><code>&lt;table&gt;</code></td><td>a planilha</td><td>A moldura de tudo</td></tr>
-      <tr><td><code>&lt;caption&gt;</code></td><td>o título da planilha</td><td>Descreve a tabela — leitores de tela agradecem</td></tr>
-      <tr><td><code>&lt;thead&gt;</code> / <code>&lt;tbody&gt;</code></td><td>cabeçalho / corpo</td><td>Separa a linha de títulos das linhas de dados</td></tr>
-      <tr><td><code>&lt;tr&gt;</code></td><td><em>table row</em> = linha</td><td>"Toda célula mora dentro de uma linha"</td></tr>
-      <tr><td><code>&lt;th&gt;</code></td><td><em>table header</em> = célula-título</td><td>O <code>scope="col"</code> diz: "sou título da coluna"</td></tr>
-      <tr><td><code>&lt;td&gt;</code></td><td><em>table data</em> = célula de dado</td><td>O conteúdo em si</td></tr>
-    </tbody>
-  </table>
+        <p><strong>Anatomia da tabela — a analogia da planilha:</strong></p>
+        <table class="did">
+          <thead>
+            <tr>
+              <th>Tag</th>
+              <th>Tradução</th>
+              <th>Como pensar</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>&lt;table&gt;</code></td>
+              <td>a planilha</td>
+              <td>A moldura de tudo</td>
+            </tr>
+            <tr>
+              <td><code>&lt;caption&gt;</code></td>
+              <td>o título da planilha</td>
+              <td>Descreve a tabela — leitores de tela agradecem</td>
+            </tr>
+            <tr>
+              <td><code>&lt;thead&gt;</code> / <code>&lt;tbody&gt;</code></td>
+              <td>cabeçalho / corpo</td>
+              <td>Separa a linha de títulos das linhas de dados</td>
+            </tr>
+            <tr>
+              <td><code>&lt;tr&gt;</code></td>
+              <td><em>table row</em> = linha</td>
+              <td>Toda célula mora dentro de uma linha</td>
+            </tr>
+            <tr>
+              <td><code>&lt;th&gt;</code></td>
+              <td><em>table header</em> = célula-título</td>
+              <td>O <code>scope="col"</code> diz: "sou título da coluna"</td>
+            </tr>
+            <tr>
+              <td><code>&lt;td&gt;</code></td>
+              <td><em>table data</em> = célula de dado</td>
+              <td>O conteúdo em si</td>
+            </tr>
+          </tbody>
+        </table>
 
-  <div class="acao digitar">
-    <span class="rotulo">⌨️ Digitar junto</span>
-    <div><p>Exercício incremental (sozinhos): adicionar a segunda linha do tbody — <em>02/04/2026 · Dra. Helena Souza — Oftalmo · Trocar grau dos óculos</em>. Quem terminar ajuda o colega do lado.</p></div>
-  </div>
+        <div class="acao digitar">
+          <span class="rotulo">⌨️ Faça você</span>
+          <div>
+            <p>
+              <strong>Desafio rápido:</strong> adicione a segunda linha do tbody
+              sozinho —
+              <em
+                >02/04/2026 · Dra. Helena Souza — Oftalmo · Trocar grau dos
+                óculos</em
+              >.
+            </p>
+          </div>
+        </div>
 
-  <h3>8.6 — Exames anexados: lista + botão</h3>
-<pre><code><span class="tg">&lt;section</span> <span class="at">id=</span><span class="vl">"anexos"</span> <span class="at">aria-labelledby=</span><span class="vl">"t-anexos"</span><span class="tg">&gt;</span>
+        <h3>8.6 — Exames anexados: lista + botão</h3>
+        <div class="acao digitar">
+          <span class="rotulo">⌨️ Faça você</span>
+          <div><p>Abaixo do histórico:</p></div>
+        </div>
+
+        <pre><code><span class="tg">&lt;section</span> <span class="at">id=</span><span class="vl">"anexos"</span> <span class="at">aria-labelledby=</span><span class="vl">"t-anexos"</span><span class="tg">&gt;</span>
   <span class="tg">&lt;h2</span> <span class="at">id=</span><span class="vl">"t-anexos"</span><span class="tg">&gt;</span>Exames anexados<span class="tg">&lt;/h2&gt;</span>
   <span class="tg">&lt;ul</span> <span class="at">class=</span><span class="vl">"anexos"</span><span class="tg">&gt;</span>
     <span class="tg">&lt;li&gt;</span>📄 Hemograma — 02/04/2026<span class="tg">&lt;/li&gt;</span>
@@ -898,18 +1738,41 @@ git config --global user.email "maria.silva@email.com"</code></pre>
   <span class="tg">&lt;button</span> <span class="at">type=</span><span class="vl">"button"</span><span class="tg">&gt;</span>+ Anexar novo exame<span class="tg">&lt;/button&gt;</span>
 <span class="tg">&lt;/section&gt;</span></code></pre>
 
-  <div class="fala">
-    <p>"Duas listas existem no HTML: <code>&lt;ul&gt;</code>, <em>unordered list</em>, com bolinhas — pra quando a ordem não importa, tipo lista de compras. E <code>&lt;ol&gt;</code>, <em>ordered list</em>, numerada — pra quando a ordem importa, tipo passo a passo de receita. Cada item, nas duas, é um <code>&lt;li&gt;</code>, <em>list item</em>."</p>
-    <p>"E o botão? Reparem no <code>type="button"</code>. Botão sem type, dentro de formulário, tenta ENVIAR o formulário por padrão. Esse aqui é só visual por enquanto — na aula de JavaScript ele vai ganhar vida e abrir um seletor de arquivos. HTML é a estrutura; o comportamento vem depois."</p>
-  </div>
+        <div class="fala">
+          <p>
+            Duas listas existem no HTML: <code>&lt;ul&gt;</code>,
+            <em>unordered list</em>, com bolinhas — para quando a ordem não
+            importa, tipo lista de compras. E <code>&lt;ol&gt;</code>,
+            <em>ordered list</em>, numerada — para quando a ordem importa, tipo
+            passo a passo de receita. Cada item, nas duas, é um
+            <code>&lt;li&gt;</code>, <em>list item</em>.
+          </p>
+          <p>
+            E o botão? Repare no <code>type="button"</code>. Botão sem type,
+            dentro de formulário, tenta ENVIAR o formulário por padrão. Esse
+            aqui é só visual por enquanto — na aula de JavaScript ele vai ganhar
+            vida e abrir um seletor de arquivos. HTML é a estrutura; o
+            comportamento vem depois.
+          </p>
+        </div>
 
-  <h3>8.7 — Formulário: a parte mais importante pro futuro</h3>
-  <div class="acao mostrar">
-    <span class="rotulo">🖥️ Mostrar</span>
-    <div><p>Anuncie a importância: <em>"Formulário é como o site OUVE o usuário. Login, cadastro, busca, compra — tudo é form. Prestem atenção dobrada aqui."</em></p></div>
-  </div>
+        <h3>8.7 — Formulário: a parte mais importante para o futuro</h3>
+        <div class="acao mostrar">
+          <span class="rotulo">🖥️ Conceito</span>
+          <div>
+            <p>
+              Formulário é como o site OUVE o usuário. Login, cadastro, busca,
+              compra — tudo é form. Atenção dobrada nesta seção.
+            </p>
+          </div>
+        </div>
 
-<pre><code><span class="tg">&lt;section</span> <span class="at">aria-labelledby=</span><span class="vl">"t-prefs"</span><span class="tg">&gt;</span>
+        <div class="acao digitar">
+          <span class="rotulo">⌨️ Faça você</span>
+          <div><p>Abaixo da section de anexos:</p></div>
+        </div>
+
+        <pre><code><span class="tg">&lt;section</span> <span class="at">aria-labelledby=</span><span class="vl">"t-prefs"</span><span class="tg">&gt;</span>
   <span class="tg">&lt;h2</span> <span class="at">id=</span><span class="vl">"t-prefs"</span><span class="tg">&gt;</span>Receber lembretes por e-mail<span class="tg">&lt;/h2&gt;</span>
 
   <span class="tg">&lt;form</span> <span class="at">action=</span><span class="vl">"mailto:lembretes@bemcuidado.app"</span> <span class="at">method=</span><span class="vl">"post"</span> <span class="at">enctype=</span><span class="vl">"text/plain"</span><span class="tg">&gt;</span>
@@ -930,243 +1793,540 @@ git config --global user.email "maria.silva@email.com"</code></pre>
   <span class="tg">&lt;/form&gt;</span>
 <span class="tg">&lt;/section&gt;</span></code></pre>
 
-  <p><strong>Pontos de fala essenciais:</strong></p>
-  <ul>
-    <li><strong>action + method</strong> — "Action é o destino: pra onde os dados vão quando o formulário for enviado. Aqui usamos <code>mailto:</code>, que abre o app de e-mail do computador — um truque didático, porque ainda não temos servidor. No mundo real, o action aponta pra um endereço do back-end... que VOCÊS vão construir lá na frente do curso. Method é o 'como' — falamos de GET e POST em detalhe na aula de formulários."</li>
-    <li><strong>A dupla label + input</strong> — "Olha o padrão: <code>&lt;label for="email"&gt;</code> aponta pro <code>&lt;input id="email"&gt;</code>. Mesmo valor nos dois. Resultado: clicar no TEXTO do rótulo já foca o campo (testem!), e o leitor de tela anuncia o rótulo certo. <span class="hl">label for + input id = acessibilidade total</span>. Nunca criem input sem label."</li>
-    <li><strong>type="email"</strong> — "O input muda de personalidade conforme o type: email, password, date, number... Com type email, o navegador VALIDA sozinho: tentem enviar 'banana' no campo e vejam o navegador reclamar. Validação de graça, sem uma linha de JavaScript."</li>
-    <li><strong>required</strong> — "Atributo booleano: a presença dele já significa 'sim, obrigatório'. Não precisa de valor."</li>
-    <li><strong>name</strong> — "O id é pra página (label, CSS, âncoras). O <strong>name</strong> é a etiqueta que viaja junto com o dado quando o formulário é enviado — é como o servidor sabe qual campo é qual."</li>
-    <li><strong>select + option</strong> — "Caixa de seleção: o select é a caixa, cada option é uma escolha. Quando as opções são fixas e poucas, é melhor que campo livre — ninguém digita errado."</li>
-  </ul>
+        <p><strong>Pontos essenciais:</strong></p>
+        <ul>
+          <li>
+            <strong>action + method</strong> — action é o destino: para onde os
+            dados vão quando o formulário for enviado. Aqui usamos
+            <code>mailto:</code>, que abre o app de e-mail do computador — um
+            truque didático, porque ainda não temos servidor. No mundo real, o
+            action aponta para um endereço do back-end... que VOCÊ vai construir
+            lá na frente do curso. Method é o "como" — GET e POST serão
+            detalhados na aula de formulários.
+          </li>
+          <li>
+            <strong>A dupla label + input</strong> — olha o padrão:
+            <code>&lt;label for="email"&gt;</code> aponta para o
+            <code>&lt;input id="email"&gt;</code>. Mesmo valor nos dois.
+            Resultado: clicar no TEXTO do rótulo já foca o campo (teste!), e o
+            leitor de tela anuncia o rótulo certo.
+            <span class="hl">label for + input id = acessibilidade total</span>.
+            Nunca crie input sem label.
+          </li>
+          <li>
+            <strong>type="email"</strong> — o input muda de personalidade
+            conforme o type: email, password, date, number... Com type email, o
+            navegador VALIDA sozinho: tente enviar "banana" no campo e veja o
+            navegador reclamar. Validação de graça, sem uma linha de JavaScript.
+          </li>
+          <li>
+            <strong>required</strong> — atributo booleano: a presença dele já
+            significa "sim, obrigatório". Não precisa de valor.
+          </li>
+          <li>
+            <strong>name</strong> — o id é para a página (label, CSS, âncoras).
+            O <strong>name</strong> é a etiqueta que viaja junto com o dado
+            quando o formulário é enviado — é como o servidor sabe qual campo é
+            qual.
+          </li>
+          <li>
+            <strong>select + option</strong> — caixa de seleção: o select é a
+            caixa, cada option é uma escolha. Quando as opções são fixas e
+            poucas, é melhor que campo livre — ninguém digita errado.
+          </li>
+        </ul>
 
-  <div class="acao digitar">
-    <span class="rotulo">⌨️ Digitar junto</span>
-    <div><p>Teste ao vivo: todos salvam, atualizam o navegador, e (1) clicam no label pra ver o foco pular pro campo, (2) tentam enviar com o campo vazio, (3) tentam enviar "banana". Deixe que descubram as mensagens de erro do navegador.</p></div>
-  </div>
+        <div class="acao digitar">
+          <span class="rotulo">⌨️ Faça você</span>
+          <div>
+            <p>
+              Teste ao vivo: salve, atualize o navegador e (1) clique no label
+              para ver o foco pular para o campo, (2) tente enviar com o campo
+              vazio, (3) tente enviar "banana". Descubra as mensagens de erro do
+              navegador — elas trabalham de graça para você.
+            </p>
+          </div>
+        </div>
 
-  <h3>8.8 — Fechando com o footer</h3>
-<pre><code><span class="tg">&lt;footer&gt;</span>
+        <h3>8.8 — Fechando com o footer</h3>
+        <div class="acao digitar">
+          <span class="rotulo">⌨️ Faça você</span>
+          <div><p>Depois do fechamento do main (fora dele!):</p></div>
+        </div>
+
+        <pre><code><span class="tg">&lt;footer&gt;</span>
   <span class="tg">&lt;p&gt;</span>Feito com 💙 pela equipe Bem-cuidado · 2026<span class="tg">&lt;/p&gt;</span>
 <span class="tg">&lt;/footer&gt;</span></code></pre>
-  <div class="fala">
-    <p>"Footer, o rodapé — fecha o trio semântico com header e main. Reparem que ele fica FORA do main: ele não é conteúdo principal, é o fechamento da página. E... pronto. A casa da Dona Lúcia está de pé! Sem pintura, sem decoração — isso é papel do CSS — mas com uma estrutura sólida, semântica e acessível."</p>
-  </div>
+        <div class="fala">
+          <p>
+            Footer, o rodapé — fecha o trio semântico com header e main. Repare
+            que ele fica FORA do main: ele não é conteúdo principal, é o
+            fechamento da página. E... pronto. A casa da Dona Lúcia está de pé!
+            Sem pintura, sem decoração — isso é papel do CSS — mas com uma
+            estrutura sólida, semântica e acessível.
+          </p>
+        </div>
 
-  <div class="acao pausa">
-    <span class="rotulo">✋ Pausa</span>
-    <div><p>Pausa longa (5 min). Todos comparam a página no navegador com a sua. Circule e olhe os códigos — os erros clássicos: tag não fechada, id duplicado, elemento fora do body.</p></div>
-  </div>
-</section>
+        <div class="acao pausa">
+          <span class="rotulo">✋ Checkpoint</span>
+          <div>
+            <p>
+              Pausa longa (5 min). Revise sua página no navegador do início ao
+              fim. Depois releia o código procurando os erros clássicos:
+              <strong
+                >tag não fechada, id duplicado, elemento fora do body</strong
+              >. Achou algum? Ótimo — corrigir erro é programar.
+            </p>
+          </div>
+        </div>
+      </section>
 
-<!-- ===================== BLOCO 6 ===================== -->
-<section class="bloco" id="s6">
-  <div class="bloco-head">
-    <span class="bloco-num">09</span>
-    <h2>Analogias para fixar (use ao longo da aula)</h2>
-    <span class="tempo">⏱️ intercalado</span>
-  </div>
+      <!-- ===================== BLOCO 9 ===================== -->
+      <section class="bloco" id="s6">
+        <div class="bloco-head">
+          <span class="bloco-num">09</span>
+          <h2>Analogias para fixar</h2>
+          <span class="tempo">⏱️ revisão</span>
+        </div>
 
-  <p>Não é um bloco isolado — são cartas na manga. Saque a analogia certa no momento em que o conceito aparecer, ou use este bloco como revisão antes do encerramento.</p>
+        <p>
+          Use esta tabela como material de revisão: sempre que um conceito
+          embolar, volte aqui e releia a analogia. Melhor ainda: tente explicar
+          cada uma para outra pessoa — ensinar é o jeito mais rápido de
+          aprender.
+        </p>
 
-  <table class="did">
-    <thead><tr><th>Conceito</th><th>Analogia</th><th>Frase pronta</th></tr></thead>
-    <tbody>
-      <tr>
-        <td>HTML / CSS / JS</td>
-        <td>Casa</td>
-        <td>"HTML é a estrutura, CSS é a decoração, JS é a eletricidade."</td>
-      </tr>
-      <tr>
-        <td>Documento HTML</td>
-        <td>Receita de bolo</td>
-        <td>"O head é a lista de ingredientes e o forno pré-aquecido (preparação que ninguém come); o body é o modo de preparo, o passo a passo que vira bolo. E o navegador é o cozinheiro: ele lê de cima pra baixo, na ordem, e executa. Se a instrução está errada, o bolo sai errado — o cozinheiro não adivinha."</td>
-      </tr>
-      <tr>
-        <td>Hierarquia h1–h6 e seções</td>
-        <td>Livro</td>
-        <td>"h1 é o título do livro (só existe um na capa), h2 são os capítulos, h3 os subcapítulos. Ninguém escreve o capítulo 3 antes do título do livro — a hierarquia comunica importância."</td>
-      </tr>
-      <tr>
-        <td>Tags aninhadas</td>
-        <td>Caixas dentro de caixas / matryoshka</td>
-        <td>"A caixa que abriu por último fecha primeiro. Se abri section e depois article, fecho article e depois section. Caixas não se atravessam."</td>
-      </tr>
-      <tr>
-        <td>Atributos</td>
-        <td>Etiqueta de roupa</td>
-        <td>"A peça é a tag (camiseta); tamanho, cor e instruções de lavagem são os atributos."</td>
-      </tr>
-      <tr>
-        <td>href ↔ id</td>
-        <td>Chave e fechadura</td>
-        <td>"O link com # é a fechadura procurando; o id é a chave que encaixa. Sem os dois, a porta não abre."</td>
-      </tr>
-      <tr>
-        <td>id vs class</td>
-        <td>CPF vs sobrenome</td>
-        <td>"id é CPF: único, identifica UM elemento. class é sobrenome: várias pessoas podem compartilhar. Vários articles podem ter class='consulta'; só um pode ter id='proximas'."</td>
-      </tr>
-      <tr>
-        <td>Semântica (header, nav, main...)</td>
-        <td>Potes de cozinha rotulados</td>
-        <td>"Div é um pote sem rótulo: funciona, mas você precisa abrir pra saber o que tem. Tags semânticas são potes rotulados: qualquer um (Google, leitor de tela, o colega que pegar seu código) acha o açúcar de primeira."</td>
-      </tr>
-      <tr>
-        <td>Indentação / aninhamento</td>
-        <td>Lista de tópicos e subtópicos</td>
-        <td>"Quanto mais pra dentro o recuo, mais 'filho' o elemento é. É a árvore genealógica do documento — e aqui já começa a lógica de programação: hierarquia, dependência, escopo."</td>
-      </tr>
-    </tbody>
-  </table>
+        <table class="did">
+          <thead>
+            <tr>
+              <th>Conceito</th>
+              <th>Analogia</th>
+              <th>Frase para lembrar</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>HTML / CSS / JS</td>
+              <td>Casa</td>
+              <td>
+                "HTML é a estrutura, CSS é a decoração, JS é a eletricidade."
+              </td>
+            </tr>
+            <tr>
+              <td>Documento HTML</td>
+              <td>Receita de bolo</td>
+              <td>
+                "O head é a lista de ingredientes e o forno pré-aquecido
+                (preparação que ninguém come); o body é o modo de preparo, o
+                passo a passo que vira bolo. E o navegador é o cozinheiro: ele
+                lê de cima para baixo, na ordem, e executa. Se a instrução está
+                errada, o bolo sai errado — o cozinheiro não adivinha."
+              </td>
+            </tr>
+            <tr>
+              <td>Hierarquia h1–h6 e seções</td>
+              <td>Livro</td>
+              <td>
+                "h1 é o título do livro (só existe um na capa), h2 são os
+                capítulos, h3 os subcapítulos. Ninguém escreve o capítulo 3
+                antes do título do livro — a hierarquia comunica importância."
+              </td>
+            </tr>
+            <tr>
+              <td>Tags aninhadas</td>
+              <td>Caixas dentro de caixas / matryoshka</td>
+              <td>
+                "A caixa que abriu por último fecha primeiro. Se abri section e
+                depois article, fecho article e depois section. Caixas não se
+                atravessam."
+              </td>
+            </tr>
+            <tr>
+              <td>Atributos</td>
+              <td>Etiqueta de roupa</td>
+              <td>
+                "A peça é a tag (camiseta); tamanho, cor e instruções de lavagem
+                são os atributos."
+              </td>
+            </tr>
+            <tr>
+              <td>href ↔ id</td>
+              <td>Chave e fechadura</td>
+              <td>
+                "O link com # é a fechadura procurando; o id é a chave que
+                encaixa. Sem os dois, a porta não abre."
+              </td>
+            </tr>
+            <tr>
+              <td>id vs class</td>
+              <td>CPF vs sobrenome</td>
+              <td>
+                "id é CPF: único, identifica UM elemento. class é sobrenome:
+                várias pessoas podem compartilhar. Vários articles podem ter
+                class='consulta'; só um pode ter id='proximas'."
+              </td>
+            </tr>
+            <tr>
+              <td>Semântica (header, nav, main...)</td>
+              <td>Potes de cozinha rotulados</td>
+              <td>
+                "Div é um pote sem rótulo: funciona, mas você precisa abrir para
+                saber o que tem. Tags semânticas são potes rotulados: qualquer
+                um (Google, leitor de tela, o colega que pegar seu código) acha
+                o açúcar de primeira."
+              </td>
+            </tr>
+            <tr>
+              <td>Indentação / aninhamento</td>
+              <td>Lista de tópicos e subtópicos</td>
+              <td>
+                "Quanto mais para dentro o recuo, mais 'filho' o elemento é. É a
+                árvore genealógica do documento — e aqui já começa a lógica de
+                programação: hierarquia, dependência, escopo."
+              </td>
+            </tr>
+          </tbody>
+        </table>
 
-  <div class="nota">
-    <strong>Ponte para a lógica:</strong> feche o bloco conectando com o futuro — <em>"Reparem que o tempo todo a gente pensou em hierarquia (o que está dentro do quê), sequência (o navegador lê de cima pra baixo) e regras rígidas (abriu, tem que fechar). Isso É pensamento de programação. Quando chegarmos em JavaScript, vocês vão manipular exatamente essa árvore que construíram hoje — ela tem até nome: DOM."</em>
-  </div>
-</section>
+        <div class="nota">
+          <strong>Ponte para a lógica:</strong> repare que o tempo todo você
+          pensou em hierarquia (o que está dentro do quê), sequência (o
+          navegador lê de cima para baixo) e regras rígidas (abriu, tem que
+          fechar). Isso É pensamento de programação. Quando chegar em
+          JavaScript, você vai manipular exatamente essa árvore que construiu
+          hoje — ela tem até nome: DOM.
+        </div>
+      </section>
 
-<!-- ===================== BLOCO 7 ===================== -->
-<section class="bloco" id="s7">
-  <div class="bloco-head">
-    <span class="bloco-num">10</span>
-    <h2>Dicas de VSCode: trabalhando como gente grande</h2>
-    <span class="tempo">⏱️ ~15 min</span>
-  </div>
+      <!-- ===================== BLOCO 10 ===================== -->
+      <section class="bloco" id="s7">
+        <div class="bloco-head">
+          <span class="bloco-num">10</span>
+          <h2>Dicas de VSCode: trabalhando como gente grande</h2>
+          <span class="tempo">⏱️ ~15 min</span>
+        </div>
 
-  <h3>10.1 — Extensão Live Server (instale junto com a turma)</h3>
-  <div class="acao digitar">
-    <span class="rotulo">⌨️ Digitar junto</span>
-    <div>
-      <p>1. Ícone de blocos no menu lateral (Extensions) ou <code>Ctrl + Shift + X</code>.</p>
-      <p>2. Buscar <strong>Live Server</strong> (autor: Ritwick Dey) → Install.</p>
-      <p>3. Botão direito no index.html → <strong>Open with Live Server</strong>.</p>
-      <p>4. Teste do "uau": mudem o texto do h1, salvem... o navegador atualiza sozinho. Fim do Ctrl+S → Alt+Tab → F5.</p>
-    </div>
-  </div>
+        <h3>10.1 — Extensão Live Server (instale agora)</h3>
+        <div class="acao digitar">
+          <span class="rotulo">⌨️ Faça você</span>
+          <div>
+            <p>
+              1. Ícone de blocos no menu lateral (Extensions) ou
+              <code>Ctrl + Shift + X</code>.
+            </p>
+            <p>
+              2. Busque <strong>Live Server</strong> (autor: Ritwick Dey) →
+              Install.
+            </p>
+            <p>
+              3. Botão direito no index.html →
+              <strong>Open with Live Server</strong>.
+            </p>
+            <p>
+              4. Teste do "uau": mude o texto do h1, salve... o navegador
+              atualiza sozinho. Fim do Ctrl+S → Alt+Tab → F5.
+            </p>
+          </div>
+        </div>
 
-  <h3>10.2 — Extensão Prettier (o arrumador automático)</h3>
-  <div class="fala">
-    <p>"Prettier é o funcionário que arruma sua mesa toda vez que você sai da sala. Ele formata o código automaticamente: indentação, espaçamento, tudo padronizado."</p>
-  </div>
-  <ul>
-    <li>Instalar: buscar <strong>Prettier – Code formatter</strong> nas extensões.</li>
-    <li>Ativar formatação ao salvar: <code>Ctrl + ,</code> (Configurações) → buscar <em>format on save</em> → marcar. Depois buscar <em>default formatter</em> → escolher Prettier.</li>
-    <li>Demonstração ao vivo: desalinhe algumas linhas de propósito, salve, e deixe a turma ver tudo se arrumar sozinho.</li>
-  </ul>
+        <h3>10.2 — Extensão Prettier (o arrumador automático)</h3>
+        <div class="fala">
+          <p>
+            Prettier é o funcionário que arruma sua mesa toda vez que você sai
+            da sala. Ele formata o código automaticamente: indentação,
+            espaçamento, tudo padronizado.
+          </p>
+        </div>
+        <ul>
+          <li>
+            Instalar: busque <strong>Prettier – Code formatter</strong> nas
+            extensões.
+          </li>
+          <li>
+            Ativar formatação ao salvar: <code>Ctrl + ,</code> (Configurações) →
+            busque <em>format on save</em> → marque. Depois busque
+            <em>default formatter</em> → escolha Prettier.
+          </li>
+          <li>
+            Teste você mesmo: desalinhe algumas linhas de propósito, salve, e
+            veja tudo se arrumar sozinho.
+          </li>
+        </ul>
 
-  <h3>10.3 — Emmet além do "!"</h3>
-  <div class="acao mostrar">
-    <span class="rotulo">🖥️ Mostrar</span>
-    <div><p>Demonstre cada abreviação + Tab. Peça pra repetirem apenas as duas primeiras (as outras são "sementes" pra descobrirem depois):</p></div>
-  </div>
-  <table class="did">
-    <thead><tr><th>Você digita</th><th>Emmet gera</th></tr></thead>
-    <tbody>
-      <tr><td><code>!</code></td><td>Esqueleto HTML5 completo</td></tr>
-      <tr><td><code>h1</code></td><td><code>&lt;h1&gt;&lt;/h1&gt;</code> — qualquer tag pelo nome</td></tr>
-      <tr><td><code>ul&gt;li*3</code></td><td>Lista com 3 itens (o <code>&gt;</code> = "dentro de", o <code>*</code> = "vezes")</td></tr>
-      <tr><td><code>section#anexos</code></td><td><code>&lt;section id="anexos"&gt;</code> — # vira id</td></tr>
-      <tr><td><code>p.lembrete</code></td><td><code>&lt;p class="lembrete"&gt;</code> — ponto vira class</td></tr>
-      <tr><td><code>table&gt;tr*2&gt;td*3</code></td><td>Tabela 2 linhas × 3 células</td></tr>
-    </tbody>
-  </table>
+        <h3>10.3 — Emmet além do "!"</h3>
+        <div class="acao mostrar">
+          <span class="rotulo">🖥️ Conceito</span>
+          <div>
+            <p>
+              Teste cada abreviação + Tab num arquivo de rascunho. Comece pelas
+              duas primeiras; as outras são "sementes" para você descobrir
+              depois:
+            </p>
+          </div>
+        </div>
+        <table class="did">
+          <thead>
+            <tr>
+              <th>Você digita</th>
+              <th>Emmet gera</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>!</code></td>
+              <td>Esqueleto HTML5 completo</td>
+            </tr>
+            <tr>
+              <td><code>h1</code></td>
+              <td>
+                <code>&lt;h1&gt;&lt;/h1&gt;</code> — qualquer tag pelo nome
+              </td>
+            </tr>
+            <tr>
+              <td><code>ul&gt;li*3</code></td>
+              <td>
+                Lista com 3 itens (o <code>&gt;</code> = "dentro de", o
+                <code>*</code> = "vezes")
+              </td>
+            </tr>
+            <tr>
+              <td><code>section#anexos</code></td>
+              <td><code>&lt;section id="anexos"&gt;</code> — # vira id</td>
+            </tr>
+            <tr>
+              <td><code>p.lembrete</code></td>
+              <td>
+                <code>&lt;p class="lembrete"&gt;</code> — ponto vira class
+              </td>
+            </tr>
+            <tr>
+              <td><code>table&gt;tr*2&gt;td*3</code></td>
+              <td>Tabela 2 linhas × 3 células</td>
+            </tr>
+          </tbody>
+        </table>
 
-  <h3>10.4 — Atalhos que economizam horas</h3>
-  <table class="did">
-    <thead><tr><th>Atalho</th><th>O que faz</th></tr></thead>
-    <tbody>
-      <tr><td><code>Ctrl + S</code></td><td>Salvar (vira reflexo: digitou, salvou)</td></tr>
-      <tr><td><code>Ctrl + Z</code> / <code>Ctrl + Shift + Z</code></td><td>Desfazer / refazer — "errar não custa nada"</td></tr>
-      <tr><td><code>Alt + ↑ / ↓</code></td><td>Move a linha inteira pra cima/baixo sem recortar</td></tr>
-      <tr><td><code>Shift + Alt + ↓</code></td><td>Duplica a linha (ótimo pros &lt;li&gt; e &lt;tr&gt;)</td></tr>
-      <tr><td><code>Ctrl + /</code></td><td>Comenta/descomenta a linha selecionada</td></tr>
-      <tr><td><code>Shift + Alt + F</code></td><td>Formatar documento (indentação automática)</td></tr>
-      <tr><td><code>Ctrl + Shift + P</code></td><td>Paleta de comandos — "o buscador de tudo no VSCode"</td></tr>
-    </tbody>
-  </table>
+        <h3>10.4 — Atalhos que economizam horas</h3>
+        <table class="did">
+          <thead>
+            <tr>
+              <th>Atalho</th>
+              <th>O que faz</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>Ctrl + S</code></td>
+              <td>Salvar (vira reflexo: digitou, salvou)</td>
+            </tr>
+            <tr>
+              <td><code>Ctrl + Z</code> / <code>Ctrl + Shift + Z</code></td>
+              <td>Desfazer / refazer — errar não custa nada</td>
+            </tr>
+            <tr>
+              <td><code>Alt + ↑ / ↓</code></td>
+              <td>Move a linha inteira para cima/baixo sem recortar</td>
+            </tr>
+            <tr>
+              <td><code>Shift + Alt + ↓</code></td>
+              <td>Duplica a linha (ótimo para os &lt;li&gt; e &lt;tr&gt;)</td>
+            </tr>
+            <tr>
+              <td><code>Ctrl + /</code></td>
+              <td>Comenta/descomenta a linha selecionada</td>
+            </tr>
+            <tr>
+              <td><code>Shift + Alt + F</code></td>
+              <td>Formatar documento (indentação automática)</td>
+            </tr>
+            <tr>
+              <td><code>Ctrl + Shift + P</code></td>
+              <td>Paleta de comandos — "o buscador de tudo no VSCode"</td>
+            </tr>
+          </tbody>
+        </table>
 
-  <p><strong>Auto-complete e auto-fechamento:</strong> mostre que ao digitar <code>&lt;p</code> o VSCode já sugere, e ao fechar o <code>&gt;</code> ele cria o <code>&lt;/p&gt;</code> sozinho. Mensagem: <em>"o editor é seu copiloto — aceitem a ajuda dele, mas entendam o que ele escreve."</em></p>
+        <p>
+          <strong>Auto-complete e auto-fechamento:</strong> repare que ao
+          digitar <code>&lt;p</code> o VSCode já sugere, e ao fechar o
+          <code>&gt;</code> ele cria o <code>&lt;/p&gt;</code> sozinho. O editor
+          é seu copiloto — aceite a ajuda dele, mas entenda o que ele escreve.
+        </p>
 
-  <div class="acao pausa">
-    <span class="rotulo">✋ Pausa</span>
-    <div><p><em>"Qual desses atalhos vocês acham que vão usar mais?"</em> — pergunta leve pra respirar antes do bloco final.</p></div>
-  </div>
-</section>
+        <div class="acao pausa">
+          <span class="rotulo">✋ Checkpoint</span>
+          <div>
+            <p>
+              Pergunta leve para respirar antes do bloco final:
+              <em>qual desses atalhos você acha que vai usar mais?</em> Anote —
+              e cobre de si mesmo daqui a uma semana.
+            </p>
+          </div>
+        </div>
+      </section>
 
-<!-- ===================== BLOCO 8 ===================== -->
-<section class="bloco" id="s8">
-  <div class="bloco-head">
-    <span class="bloco-num">11</span>
-    <h2>Boas práticas desde o primeiro dia</h2>
-    <span class="tempo">⏱️ ~10 min</span>
-  </div>
+      <!-- ===================== BLOCO 11 ===================== -->
+      <section class="bloco" id="s8">
+        <div class="bloco-head">
+          <span class="bloco-num">11</span>
+          <h2>Boas práticas desde o primeiro dia</h2>
+          <span class="tempo">⏱️ ~10 min</span>
+        </div>
 
-  <div class="fala">
-    <p>"Última parte teórica, e talvez a mais importante. Código funciona ou não funciona — mas código BOM é outra coisa: é código que outra pessoa entende. E essa 'outra pessoa' inclui vocês mesmos daqui a três meses, olhando pro próprio código sem lembrar de nada."</p>
-  </div>
+        <div class="fala">
+          <p>
+            Última parte teórica, e talvez a mais importante. Código funciona ou
+            não funciona — mas código BOM é outra coisa: é código que outra
+            pessoa entende. E essa "outra pessoa" inclui você mesmo daqui a três
+            meses, olhando para o próprio código sem lembrar de nada.
+          </p>
+        </div>
 
-  <h3>As 6 regras da turma (escreva no quadro / fixe no mural do grupo)</h3>
-  <ol>
-    <li><strong>Indentação sempre.</strong> Elemento filho entra um "degrau" (Tab) pra dentro do pai. O navegador ignora, mas o humano não: indentação é o mapa visual do aninhamento. E com Prettier + Shift Alt F, não há desculpa.</li>
-    <li><strong>Nomes de arquivo: minúsculos, sem espaço, sem acento.</strong> <code>index.html</code>, <code>sobre-mim.html</code>, <code>styles.css</code>. Nunca <code>Página Inicial.html</code>.</li>
-    <li><strong>Semântica antes de div.</strong> Antes de digitar <code>&lt;div&gt;</code>, pergunte: existe uma tag que descreve isso? Header, nav, main, section, article, footer, time...</li>
-    <li><strong>Toda tag que abre, fecha</strong> — e na ordem certa (a última que abriu é a primeira que fecha).</li>
-    <li><strong>Comente o porquê, não o óbvio.</strong> Mostre os comentários do próprio projeto: <code>&lt;!-- Links âncora (#) levam para seções da MESMA página --&gt;</code> explica uma decisão. Já <code>&lt;!-- parágrafo --&gt;</code> em cima de um <code>&lt;p&gt;</code> é ruído.</li>
-    <li><strong>Acessibilidade não é opcional.</strong> label com for, aria-label na navegação, lang no html, alt em imagens (spoiler da próxima aula). Construímos pra Dona Lúcia — e pra todo mundo.</li>
-  </ol>
+        <h3>As 6 regras de ouro (anote e cole perto do computador)</h3>
+        <ol>
+          <li>
+            <strong>Indentação sempre.</strong> Elemento filho entra um "degrau"
+            (Tab) para dentro do pai. O navegador ignora, mas o humano não:
+            indentação é o mapa visual do aninhamento. E com Prettier + Shift
+            Alt F, não há desculpa.
+          </li>
+          <li>
+            <strong
+              >Nomes de arquivo: minúsculos, sem espaço, sem acento.</strong
+            >
+            <code>index.html</code>, <code>sobre-mim.html</code>,
+            <code>styles.css</code>. Nunca <code>Página Inicial.html</code>.
+          </li>
+          <li>
+            <strong>Semântica antes de div.</strong> Antes de digitar
+            <code>&lt;div&gt;</code>, pergunte: existe uma tag que descreve
+            isso? Header, nav, main, section, article, footer, time...
+          </li>
+          <li>
+            <strong>Toda tag que abre, fecha</strong> — e na ordem certa (a
+            última que abriu é a primeira que fecha).
+          </li>
+          <li>
+            <strong>Comente o porquê, não o óbvio.</strong> Olhe os comentários
+            do próprio projeto:
+            <code
+              >&lt;!-- Links âncora (#) levam para seções da MESMA página
+              --&gt;</code
+            >
+            explica uma decisão. Já <code>&lt;!-- parágrafo --&gt;</code> em
+            cima de um <code>&lt;p&gt;</code> é ruído.
+          </li>
+          <li>
+            <strong>Acessibilidade não é opcional.</strong> label com for,
+            aria-label na navegação, lang no html, alt em imagens (spoiler da
+            próxima aula). Construímos para a Dona Lúcia — e para todo mundo.
+          </li>
+        </ol>
 
-  <div class="nota">
-    <strong>Sobre erros:</strong> reserve 1 minuto pra normalizar o erro. <em>"Se o código de vocês quebrou hoje, parabéns: vocês programaram. Dev sênior não é quem não erra — é quem acha o erro rápido. Esqueceu de fechar uma tag e a página inteira ficou estranha? Todo mundo aqui já passou ou vai passar por isso. O erro é o professor particular de vocês."</em>
-  </div>
-</section>
+        <div class="nota">
+          <strong>Sobre erros:</strong> se o seu código quebrou hoje, parabéns:
+          você programou. Dev sênior não é quem não erra — é quem acha o erro
+          rápido. Esqueceu de fechar uma tag e a página inteira ficou estranha?
+          Todo dev do mundo já passou ou vai passar por isso. O erro é o seu
+          professor particular.
+        </div>
+      </section>
 
-<!-- ===================== BLOCO 9 ===================== -->
-<section class="bloco" id="s9">
-  <div class="bloco-head">
-    <span class="bloco-num">12</span>
-    <h2>Encerramento + desafio de casa</h2>
-    <span class="tempo">⏱️ ~10 min</span>
-  </div>
+      <!-- ===================== BLOCO 12 ===================== -->
+      <section class="bloco" id="s9">
+        <div class="bloco-head">
+          <span class="bloco-num">12</span>
+          <h2>Encerramento + desafio de casa</h2>
+          <span class="tempo">⏱️ ~10 min</span>
+        </div>
 
-  <h3>Revisão em 5 perguntas (turma responde em voz alta)</h3>
-  <ol>
-    <li>"HTML é linguagem de programação?" → <em>Não: de marcação. Estrutura, não lógica.</em></li>
-    <li>"Qual a diferença entre head e body?" → <em>Bastidor × palco.</em></li>
-    <li>"Quando uso tabela?" → <em>Dados tabulares, tipo planilha — nunca pra layout.</em></li>
-    <li>"Pra que serve a dupla label for + input id?" → <em>Acessibilidade: clique no rótulo foca o campo; leitor de tela anuncia certo.</em></li>
-    <li>"Quantos main e quantos h1 por página?" → <em>Um e um.</em></li>
-  </ol>
+        <h3>
+          Autoavaliação em 5 perguntas (responda antes de olhar as respostas!)
+        </h3>
+        <ol>
+          <li>
+            "HTML é linguagem de programação?" →
+            <em>Não: de marcação. Estrutura, não lógica.</em>
+          </li>
+          <li>
+            "Qual a diferença entre head e body?" → <em>Bastidor × palco.</em>
+          </li>
+          <li>
+            "Quando uso tabela?" →
+            <em>Dados tabulares, tipo planilha — nunca para layout.</em>
+          </li>
+          <li>
+            "Para que serve a dupla label for + input id?" →
+            <em
+              >Acessibilidade: clique no rótulo foca o campo; leitor de tela
+              anuncia certo.</em
+            >
+          </li>
+          <li>"Quantos main e quantos h1 por página?" → <em>Um e um.</em></li>
+        </ol>
 
-  <h3>Desafio de casa: "Minha página pessoal"</h3>
-  <div class="acao mostrar">
-    <span class="rotulo">🖥️ Mostrar</span>
-    <div><p>Projete o enunciado (ou envie no grupo). Criar do zero, numa pasta nova chamada <code>minha-pagina</code>, um <code>index.html</code> com:</p></div>
-  </div>
-  <ul>
-    <li>Esqueleto HTML5 completo com <code>lang="pt-BR"</code>, charset e title;</li>
-    <li>Um <code>&lt;header&gt;</code> com seu nome e um <code>&lt;nav&gt;</code> com 3 links âncora;</li>
-    <li>Uma section "Sobre mim" com h2 e parágrafos;</li>
-    <li>Uma section "Minhas metas no curso" com uma <strong>lista ordenada</strong> (a ordem importa!);</li>
-    <li>Uma <strong>tabela</strong> "Minha rotina de estudos" (dia, horário, matéria);</li>
-    <li>Um mini formulário "Fale comigo" com label + input de e-mail + botão;</li>
-    <li><strong>Bônus:</strong> tudo indentado e com pelo menos 3 comentários explicando decisões.</li>
-  </ul>
+        <h3>Desafio de casa: "Minha página pessoal"</h3>
+        <div class="acao mostrar">
+          <span class="rotulo">🖥️ Conceito</span>
+          <div>
+            <p>
+              Crie do zero, numa pasta nova chamada <code>minha-pagina</code>,
+              um <code>index.html</code> com:
+            </p>
+          </div>
+        </div>
+        <ul>
+          <li>
+            Esqueleto HTML5 completo com <code>lang="pt-BR"</code>, charset e
+            title;
+          </li>
+          <li>
+            Um <code>&lt;header&gt;</code> com seu nome e um
+            <code>&lt;nav&gt;</code> com 3 links âncora;
+          </li>
+          <li>Uma section "Sobre mim" com h2 e parágrafos;</li>
+          <li>
+            Uma section "Minhas metas no curso" com uma
+            <strong>lista ordenada</strong> (a ordem importa!);
+          </li>
+          <li>
+            Uma <strong>tabela</strong> "Minha rotina de estudos" (dia, horário,
+            matéria);
+          </li>
+          <li>
+            Um mini formulário "Fale comigo" com label + input de e-mail +
+            botão;
+          </li>
+          <li>
+            <strong>Bônus:</strong> tudo indentado e com pelo menos 3
+            comentários explicando decisões.
+          </li>
+        </ul>
 
-  <div class="fala">
-    <p>"Reparem: o desafio usa TUDO que fizemos hoje, só que sobre vocês. Não existe resposta única — existe estrutura bem feita. Tragam na próxima aula, porque a gente vai pegar essa página de vocês e... pintar a casa. Aula que vem: CSS. Até lá!"</p>
-  </div>
+        <div class="fala">
+          <p>
+            Repare: o desafio usa TUDO que você fez hoje, só que sobre você. Não
+            existe resposta única — existe estrutura bem feita. Traga na próxima
+            aula, porque a gente vai pegar essa sua página e... pintar a casa.
+            Aula que vem: CSS. Até lá!
+          </p>
+        </div>
 
-  <div class="acao pausa">
-    <span class="rotulo">✋ Pausa</span>
-    <div><p>Últimas dúvidas + anúncio: <em>"Guardem bem essa pasta bem-cuidado — em breve ela vira o primeiro repositório de vocês no GitHub, usando a conta que criamos hoje."</em> Quem ficou com pendência de instalação resolve agora com você antes de ir embora.</p></div>
-  </div>
-</section>
+        <div class="acao pausa">
+          <span class="rotulo">✋ Checkpoint</span>
+          <div>
+            <p>
+              Antes de fechar:
+              <strong>guarde bem essa pasta bem-cuidado</strong> — em breve ela
+              vira o seu primeiro repositório no GitHub, usando a conta que você
+              criou hoje. Ficou alguma pendência de instalação? Anote e resolva
+              antes da próxima aula (ou peça ajuda no grupo da turma).
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
 
-</main>
-
-<footer>
-  Roteiro de aula · HTML na prática · Projeto Bem-cuidado — material do instrutor
-</footer>
-
-</body>
+    <footer>Guia do aluno · HTML na prática · Projeto Bem-cuidado</footer>
+  </body>
 </html>
