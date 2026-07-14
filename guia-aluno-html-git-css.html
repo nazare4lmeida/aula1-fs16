@@ -1,0 +1,1041 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Guia do Aluno · HTML (mídias e formulário), Git em Equipe e Introdução ao CSS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#f6f6f4;
+    --card:#ffffff;
+    --ink:#1f2328;
+    --muted:#6b7280;
+    --line:#e3e3de;
+    --dark:#25282d;
+    --code-bg:#f1f1ec;
+    --code-line:#dddcd4;
+    --chip:#3a3f46;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'IBM Plex Sans',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.68;font-size:16.5px}
+  ::selection{background:#dcdcd4}
+
+  .capa{background:var(--dark);color:#f0f0ec;padding:58px 24px 50px}
+  .capa-inner{max-width:900px;margin:0 auto}
+  .capa .kicker{font-family:'IBM Plex Mono',monospace;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:#9aa0a8;margin-bottom:18px}
+  .capa h1{font-weight:700;font-size:clamp(1.8rem,4.3vw,2.8rem);line-height:1.15;letter-spacing:-.02em;margin-bottom:14px}
+  .capa .sub{color:#b9bec6;max-width:680px}
+  .capa-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+  .capa-meta span{border:1px solid #454a52;border-radius:999px;padding:6px 14px;font-size:.82rem;color:#d7dade}
+
+  .legenda{max-width:900px;margin:-26px auto 0;padding:0 24px;position:relative;z-index:2}
+  .legenda-box{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px 24px;box-shadow:0 8px 22px rgba(31,35,40,.07)}
+  .legenda-box h2{font-family:'IBM Plex Mono',monospace;font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+  .legenda-itens{display:flex;flex-wrap:wrap;gap:8px 24px;font-size:.92rem;font-weight:500}
+
+  .sumario{max-width:900px;margin:34px auto 0;padding:0 24px}
+  .sumario h2{font-family:'IBM Plex Mono',monospace;font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+  .sumario .partes{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media (max-width:700px){.sumario .partes{grid-template-columns:1fr}}
+  .sumario .parte{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+  .sumario .parte h3{font-size:.95rem;font-weight:700;margin-bottom:8px}
+  .sumario ol{list-style:none;counter-reset:sum}
+  .sumario li{counter-increment:sum}
+  .sumario a{display:flex;gap:10px;align-items:baseline;color:var(--ink);text-decoration:none;padding:5px 8px;border-radius:7px;font-size:.92rem}
+  .sumario a:hover{background:#f0f0ea}
+  .sumario a::before{content:counter(sum,decimal-leading-zero);font-family:'IBM Plex Mono',monospace;font-size:.75rem;color:var(--muted)}
+
+  main{max-width:900px;margin:0 auto;padding:20px 24px 90px}
+
+  .divisor{margin:56px 0 8px;text-align:center}
+  .divisor .tag{display:inline-block;background:var(--dark);color:#f0f0ec;font-family:'IBM Plex Mono',monospace;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;border-radius:999px;padding:9px 22px}
+  .divisor p{color:var(--muted);font-size:.9rem;margin-top:8px}
+
+  section.bloco{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:34px 34px 28px;margin-top:30px}
+  .bloco-head{display:flex;align-items:flex-start;gap:14px;margin-bottom:8px;flex-wrap:wrap}
+  .bloco-num{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:.85rem;background:var(--dark);color:#f0f0ec;border-radius:7px;padding:4px 10px;flex:none;margin-top:6px}
+  .bloco h2{font-weight:700;font-size:1.45rem;letter-spacing:-.01em;line-height:1.25;flex:1;min-width:220px}
+  .bloco h3{font-weight:600;font-size:1.07rem;margin:26px 0 8px}
+  .bloco p{margin:10px 0;color:#2c313a}
+  .bloco ul,.bloco ol{margin:10px 0 10px 22px}
+  .bloco li{margin:6px 0}
+  .hl{border-bottom:2px solid var(--ink);font-weight:600}
+  strong{font-weight:700}
+
+  /* blocos de apoio ao aluno */
+  .caixa{border-radius:11px;padding:14px 18px;margin:16px 0;display:flex;gap:12px;align-items:flex-start;font-size:.95rem;background:#fafaf7}
+  .caixa .rotulo{font-family:'IBM Plex Mono',monospace;font-size:.66rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;border-radius:5px;padding:4px 9px;background:var(--chip);color:#fff;flex:none;margin-top:2px;white-space:nowrap}
+  .caixa.pratique{border:1.5px dashed #8a8f97}
+  .caixa.teste{border:1.5px dotted #9a9fa7;background:#f4f4f0}
+  .caixa.nota{border:1.5px solid var(--dark)}
+  .caixa div{flex:1}
+  .caixa div p{margin:4px 0}
+  details{margin-top:8px}
+  details summary{cursor:pointer;font-weight:600;font-size:.9rem;color:#3a3f46}
+  details p{margin-top:6px}
+
+  pre{background:var(--code-bg);border:1px solid var(--code-line);color:#2a2e34;border-radius:10px;padding:16px 20px;overflow-x:auto;font-family:'IBM Plex Mono',monospace;font-size:.85rem;line-height:1.62;margin:14px 0}
+  code{font-family:'IBM Plex Mono',monospace}
+  p code,li code,td code,summary code{background:#ececdf;border:1px solid #e0e0d6;border-radius:5px;padding:1px 6px;font-size:.84em;color:#33383f}
+  .tg{color:#111417;font-weight:600}
+  .at{color:#5b616a}
+  .vl{color:#33383f;background:#e7e7df;border-radius:3px;padding:0 3px}
+  .cm{color:#9aa0a8;font-style:italic}
+  .sh{color:#111417;font-weight:600}
+
+  table.did{width:100%;border-collapse:collapse;margin:14px 0;font-size:.92rem}
+  table.did th{text-align:left;font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:8px 12px;border-bottom:2px solid var(--dark)}
+  table.did td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+
+  .fluxo{background:var(--dark);color:#e8e9e6;border-radius:11px;padding:18px 22px;margin:16px 0;font-family:'IBM Plex Mono',monospace;font-size:.85rem;line-height:2;overflow-x:auto;white-space:nowrap}
+
+  footer{text-align:center;color:var(--muted);font-size:.85rem;padding:30px 20px 50px}
+  @media (max-width:640px){section.bloco{padding:24px 18px}.bloco h2{font-size:1.22rem}}
+  @media print{.capa{background:#fff;color:#000}section.bloco{break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<!-- ===================== CAPA ===================== -->
+<header class="capa">
+  <div class="capa-inner">
+    <p class="kicker">Guia de estudo · Material do aluno</p>
+    <h1>Finalizando o HTML, primeiro projeto em equipe com Git e Introdução ao CSS</h1>
+    <p class="sub">Neste guia você vai destrinchar, linha por linha, a parte final do projeto "Bem-cuidado" — exames anexados, imagens, vídeo, áudio e formulário —, aprender o fluxo de trabalho em equipe com Git e GitHub usado nas empresas de verdade, e dar os primeiros passos no CSS. Estude com o código aberto do lado: este material foi feito para ler, digitar e testar.</p>
+    <div class="capa-meta">
+      <span>📄 Parte 1: HTML linha a linha</span>
+      <span>🌿 Parte 2: Git e colaboração em trio</span>
+      <span>🎨 Parte 3: Introdução ao CSS</span>
+      <span>📦 Entrega: 1 repositório · 3 contribuições</span>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== LEGENDA ===================== -->
+<div class="legenda">
+  <div class="legenda-box">
+    <h2>Como usar este guia</h2>
+    <div class="legenda-itens">
+      <span>✏️ Pratique — borda tracejada: pare a leitura e execute no seu computador</span>
+      <span>🧠 Teste-se — borda pontilhada: responda antes de abrir a resposta</span>
+      <span>📌 Nota — borda contínua: detalhe importante para guardar</span>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== SUMÁRIO ===================== -->
+<nav class="sumario" aria-label="Sumário do guia">
+  <h2>Sumário</h2>
+  <div class="partes">
+    <div class="parte">
+      <h3>Partes 1 e 2 — HTML + Git</h3>
+      <ol>
+        <li><a href="#s1">O que você vai aprender</a></li>
+        <li><a href="#s2">Seção "Exames anexados": listas e botão</a></li>
+        <li><a href="#s3">Seção "Mídias": imagens</a></li>
+        <li><a href="#s4">Seção "Mídias": vídeo, YouTube e áudio</a></li>
+        <li><a href="#s5">Formulário: como o site ouve o usuário</a></li>
+        <li><a href="#s6">Git sem medo: o que é e por que usar</a></li>
+        <li><a href="#s7">git clone: trazendo o projeto</a></li>
+        <li><a href="#s8">Branches: cada um no seu universo</a></li>
+        <li><a href="#s9">add, commit e push: salvando e publicando</a></li>
+        <li><a href="#s10">Pull Request e merge seguro</a></li>
+        <li><a href="#s11">Por que ninguém sobrescreve ninguém</a></li>
+        <li><a href="#s12">Boas práticas do trio</a></li>
+      </ol>
+    </div>
+    <div class="parte">
+      <h3>Parte 3 — Introdução ao CSS</h3>
+      <ol>
+        <li><a href="#c1">O que é CSS</a></li>
+        <li><a href="#c2">Sintaxe: seletor, propriedade, valor</a></li>
+        <li><a href="#c3">3 formas de vincular CSS</a></li>
+        <li><a href="#c4">Propriedades essenciais</a></li>
+        <li><a href="#c5">Box Model</a></li>
+        <li><a href="#c6">Seletores básicos</a></li>
+        <li><a href="#c7">Exemplo prático no Bem-cuidado</a></li>
+        <li><a href="#c8">Boas práticas e o F12</a></li>
+        <li><a href="#c9">Resumo, próximos passos e desafio</a></li>
+      </ol>
+    </div>
+  </div>
+</nav>
+
+<main>
+
+<div class="divisor">
+  <span class="tag">Parte 1 · HTML linha a linha</span>
+  <p>Estude com o index.html do Bem-cuidado aberto no VSCode e no navegador</p>
+</div>
+
+<!-- ===================== BLOCO 1 ===================== -->
+<section class="bloco" id="s1">
+  <div class="bloco-head">
+    <span class="bloco-num">01</span>
+    <h2>O que você vai aprender</h2>
+  </div>
+
+  <p>O Bem-cuidado já tem cabeçalho, menu, saudação, próximas consultas e a tabela de histórico. Agora ele ganha as partes mais divertidas: fotos, vídeo, áudio e o formulário. Este guia percorre esse trecho final do código <strong>linha por linha</strong> — da seção de exames anexados até o rodapé.</p>
+
+  <p>Depois vem a novidade grande: você vai trabalhar <strong>em equipe</strong> nesse projeto, do jeito que empresas de verdade trabalham — com Git e GitHub. E já respondendo a dúvida que costuma dar ansiedade: a entrega do trabalho é <span class="hl">UM repositório só por trio</span>, com a contribuição das três pessoas dentro dele. "Mas como três pessoas mexem no mesmo projeto sem uma apagar o trabalho da outra?" — essa pergunta tem resposta completa na Parte 2. Guarde-a.</p>
+
+  <div class="caixa nota">
+    <span class="rotulo">📌 Nota</span>
+    <div><p>Antes de começar, abra o projeto no navegador (Live Server) e role a página inteira uma vez para relembrar o que já existe. É da seção de exames anexados para baixo que este guia destrincha tudo.</p></div>
+  </div>
+</section>
+
+<!-- ===================== BLOCO 2 ===================== -->
+<section class="bloco" id="s2">
+  <div class="bloco-head">
+    <span class="bloco-num">02</span>
+    <h2>Seção "Exames anexados": listas e o botão que não faz nada (ainda)</h2>
+  </div>
+
+  <p>Deixe o código e o navegador lado a lado: cada trecho que você ler aqui, encontre o resultado correspondente na página.</p>
+
+<pre><code><span class="tg">&lt;section</span> <span class="at">id=</span><span class="vl">"anexos"</span> <span class="at">aria-labelledby=</span><span class="vl">"t-anexos"</span><span class="tg">&gt;</span>
+  <span class="tg">&lt;h2</span> <span class="at">id=</span><span class="vl">"t-anexos"</span><span class="tg">&gt;</span>Exames anexados<span class="tg">&lt;/h2&gt;</span></code></pre>
+
+  <p>Começando pela moldura: uma section com <code>id="anexos"</code>. Lembra do menu lá em cima, o link <code>href="#anexos"</code>? O id é o alvo dele — o link é a fechadura, o id é a chave. E repare num detalhe fino: o texto do link é "Exames", mas o id é "anexos". <span class="hl">O texto visível e o id não precisam ser iguais</span> — o que conecta os dois é o id, não a palavra.</p>
+
+  <p>Já o <code>aria-labelledby="t-anexos"</code> aponta para o id do h2 logo abaixo. Tradução: "o nome desta seção é o texto daquele título". Serve para o leitor de tela anunciar "seção: Exames anexados" a quem navega sem enxergar.</p>
+
+<pre><code>  <span class="tg">&lt;ul</span> <span class="at">class=</span><span class="vl">"anexos"</span><span class="tg">&gt;</span>
+    <span class="tg">&lt;li&gt;</span>📄 Hemograma — 02/04/2026<span class="tg">&lt;/li&gt;</span>
+    <span class="tg">&lt;li&gt;</span>📄 Eletrocardiograma — 14/03/2026<span class="tg">&lt;/li&gt;</span>
+    <span class="tg">&lt;li&gt;</span>📄 Raio-X de tórax — 28/01/2026<span class="tg">&lt;/li&gt;</span>
+  <span class="tg">&lt;/ul&gt;</span></code></pre>
+
+  <p><code>ul</code> vem de <em>unordered list</em>: lista sem ordem, aquela de bolinhas. A pergunta que define qual lista usar é: <span class="hl">a ordem importa?</span> Lista de compras — tanto faz se o arroz vem antes do feijão — é <code>ul</code>. Modo de preparo de uma receita — se você assar antes de misturar, vira desastre — é <code>ol</code>, <em>ordered list</em>, numerada. Aqui são exames: a ordem não muda nada, então ul.</p>
+
+  <p>Cada item, independente da lista, é um <code>li</code> — <em>list item</em>. E o emoji 📄 é conteúdo comum, como qualquer letra: para o HTML, emoji é só mais um caractere. É o UTF-8 do nosso <code>meta charset</code> garantindo que ele apareça.</p>
+
+  <div class="caixa pratique">
+    <span class="rotulo">✏️ Pratique</span>
+    <div><p>Experimento de 1 minuto: troque <code>&lt;ul&gt;</code> por <code>&lt;ol&gt;</code> (abertura e fechamento), salve e olhe o navegador — as bolinhas viram 1, 2, 3. Depois desfaça com <code>Ctrl + Z</code> duas vezes e salve de novo. Percebe como testar hipótese é barato? Mudou, salvou, olhou, desfez. Faça isso o tempo todo.</p></div>
+  </div>
+
+<pre><code>  <span class="tg">&lt;button</span> <span class="at">type=</span><span class="vl">"button"</span><span class="tg">&gt;</span>+ Anexar novo exame<span class="tg">&lt;/button&gt;</span>
+<span class="tg">&lt;/section&gt;</span></code></pre>
+
+  <p>Agora o botão. <code>button</code> é clicável por natureza — o navegador já dá aparência de botão, efeito de clique e foco pelo teclado. Mas preste atenção no <code>type="button"</code>. Botão tem três tipos: <code>submit</code> (envia formulário), <code>reset</code> (limpa formulário) e <code>button</code> (não faz nada sozinho). Este aqui é o terceiro tipo: <span class="hl">uma campainha instalada, mas ainda sem fio ligado</span>. O toque — abrir a janelinha de escolher arquivo — quem vai ligar é o JavaScript, daqui a algumas aulas.</p>
+
+  <p>Por que já colocar o botão então? Porque HTML é a estrutura: deixamos a campainha na parede, bonitinha, no lugar certo. A eletricidade vem depois. Clique nele no navegador: nada acontece — e está certo assim.</p>
+
+  <div class="caixa teste">
+    <span class="rotulo">🧠 Teste-se</span>
+    <div>
+      <p>Se esse botão estivesse DENTRO de um formulário e sem o atributo type, o que aconteceria ao clicar?</p>
+      <details><summary>Ver resposta</summary><p>Dentro de um form, botão sem type age como <code>submit</code> e tenta enviar o formulário. Por isso declarar o type sempre é boa prática.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== BLOCO 3 ===================== -->
+<section class="bloco" id="s3">
+  <div class="bloco-head">
+    <span class="bloco-num">03</span>
+    <h2>Seção "Mídias", parte 1: imagens</h2>
+  </div>
+
+  <p>Nova seção no projeto: <code>id="midias"</code> — e repare que o menu no topo ganhou um quarto link, <code>#midias</code>, seguindo exatamente o padrão que você já conhece. Aqui a página ganha vida: imagem, vídeo e áudio. Vamos por partes, começando pela mídia mais comum da internet inteira: a imagem.</p>
+
+<pre><code><span class="tg">&lt;img</span>
+  <span class="at">src=</span><span class="vl">"imagens/foto-clinica.png"</span>
+  <span class="at">alt=</span><span class="vl">"Fachada da clínica médica parceira"</span>
+  <span class="at">width=</span><span class="vl">"300"</span>
+  <span class="at">height=</span><span class="vl">"200"</span>
+<span class="tg">/&gt;</span></code></pre>
+
+  <h3>src: o endereço — e a diferença entre relativo e absoluto</h3>
+  <p>Primeira coisa: <code>img</code> é uma <span class="hl">tag vazia</span> — não tem conteúdo dentro, não tem fechamento. Ela É a imagem. O atributo <code>src</code>, de <em>source</em> (fonte), diz onde a imagem mora.</p>
+
+  <p>Esse primeiro src é um <span class="hl">caminho relativo</span>: <code>imagens/foto-clinica.png</code>. Traduzindo: "a partir de onde EU estou" — e o "eu" é o arquivo HTML — "entre na pasta imagens e pegue o arquivo foto-clinica.png". É como dar direção para alguém que está do seu lado: "vira na segunda rua à direita". Só funciona a partir de onde a pessoa está.</p>
+
+  <p>Agora olhe a segunda imagem do código:</p>
+
+<pre><code><span class="tg">&lt;img</span>
+  <span class="at">src=</span><span class="vl">"https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=300"</span>
+  <span class="at">alt=</span><span class="vl">"Médico utilizando estetoscópio"</span>
+<span class="tg">/&gt;</span></code></pre>
+
+  <p>Este é um <span class="hl">caminho absoluto</span>: começa com <code>https://</code>, é o endereço completo na internet. É o CEP com rua, número, cidade e país — funciona de qualquer lugar do mundo, porque a imagem vem de um servidor externo, o Unsplash. Regra de bolso: <strong>arquivo seu, na sua pasta → relativo. Arquivo da internet → absoluto.</strong></p>
+
+  <div class="caixa nota">
+    <span class="rotulo">📌 Nota</span>
+    <div><p>Curiosidade nerd: o <code>?w=300</code> no fim da URL é um pedido ao servidor — "me manda essa foto com 300 pixels de largura". Você vai ver muito esses "?" em URLs; são parâmetros, conversas com o servidor.</p></div>
+  </div>
+
+  <h3>alt: o atributo que separa amador de profissional</h3>
+  <p>O <code>alt</code> é o texto alternativo — e aqui vale ser direto: <span class="hl">imagem sem alt é imagem errada</span>. Ele serve para duas situações. Um: a imagem não carregou — internet caiu, arquivo sumiu — e o navegador mostra o texto no lugar. Dois, e mais importante: a Dona Lúcia pode ter baixa visão e usar leitor de tela. Sem alt, o leitor fala "imagem"... e só. Com alt, ele fala "Fachada da clínica médica parceira". É a diferença entre incluir e excluir alguém do seu site.</p>
+
+  <p>Dica de escrita: descreva o que a imagem COMUNICA, como se estivesse contando por telefone. "foto1.png" não é alt. "Fachada da clínica" é.</p>
+
+  <h3>width e height: reservando a vaga</h3>
+  <p>Por fim, <code>width="300" height="200"</code> — largura e altura em pixels. Além de dimensionar, há um motivo escondido: quando o navegador conhece o tamanho ANTES de baixar a imagem, ele <span class="hl">reserva o espaço</span> na página. Sem isso, a página carrega, você começa a ler, a imagem chega atrasada e empurra todo o texto para baixo — aquele "pulo" irritante que faz você clicar no lugar errado. Declarar o tamanho é reservar a vaga do estacionamento antes de o carro chegar.</p>
+
+  <div class="caixa pratique">
+    <span class="rotulo">✏️ Pratique</span>
+    <div>
+      <p>Experimento do alt (2 min): quebre o src da primeira imagem de propósito — troque para <code>imagens/foto-clinicaaa.png</code> — salve e olhe o navegador: aparece o ícone de imagem quebrada + o texto do alt. Conserte em seguida.</p>
+      <p>Aliás: a imagem local só aparece se você criou a pasta <code>imagens</code> com o arquivo dentro. Se não tem, você está vendo o alt agora — e isso é o alt funcionando, não um erro. Já a do Unsplash aparece para todo mundo: ela vem da internet.</p>
+    </div>
+  </div>
+
+  <div class="caixa teste">
+    <span class="rotulo">🧠 Teste-se</span>
+    <div>
+      <p>Se você mover o index.html para outra pasta e deixar a pasta imagens para trás, qual das duas imagens quebra?</p>
+      <details><summary>Ver resposta</summary><p>A local (caminho relativo) quebra, porque o "a partir de onde eu estou" mudou. A do Unsplash (caminho absoluto) continua funcionando de qualquer lugar.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== BLOCO 4 ===================== -->
+<section class="bloco" id="s4">
+  <div class="bloco-head">
+    <span class="bloco-num">04</span>
+    <h2>Seção "Mídias", parte 2: vídeo, o caso YouTube e áudio</h2>
+  </div>
+
+  <h3>4.1 — O player de vídeo nativo</h3>
+<pre><code><span class="tg">&lt;video</span> <span class="at">controls</span> <span class="at">width=</span><span class="vl">"400"</span><span class="tg">&gt;</span>
+  <span class="tg">&lt;source</span> <span class="at">src=</span><span class="vl">"videos/tutorial-mapa.mp4"</span> <span class="at">type=</span><span class="vl">"video/mp4"</span> <span class="tg">/&gt;</span>
+  Seu navegador não suporta a reprodução de vídeo.
+<span class="tg">&lt;/video&gt;</span></code></pre>
+
+  <p>O <code>&lt;video&gt;</code> coloca um player de vídeo direto na página, sem instalar nada. Três coisas para dissecar:</p>
+
+  <p><strong>Primeira: o atributo <code>controls</code>.</strong> Repare que ele está sozinho, sem <code>="alguma coisa"</code>. É um <span class="hl">atributo booleano</span> — a simples presença dele significa "sim". Com controls, aparecem play, pause, volume, barrinha de progresso. Sem ele? O vídeo fica ali, mudo e parado, sem nenhum botão. É um interruptor: está na parede ou não está.</p>
+
+  <p><strong>Segunda: o <code>&lt;source&gt;</code> lá dentro.</strong> Ele diz de onde vem a mídia — src relativo, pasta videos, igualzinho à imagem local. E o <code>type="video/mp4"</code> é o chamado MIME type: <span class="hl">a etiqueta na caixa antes de abrir</span>. O navegador lê "video/mp4" e já sabe se consegue reproduzir ANTES de gastar internet baixando. Dá até para colocar vários source com formatos diferentes — o navegador usa o primeiro que entender.</p>
+
+  <p><strong>Terceira: o texto solto</strong>, "Seu navegador não suporta...". Isso é o <em>fallback</em>, o plano B: só aparece em navegadores tão antigos que nem conhecem a tag video. É rede de segurança — provavelmente você nunca vai vê-lo, e ótimo.</p>
+
+  <h3>4.2 — O mistério do YouTube</h3>
+  <div class="caixa pratique">
+    <span class="rotulo">✏️ Pratique</span>
+    <div><p>Antes de ler a explicação, faça o teste: troque o src do segundo vídeo por uma URL do YouTube (<code>https://www.youtube.com/embed/...</code>), salve e olhe: <strong>player preto, quebrado</strong>. Pergunta: por que não funcionou, se a URL está certa? Pense 1 minuto antes de continuar lendo.</p></div>
+  </div>
+
+  <p>A resposta: o <code>&lt;source&gt;</code> precisa apontar para um <span class="hl">arquivo de vídeo</span> — um .mp4, .webm. E aquela URL do YouTube não devolve um arquivo de vídeo: devolve uma PÁGINA — o player do YouTube, que é HTML. O navegador tenta decodificar uma página como se fosse filme, obviamente não consegue, e trava no preto. O YouTube esconde o arquivo bruto de propósito: é assim que eles garantem anúncios e direitos autorais.</p>
+
+  <p>Então como colocar YouTube no site? Com outra tag:</p>
+
+<pre><code><span class="tg">&lt;iframe</span>
+  <span class="at">width=</span><span class="vl">"400"</span> <span class="at">height=</span><span class="vl">"225"</span>
+  <span class="at">src=</span><span class="vl">"https://www.youtube.com/embed/kbgtymfFL4o"</span>
+  <span class="at">title=</span><span class="vl">"Orientações gerais de saúde"</span>
+  <span class="at">allowfullscreen</span>
+<span class="tg">&gt;&lt;/iframe&gt;</span></code></pre>
+
+  <p>O <code>&lt;iframe&gt;</code> abre <span class="hl">uma janela para outro site dentro do seu</span> — uma TV dentro da TV. Você não está tocando o vídeo: está incorporando a página do player do YouTube inteira, com tudo que ela sabe fazer. A URL "embed" o próprio YouTube fornece: botão Compartilhar → Incorporar.</p>
+
+  <p>Três diferenças em relação ao video que valem prova: iframe <strong>não usa source nem type</strong> (o src vai direto nele); iframe <strong>precisa de fechamento</strong> — <code>&lt;/iframe&gt;</code> — não é tag vazia; e o <code>title</code> aqui é acessibilidade: descreve o conteúdo da janela para o leitor de tela. O <code>allowfullscreen</code>? Outro booleano — libera o botão de tela cheia.</p>
+
+  <h3>4.3 — Áudio: o irmão sem imagem do vídeo</h3>
+<pre><code><span class="tg">&lt;audio</span> <span class="at">controls</span><span class="tg">&gt;</span>
+  <span class="tg">&lt;source</span> <span class="at">src=</span><span class="vl">"https://www.w3schools.com/html/horse.mp3"</span> <span class="at">type=</span><span class="vl">"audio/mpeg"</span> <span class="tg">/&gt;</span>
+  Seu navegador não suporta a reprodução de áudio.
+<span class="tg">&lt;/audio&gt;</span></code></pre>
+
+  <p>Se você entendeu o video, o <code>&lt;audio&gt;</code> vem de graça: mesma lógica — controls booleano, source com src e type, texto de fallback. A diferença é que não tem imagem: só a barrinha de controle. No projeto temos dois: a mensagem de boas-vindas local (pasta audios) e um da internet.</p>
+
+  <div class="caixa nota">
+    <span class="rotulo">📌 Nota</span>
+    <div><p>Pegadinha clássica de prova e de entrevista: o MIME type do MP3 é <code>audio/mpeg</code> — <span class="hl">não existe "audio/mp3"</span>. MP3 é apelido; o sobrenome oficial do formato é MPEG. Anote essa.</p></div>
+  </div>
+
+  <div class="caixa pratique">
+    <span class="rotulo">✏️ Pratique</span>
+    <div><p>Dê play no áudio da internet (o horse.mp3 — sim, é um cavalo relinchando, pode rir). Depois: apague a palavra <code>controls</code>, salve, atualize — o player some por completo. Volte com o controls. Booleano: presente = existe, ausente = não existe. Não tem meio termo.</p></div>
+  </div>
+
+  <div class="caixa teste">
+    <span class="rotulo">🧠 Teste-se</span>
+    <div>
+      <p>Quiz de 30 segundos: video usa source? E iframe? Qual dos dois fecha com tag de fechamento? Qual o MIME type do MP3?</p>
+      <details><summary>Ver respostas</summary><p>Video usa source (pode ter vários). Iframe não — o src vai direto nele. Os dois fecham com tag de fechamento, mas por motivos diferentes: video envolve sources e fallback; iframe simplesmente não é tag vazia. E o MIME type do MP3 é <code>audio/mpeg</code>.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== BLOCO 5 ===================== -->
+<section class="bloco" id="s5">
+  <div class="bloco-head">
+    <span class="bloco-num">05</span>
+    <h2>Formulário: como o site ouve o usuário (+ footer)</h2>
+  </div>
+
+  <p>Última seção da página — e a mais importante para o seu futuro. Tudo que é interação séria na web é formulário: login, cadastro, busca, compra, comentário. Atenção dobrada nesta parte.</p>
+
+<pre><code><span class="tg">&lt;form</span>
+  <span class="at">action=</span><span class="vl">"mailto:lembretes@bemcuidado.app"</span>
+  <span class="at">method=</span><span class="vl">"post"</span>
+  <span class="at">enctype=</span><span class="vl">"text/plain"</span>
+<span class="tg">&gt;</span></code></pre>
+
+  <p>O <code>&lt;form&gt;</code> é o envelope: agrupa campos que serão enviados JUNTOS. O <code>action</code> é o destinatário escrito no envelope — para onde os dados vão. Aqui usamos <code>mailto:</code>, que abre o programa de e-mail do usuário: um truque didático, porque ainda não temos servidor. Em site de verdade, o action aponta para o back-end — que é o destino final deste curso, aliás. O <code>method="post"</code> é COMO o envelope viaja: post manda os dados escondidos no corpo do envio; o outro método, get, cola tudo na URL, à vista de todos. Senha, por exemplo, JAMAIS viaja por get. E o <code>enctype="text/plain"</code> é o formato do conteúdo — texto simples, necessário para o mailto ficar legível.</p>
+
+<pre><code>  <span class="tg">&lt;label</span> <span class="at">for=</span><span class="vl">"email"</span><span class="tg">&gt;</span>Seu e-mail<span class="tg">&lt;/label&gt;</span><span class="tg">&lt;br /&gt;</span>
+  <span class="tg">&lt;input</span>
+    <span class="at">id=</span><span class="vl">"email"</span> <span class="at">name=</span><span class="vl">"email"</span> <span class="at">type=</span><span class="vl">"email"</span>
+    <span class="at">required</span> <span class="at">placeholder=</span><span class="vl">"voce@exemplo.com"</span>
+  <span class="tg">/&gt;</span></code></pre>
+
+  <p>A dupla sagrada: <code>label for="email"</code> apontando para o <code>input id="email"</code>. Mesmo valor nos dois = rótulo grudado no campo. Teste depois: clicar no TEXTO "Seu e-mail" já acende o campo. E para o leitor de tela, o campo tem nome. <span class="hl">Nunca crie input sem label.</span></p>
+
+  <p>Agora o input, atributo por atributo:</p>
+  <ul>
+    <li><strong><code>id</code></strong> — a identidade do campo DENTRO da página: é o que o label (e futuramente o CSS e o JavaScript) enxergam.</li>
+    <li><strong><code>name</code></strong> — a etiqueta do dado QUANDO VIAJA: o envio vira "email=valor". Guarde a diferença assim: <span class="hl">id é o nome em casa, name é o nome no crachá do envio</span>. Detalhe cruel: campo sem name simplesmente não é enviado. Some. É o bug clássico de iniciante.</li>
+    <li><strong><code>type="email"</code></strong> — o input é um camaleão: muda de personalidade pelo type. Com email, o celular abre o teclado com @ e o navegador valida o formato sozinho.</li>
+    <li><strong><code>required</code></strong> — booleano de novo! Presença = campo obrigatório: o navegador bloqueia envio vazio.</li>
+    <li><strong><code>placeholder</code></strong> — o texto cinza de exemplo que some quando você digita. Atenção: ele NÃO substitui o label — exemplo é exemplo, rótulo é rótulo.</li>
+  </ul>
+
+  <p>E o <code>&lt;br /&gt;</code>: quebra de linha forçada, tag vazia. Joga o input para a linha de baixo do label. Funciona, mas use com moderação — espaçamento bonito é trabalho para o CSS.</p>
+
+<pre><code>  <span class="tg">&lt;select</span> <span class="at">id=</span><span class="vl">"quando"</span> <span class="at">name=</span><span class="vl">"quando"</span><span class="tg">&gt;</span>
+    <span class="tg">&lt;option&gt;</span>24 horas antes<span class="tg">&lt;/option&gt;</span>
+    <span class="tg">&lt;option&gt;</span>2 horas antes<span class="tg">&lt;/option&gt;</span>
+    <span class="tg">&lt;option&gt;</span>No dia anterior pela manhã<span class="tg">&lt;/option&gt;</span>
+  <span class="tg">&lt;/select&gt;</span>
+
+  <span class="tg">&lt;button</span> <span class="at">type=</span><span class="vl">"submit"</span><span class="tg">&gt;</span>Quero receber lembretes<span class="tg">&lt;/button&gt;</span>
+<span class="tg">&lt;/form&gt;</span></code></pre>
+
+  <p>O <code>select</code> é o menu suspenso — a caixinha que abre opções. Cada <code>option</code> é uma escolha. Repare que as options não têm atributo value: nesse caso, <span class="hl">o próprio texto vira o valor enviado</span>. Quando as respostas possíveis são poucas e fixas, select é melhor que campo livre: ninguém digita "24hrs antes" de um jeito e "24 horas" de outro.</p>
+
+  <p>E feche o ciclo: ESTE botão é <code>type="submit"</code>. Compare com o da seção de exames, que era type="button" e não fazia nada. O submit dispara a validação (o required entra em ação) e executa o action. Mesma tag, papéis opostos — o type é quem decide.</p>
+
+  <div class="caixa pratique">
+    <span class="rotulo">✏️ Pratique</span>
+    <div><p>Bateria de testes no navegador (3 min): (1) clique no texto do label → o campo foca; (2) envie com o campo vazio → o navegador bloqueia; (3) digite "banana" e envie → erro de formato; (4) e-mail válido + enviar → o programa de e-mail tenta abrir. Repare: três validações e você não escreveu UMA linha de JavaScript. HTML bem feito trabalha de graça para você.</p></div>
+  </div>
+
+  <p>E o fim da página: <code>&lt;footer&gt;</code>, o rodapé semântico — créditos, copyright, links institucionais — fechando o trio com header e main. Página completa: estrutura, mídia, interação. A casa está pronta e mobiliada... só falta a pintura, que vem na Parte 3. Mas antes: como três pessoas constroem essa casa juntas sem uma derrubar a parede da outra?</p>
+</section>
+
+<div class="divisor">
+  <span class="tag">Parte 2 · Git e colaboração em equipe</span>
+  <p>Seu primeiro fluxo de trabalho profissional — leia e execute com o seu trio</p>
+</div>
+
+<!-- ===================== BLOCO 6 ===================== -->
+<section class="bloco" id="s6">
+  <div class="bloco-head">
+    <span class="bloco-num">06</span>
+    <h2>Git sem medo: o que é e por que você vai amar</h2>
+  </div>
+
+  <p>Você já fez trabalho em grupo mandando arquivo pelo WhatsApp? "TCC_final.docx", "TCC_final_v2.docx", "TCC_final_v2_AGORA_VAI.docx"... e no fim alguém edita a versão errada e perde-se uma noite de trabalho. Todo mundo já viveu isso. O Git existe para isso <strong>nunca mais</strong> acontecer.</p>
+
+  <p>O Git é um sistema de controle de versões: ele guarda o histórico completo do projeto — <span class="hl">cada "foto" que alguém tirou, quem tirou, quando e por quê</span>. E o GitHub é o lugar na nuvem onde esse histórico fica guardado e compartilhado entre o time. Na analogia que você já conhece: Git é a câmera, GitHub é o álbum online.</p>
+
+  <p>E respondendo com clareza a pergunta da abertura: a entrega do trabalho é <span class="hl">UM único repositório por trio</span> — um projeto só, com o histórico mostrando a contribuição das três pessoas. Não é "cada um faz o seu e alguém cola tudo junto no final". É todo mundo construindo no mesmo lugar, ao mesmo tempo, com segurança. Parece mágica, é método — e nas próximas seções você vai dominar esse método.</p>
+
+  <div class="caixa nota">
+    <span class="rotulo">📌 Nota</span>
+    <div><p>Quer uma prova de que funciona? Abra qualquer projeto famoso de código aberto no GitHub e olhe a aba de histórico de commits: nomes, datas, mensagens. Milhares de pessoas, um repositório, ninguém apagou o trabalho de ninguém. Se funciona para elas, funciona para o seu trio.</p></div>
+  </div>
+
+  <div class="caixa nota">
+    <span class="rotulo">📌 Nota</span>
+    <div><p><strong>Preparação do trio:</strong> UM integrante cria o repositório no GitHub (Repositories → New → nome combinado, ex.: <code>bem-cuidado-equipe</code> → Public → Add README) e adiciona os outros dois em Settings → Collaborators. Os convidados aceitam o convite que chega por e-mail. Só então sigam para o clone.</p></div>
+  </div>
+</section>
+
+<!-- ===================== BLOCO 7 ===================== -->
+<section class="bloco" id="s7">
+  <div class="bloco-head">
+    <span class="bloco-num">07</span>
+    <h2>git clone: trazendo o projeto para a sua máquina</h2>
+  </div>
+
+  <p>Primeiro passo de qualquer trabalho em equipe: todo mundo precisa de uma cópia do projeto. Isso é o <code>git clone</code>. Ele baixa a pasta inteira do projeto — arquivos E histórico completo — para a sua máquina. E o detalhe que dá nome à mágica: a cópia <span class="hl">continua conectada</span> ao repositório original lá no GitHub, que chamamos de <em>remoto</em>. Não é um download morto: é um clone vivo, que sabe de onde veio e consegue mandar e receber novidades.</p>
+
+  <div class="caixa pratique">
+    <span class="rotulo">✏️ Pratique</span>
+    <div>
+      <p>1. No GitHub, no repositório do trio: botão verde <strong>Code</strong> → aba HTTPS → ícone de copiar a URL.</p>
+      <p>2. No VSCode, abra o terminal (<code>Ctrl + '</code>) e navegue até a sua pasta de projetos: <code>cd Documents/projetos</code> (ou onde você guarda os seus).</p>
+      <p>3. Rode o clone (colar no terminal: <code>Ctrl + Shift + V</code> ou botão direito):</p>
+    </div>
+  </div>
+
+<pre><code><span class="sh">git clone</span> https://github.com/usuario-do-trio/bem-cuidado-equipe.git</code></pre>
+
+  <div class="caixa pratique">
+    <span class="rotulo">✏️ Pratique</span>
+    <div><p>4. Entre na pasta recém-criada e abra no VSCode:</p></div>
+  </div>
+
+<pre><code><span class="sh">cd</span> bem-cuidado-equipe
+<span class="sh">code</span> .</code></pre>
+
+  <p>O <code>code .</code> — "code ponto" — significa "abra o VSCode AQUI, nesta pasta". O ponto, no terminal, é sempre "a pasta onde estou". Pronto: cada um dos três agora tem uma cópia completa e conectada do projeto. Na primeira vez, o GitHub vai pedir login — o VSCode abre o navegador, você autoriza com a sua conta, e nunca mais pede.</p>
+
+  <div class="caixa nota">
+    <span class="rotulo">📌 Nota</span>
+    <div><p>Erro comum: clonar dentro de outro repositório já clonado (repositório dentro de repositório). Confirme que você está na sua pasta de projetos antes do clone — o <code>pwd</code> no terminal mostra onde você está.</p></div>
+  </div>
+</section>
+
+<!-- ===================== BLOCO 8 ===================== -->
+<section class="bloco" id="s8">
+  <div class="bloco-head">
+    <span class="bloco-num">08</span>
+    <h2>Branches: cada um trabalhando no seu universo paralelo</h2>
+  </div>
+
+  <p>Agora o conceito mais importante da colaboração: a <span class="hl">branch</span> — "ramo", em inglês. Pense no projeto como um documento oficial publicado: a linha do tempo principal, que se chama <code>main</code>, é a versão limpa, que funciona, que qualquer um pode abrir com confiança. Regra número um do trabalho em equipe: <strong>ninguém rabisca o documento oficial diretamente.</strong></p>
+
+  <p>Em vez disso, cada pessoa cria a sua branch: uma <span class="hl">cópia paralela da linha do tempo</span>, um universo alternativo onde você pode experimentar, errar, refazer — sem encostar na main e sem encostar no universo dos colegas. A Ana mexe na seção de mídias na branch dela, o Bruno melhora a tabela na dele, a Carla cuida do formulário na dela. Três universos, zero conflito. Quando o trabalho de alguém fica pronto e aprovado, aí sim ele é incorporado de volta à main — isso é o merge, que vem daqui a pouco.</p>
+
+  <div class="caixa pratique">
+    <span class="rotulo">✏️ Pratique</span>
+    <div><p>Crie a SUA branch (cada integrante com um nome diferente!). O comando cria e já muda para ela:</p></div>
+  </div>
+
+<pre><code><span class="sh">git checkout -b</span> ana/secao-midias</code></pre>
+
+  <p>Dissecando: <code>checkout</code> = mudar de branch; <code>-b</code> = "e crie ela antes, porque não existe ainda". E o nome: adote o padrão <span class="hl">seunome/o-que-vou-fazer</span> — "ana/secao-midias", "bruno/tabela-historico". Um nome de branch bom conta a história sozinho: quem e o quê.</p>
+
+  <div class="caixa pratique">
+    <span class="rotulo">✏️ Pratique</span>
+    <div><p>Dois comandos de orientação — decore, você vai usar o tempo todo:</p></div>
+  </div>
+
+<pre><code><span class="sh">git branch</span>          <span class="cm"># lista as branches; o * marca onde você está</span>
+<span class="sh">git status</span>          <span class="cm"># o "onde estou e o que mudou?" — o comando mais digitado do mundo</span></code></pre>
+
+  <div class="caixa nota">
+    <span class="rotulo">📌 Nota</span>
+    <div><p>Olhe também o canto inferior esquerdo do VSCode: o nome da branch atual fica sempre visível ali, e dá para trocar de branch clicando. Olhe para esse cantinho SEMPRE antes de começar a editar. "Em que branch eu estou?" é o cinto de segurança do Git.</p></div>
+  </div>
+</section>
+
+<!-- ===================== BLOCO 9 ===================== -->
+<section class="bloco" id="s9">
+  <div class="bloco-head">
+    <span class="bloco-num">09</span>
+    <h2>add, commit e push: salvando e publicando o trabalho</h2>
+  </div>
+
+  <p>Este é o ciclo que você vai repetir mil vezes na carreira. A analogia é uma foto de família: o <code>git add</code> <span class="hl">escolhe quem entra na foto</span> — quais arquivos modificados serão registrados. O <code>git commit</code> <span class="hl">tira a foto e escreve a legenda</span> — cria o registro permanente no histórico, com mensagem, autor e data. E o <code>git push</code> <span class="hl">manda a foto para o álbum da família na nuvem</span> — publica seus commits no GitHub, onde o time vê.</p>
+
+  <p>Por que o add existe separado do commit? Porque nem tudo que você mexeu precisa entrar na mesma foto. O add é a área de preparação — em inglês, <em>staging</em> — onde você monta a cena antes do clique.</p>
+
+  <div class="caixa pratique">
+    <span class="rotulo">✏️ Pratique</span>
+    <div><p>Mão na massa com mudança real: edite algo pequeno no index.html (um texto, um comentário com o seu nome). Depois, o ciclo completo:</p></div>
+  </div>
+
+<pre><code><span class="sh">git status</span>                                    <span class="cm"># 1. o que mudou? (arquivo aparece em vermelho)</span>
+<span class="sh">git add</span> index.html                            <span class="cm"># 2. escala o arquivo pra foto (dica: git add . adiciona tudo)</span>
+<span class="sh">git status</span>                                    <span class="cm"># 3. confira: agora está verde, pronto pra foto</span>
+<span class="sh">git commit -m</span> "Adiciona seção de mídias com vídeo e áudio"   <span class="cm"># 4. clique! foto tirada com legenda</span>
+<span class="sh">git push -u origin</span> ana/secao-midias           <span class="cm"># 5. publica a branch no GitHub</span></code></pre>
+
+  <p>Sobre a mensagem do commit, o <code>-m</code>: escreva <span class="hl">o que a mudança FAZ, no presente</span> — "Adiciona seção de mídias", "Corrige link do menu". Mensagens como "mudanças", "aaaa" ou "agora vai" são o equivalente a legendar todas as fotos do álbum com "foto". Daqui a um mês, a mensagem é a única memória do que aconteceu.</p>
+
+  <p>Sobre o push: nessa PRIMEIRA vez, vai o <code>-u origin nome-da-branch</code> — é a apresentação formal: "GitHub, essa minha branch nova corresponde a essa daí". <code>origin</code> é o apelido padrão do repositório remoto. Das próximas vezes, um <code>git push</code> seco resolve. Se esquecer, relaxe: o próprio terminal imprime o comando certo para copiar.</p>
+
+  <div class="caixa pratique">
+    <span class="rotulo">✏️ Pratique</span>
+    <div><p>Atualize a página do repositório no GitHub: a sua branch apareceu, com o aviso amarelo "Compare &amp; pull request". Seu trabalho está na nuvem, visível para o time — mas repare: a main continua intocada. Esse botão amarelo é exatamente o próximo capítulo.</p></div>
+  </div>
+
+  <div class="caixa teste">
+    <span class="rotulo">🧠 Teste-se</span>
+    <div>
+      <p>Coloque em ordem: commit, push, add, status. E o que acontece se você commitar sem ter dado add?</p>
+      <details><summary>Ver resposta</summary><p>status (ver o que mudou) → add (preparar) → commit (registrar) → push (publicar). Commit sem add não registra nada novo — o Git avisa que não há mudanças preparadas ("nothing added to commit"). Leia a mensagem do git status com calma: ele literalmente diz o que fazer.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== BLOCO 10 ===================== -->
+<section class="bloco" id="s10">
+  <div class="bloco-head">
+    <span class="bloco-num">10</span>
+    <h2>Pull Request e merge: juntando tudo com segurança</h2>
+  </div>
+
+  <p>O trabalho está na sua branch, publicado. Como ele entra na main? Pela porta da frente: o <span class="hl">Pull Request</span> — PR para os íntimos. Traduzindo o nome esquisito: "pedido para puxarem minhas mudanças". É você dizendo para o time: "terminei minha parte, olhem o que eu fiz, e se estiver bom, juntem à versão oficial".</p>
+
+  <p>E aqui mora o segredo dos times profissionais: o PR não é burocracia, é <span class="hl">revisão</span>. Antes de qualquer coisa entrar na main, pelo menos um colega olha, comenta, aprova. Quatro olhos erram menos que dois. No seu trio, a regra é: <strong>quem abre o PR não aprova o próprio PR</strong> — sempre outro integrante revisa.</p>
+
+  <div class="caixa pratique">
+    <span class="rotulo">✏️ Pratique</span>
+    <div>
+      <p>Fluxo completo no GitHub, com um PR de verdade:</p>
+      <p>1. No repositório, clique no aviso <strong>"Compare &amp; pull request"</strong> (ou aba Pull requests → New).</p>
+      <p>2. Confira a direção da seta: <code>base: main ← compare: sua-branch</code> — "quero levar minha branch PARA a main".</p>
+      <p>3. Título claro + descrição curta: o que foi feito e como testar. Create pull request.</p>
+      <p>4. <strong>Outro integrante</strong> abre o PR, clica na aba <strong>Files changed</strong> — verde = adicionado, vermelho = removido — e deixa um comentário (elogio vale!).</p>
+      <p>5. Aprovado? Botão <strong>Merge pull request</strong> → Confirm. A main acabou de receber a contribuição, com autoria registrada.</p>
+    </div>
+  </div>
+
+  <p>Depois do merge, um passo que separa amador de profissional: <span class="hl">todo mundo sincroniza</span>. A main mudou lá na nuvem; as cópias locais ainda não sabem. Cada integrante roda:</p>
+
+<pre><code><span class="sh">git checkout</span> main       <span class="cm"># volta pra linha do tempo oficial</span>
+<span class="sh">git pull</span>                <span class="cm"># puxa as novidades do GitHub pra sua máquina</span></code></pre>
+
+  <p>O <code>git pull</code> é o irmão gêmeo do push, na direção contrária: <span class="hl">push empurra para a nuvem, pull puxa da nuvem</span>. Ritual sagrado do trabalho em equipe: começou o dia? <code>git pull</code> na main ANTES de criar branch nova. Trabalhar em cima de versão velha é a receita número um de conflito.</p>
+</section>
+
+<!-- ===================== BLOCO 11 ===================== -->
+<section class="bloco" id="s11">
+  <div class="bloco-head">
+    <span class="bloco-num">11</span>
+    <h2>Por que ninguém sobrescreve o trabalho de ninguém</h2>
+  </div>
+
+  <p>Hora de responder com todas as letras a pergunta do começo. Três motivos pelos quais o Git torna quase impossível uma pessoa apagar o trabalho da outra sem querer:</p>
+
+  <p><strong>Um: o Git soma, não substitui.</strong> Quando dois trabalhos são juntados no merge, o Git não pega o arquivo de um e joga fora o do outro. Ele compara <span class="hl">linha por linha</span> e junta: a Ana mexeu na seção de mídias, o Bruno na tabela — linhas diferentes, o Git costura os dois automaticamente e ninguém perde nada. Pense num editor de livro juntando capítulos de três autores: cada capítulo entra inteiro no livro final.</p>
+
+  <p><strong>Dois: quando há dúvida, o Git PARA e pergunta.</strong> E se duas pessoas mexerem <span class="hl">na mesma linha</span> do mesmo arquivo? Aí é o famoso conflito — e olha que interessante: conflito não é o Git quebrando, é o Git sendo <em>honesto</em>. Ele se recusa a escolher sozinho, marca o trecho com as duas versões lado a lado e diz: "humanos, decidam". Vocês olham, escolhem (ou combinam as duas), commitam a decisão. Nada é descartado em silêncio, nunca. No VSCode, o trecho conflitado aparece marcado com <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; / ======= / &gt;&gt;&gt;&gt;&gt;&gt;&gt;</code> e botões prontos: "Accept Current", "Accept Incoming", "Accept Both".</p>
+
+  <p><strong>Três: mesmo o "apagado" não morre.</strong> Cada commit fica gravado no histórico para sempre. Alguém deletou uma seção por engano três commits atrás? O histórico tem a foto antiga — dá para recuperar. No Git, desastre de verdade é raríssimo; o que existe é bagunça temporária, e bagunça se arruma.</p>
+
+  <div class="caixa pratique">
+    <span class="rotulo">✏️ Pratique</span>
+    <div><p>Experimento avançado (opcional, mas vale ouro): provoque um mini-conflito de propósito com um colega. Os dois editam a MESMA linha do h1 com textos diferentes, cada um na sua branch; façam merge de uma, depois tentem a outra — e resolvam o conflito juntos no VSCode. Resolver um conflito uma vez, com calma, tira 90% do medo para sempre.</p></div>
+  </div>
+</section>
+
+<!-- ===================== BLOCO 12 ===================== -->
+<section class="bloco" id="s12">
+  <div class="bloco-head">
+    <span class="bloco-num">12</span>
+    <h2>Boas práticas do trio</h2>
+  </div>
+
+  <h3>O ciclo diário do time (fixe no grupo do trio)</h3>
+  <div class="fluxo">git pull (main) → git checkout -b nome/tarefa → editar → git add → git commit -m → git push → Pull Request → colega revisa → Merge → todos: git pull</div>
+
+  <h3>As 7 regras de ouro da colaboração</h3>
+  <ol>
+    <li><strong>Dividam o trabalho por seções/arquivos diferentes</strong> e combinem ANTES quem faz o quê — a maior parte dos conflitos nasce de falta de conversa, não de falta de técnica. Sugestão para o Bem-cuidado: pessoa A = seção de mídias, pessoa B = tabela + anexos, pessoa C = formulário + footer.</li>
+    <li><strong>Nunca trabalhe direto na main.</strong> Branch sempre, mesmo para mudança pequena.</li>
+    <li><strong>Commits pequenos e frequentes</strong> — várias fotos nítidas contam a história melhor que uma foto borrada de tudo. Terminou um pedacinho que funciona? Commit.</li>
+    <li><strong>Mensagens de commit que expliquem</strong> — "Adiciona player de áudio na seção de mídias", nunca "mudanças".</li>
+    <li><strong>git pull na main antes de começar</strong> qualquer dia de trabalho e antes de criar branch nova.</li>
+    <li><strong>PR revisado por outro integrante, sempre</strong> — revisar também ensina: lendo o código do colega, você aprende o dobro.</li>
+    <li><strong>Comuniquem-se fora do Git também</strong> — "vou mexer no header agora" no grupo do WhatsApp evita duas pessoas na mesma linha.</li>
+  </ol>
+
+  <p>Recapitulando a entrega: <span class="hl">um repositório por trio</span>, com a main funcionando e o histórico mostrando commits e PRs das três pessoas — é assim que a contribuição de cada um será avaliada, então nada de uma pessoa commitar pelo grupo todo. E respire: você acabou de aprender o fluxo de trabalho usado em basicamente toda empresa de tecnologia do planeta. O que muda de você para um time do Google é o tamanho do projeto, não o processo.</p>
+
+  <p>A casa está construída e mobiliada; chegou o dia da pintura, da decoração, do acabamento: <strong>CSS</strong>.</p>
+</section>
+
+<div class="divisor">
+  <span class="tag">Parte 3 · Introdução ao CSS</span>
+  <p>Estude com o styles.css aberto ao lado do index.html — leia, digite, salve, olhe</p>
+</div>
+
+<!-- ===================== BLOCO C1 ===================== -->
+<section class="bloco" id="c1">
+  <div class="bloco-head">
+    <span class="bloco-num">C1</span>
+    <h2>O que é CSS — e por que ele existe</h2>
+  </div>
+
+  <p>CSS: <em>Cascading Style Sheets</em> — Folhas de Estilo em Cascata. Traduzindo: "folhas de estilo" porque é onde escrevemos as regras de aparência — cores, fontes, tamanhos, espaçamentos. E "em cascata" porque as regras escorrem de cima para baixo, como uma cachoeira — uma regra mais específica, mais abaixo, pode refinar uma mais geral. Isso vai fazer sentido na prática.</p>
+
+  <p>A analogia é a mesma da nossa casa: o HTML é o esqueleto; o CSS é a roupa e a maquiagem. Olhe a sua página agora: Times New Roman, fundo branco, tudo alinhado à esquerda... É um esqueleto saudável, mas pelado. Hora de vesti-lo.</p>
+
+  <h3>Os 5 motivos para usar CSS, com exemplo real em cada um</h3>
+  <ul>
+    <li><strong>Separar conteúdo do design</strong> — o texto da consulta da Dona Lúcia (conteúdo) não deve se misturar com "a cor do lembrete é amarela" (design). Assuntos separados, arquivos separados: quem escreve o conteúdo não precisa entender do visual e vice-versa.</li>
+    <li><strong>Manter consistência visual</strong> — imagine o site da clínica com 200 páginas, todos os títulos azuis. Se cada página tivesse sua própria cor escrita à mão... uma hora alguém erraria o tom de azul. Com CSS, a regra é escrita UMA vez e vale para todas.</li>
+    <li><strong>Facilitar a manutenção</strong> — o chefe pede: "muda o azul pra verde". Sem CSS: editar 200 páginas. Com CSS: editar 1 linha. Fim do expediente.</li>
+    <li><strong>Criar layouts responsivos</strong> — é o CSS que faz o site se reorganizar no celular. Lembra do meta viewport que preparamos no HTML? Ele avisa o navegador; o CSS faz a mudança acontecer.</li>
+    <li><strong>Melhorar a experiência do usuário</strong> — texto legível, botão que parece botão, espaçamento que deixa respirar. A Dona Lúcia precisa achar a consulta dela em 5 segundos: isso é design a serviço da pessoa.</li>
+  </ul>
+
+  <div class="caixa pratique">
+    <span class="rotulo">✏️ Pratique</span>
+    <div><p>Experimento que vale mil palavras: abra qualquer site conhecido, aperte F12 → aba Elements → e desmarque regras de estilo do body (as caixinhas de checkbox no painel Styles). O site vai virando uma lista pelada de textos e links. ISSO é a web sem CSS — tudo que você acha bonito na internet é CSS trabalhando.</p></div>
+  </div>
+</section>
+
+<!-- ===================== BLOCO C2 ===================== -->
+<section class="bloco" id="c2">
+  <div class="bloco-head">
+    <span class="bloco-num">C2</span>
+    <h2>Sintaxe: seletor, propriedade e valor</h2>
+  </div>
+
+<pre><code>h1 {
+  color: blue;
+  font-size: 24px;
+}</code></pre>
+
+  <p>Toda regra CSS do planeta tem essa cara — decorou essa estrutura, decorou o CSS inteiro. Três pedaços:</p>
+
+  <ul>
+    <li>O <span class="hl">seletor</span> — o <code>h1</code> antes das chaves — responde <strong>QUEM</strong> vai ser estilizado. É o destinatário do envelope.</li>
+    <li>A <span class="hl">propriedade</span> — <code>color</code>, <code>font-size</code> — responde <strong>O QUE</strong> vai mudar. A característica.</li>
+    <li>O <span class="hl">valor</span> — <code>blue</code>, <code>24px</code> — responde <strong>COMO</strong> fica. E cada dupla propriedade-valor termina com ponto e vírgula, como um ponto final de frase.</li>
+  </ul>
+
+  <p>Analogia de ordem para o chefe de cozinha: "Nos bolos de chocolate {cobertura: morango; tamanho: grande;}". Quem recebe a ordem? Todos os bolos de chocolate. O quê muda? Cobertura e tamanho. Como? Morango e grande. CSS é isso: ordens de aparência para grupos de elementos.</p>
+
+  <div class="caixa nota">
+    <span class="rotulo">📌 Nota</span>
+    <div><p>Os símbolos, porque errar símbolo é 90% dos bugs de iniciante: <span class="hl">chaves { } abraçam as ordens; dois-pontos separam propriedade de valor; ponto e vírgula encerra cada ordem</span>. Esqueceu um ponto e vírgula? A regra seguinte para de funcionar em silêncio — e você fica meia hora procurando.</p></div>
+  </div>
+
+  <div class="caixa pratique">
+    <span class="rotulo">✏️ Pratique</span>
+    <div>
+      <p>Sua primeira regra CSS, no próprio Bem-cuidado — dentro da tag <code>&lt;style&gt;</code> que está esperando vazia no head desde a primeira aula:</p>
+    </div>
+  </div>
+
+<pre><code>h1 {
+  color: darkblue;
+  font-size: 40px;
+}</code></pre>
+
+  <div class="caixa pratique">
+    <span class="rotulo">✏️ Pratique</span>
+    <div><p>Salve → olhe o navegador: o "Olá, Dona Lúcia" mudou de cor e tamanho. Agora, playground livre: troque o valor de color (red, green, tomato, rebeccapurple...) e o font-size. Errou o nome da cor? O navegador ignora a linha e segue. CSS não trava a página — no máximo, ele te ignora.</p></div>
+  </div>
+
+  <div class="caixa teste">
+    <span class="rotulo">🧠 Teste-se</span>
+    <div>
+      <p>Na regra que você escreveu: quem é o seletor? Quantas propriedades tem? O que acontece se apagar o ponto e vírgula do color?</p>
+      <details><summary>Ver resposta</summary><p>O seletor é <code>h1</code>. Há duas propriedades: color e font-size. Sem o ponto e vírgula do color, o navegador se confunde e a regra do font-size deixa de funcionar — silenciosamente.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== BLOCO C3 ===================== -->
+<section class="bloco" id="c3">
+  <div class="bloco-head">
+    <span class="bloco-num">C3</span>
+    <h2>As 3 formas de vincular CSS ao HTML</h2>
+  </div>
+
+  <p>Vamos da pior para a melhor, com a analogia do guarda-roupa:</p>
+
+  <p><strong>1. CSS inline</strong> — o style escrito dentro da própria tag, <code>&lt;h1 style="color:red"&gt;</code> — é costurar a etiqueta de lavagem em cada peça de roupa, uma por uma. Funciona? Funciona. Escala? Nunca. Para mudar tudo, você recostura peça por peça. <span class="hl">Evite.</span></p>
+
+  <p><strong>2. CSS interno</strong> — dentro da tag <code>&lt;style&gt;</code> no head — é deixar as roupas dobradas no quarto: organizado, mas só serve para ESTE quarto, esta página. Foi o que você usou agora há pouco, e é ótimo para aprender e testar.</p>
+
+  <p><strong>3. CSS externo</strong> — um arquivo .css separado, conectado pelo <code>&lt;link&gt;</code> — é o closet profissional: todas as páginas do site se vestem no mesmo lugar. Uma mudança no closet, o site inteiro muda de figurino. É o recomendado e o padrão do mercado.</p>
+
+  <div class="caixa nota">
+    <span class="rotulo">📌 Nota</span>
+    <div><p>Momento em que o passado faz sentido: abra o head do Bem-cuidado. A linha <code>&lt;link rel="stylesheet" href="styles.css" /&gt;</code> está lá desde o PRIMEIRO dia de HTML, apontando para um arquivo que nunca existiu. Deixamos o cabide pronto esperando a roupa. Hoje a roupa chegou.</p></div>
+  </div>
+
+  <div class="caixa pratique">
+    <span class="rotulo">✏️ Pratique</span>
+    <div>
+      <p>Migração oficial:</p>
+      <p>1. Crie o arquivo <code>styles.css</code> <strong>na mesma pasta</strong> do index.html (o href é relativo — mesma regra dos caminhos de imagem!).</p>
+      <p>2. Recorte a regra do h1 de dentro do <code>&lt;style&gt;</code> e cole no styles.css. <strong>Detalhe:</strong> no arquivo .css não existe tag style — é CSS puro, direto. E comentário lá é <code>/* assim */</code>, não <code>&lt;!-- assim --&gt;</code>.</p>
+      <p>3. Salve os dois arquivos → navegador: tudo continua funcionando, agora vindo do arquivo externo. A tag style pode ficar vazia ou ser removida.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== BLOCO C4 ===================== -->
+<section class="bloco" id="c4">
+  <div class="bloco-head">
+    <span class="bloco-num">C4</span>
+    <h2>Propriedades essenciais: o kit de sobrevivência</h2>
+  </div>
+
+  <p>Quatro grupos de propriedades resolvem a maior parte do dia a dia. Estude cada grupo e aplique IMEDIATAMENTE no projeto — teoria e prática intercaladas, nunca quatro grupos seguidos sem codar.</p>
+
+  <h3>Grupo 1 — Cor e fundo</h3>
+  <p><code>color</code> é a cor do TEXTO — pegadinha do idioma: não é "cor de tudo", é cor da letra. <code>background-color</code> é a cor de FUNDO do elemento, a parede atrás do texto.</p>
+
+  <div class="caixa pratique">
+    <span class="rotulo">✏️ Pratique</span>
+    <div><p>No styles.css:</p></div>
+  </div>
+<pre><code>body {
+  background-color: #f5f7fa;
+}
+
+.lembrete {
+  background-color: lightyellow;
+  color: darkred;
+}</code></pre>
+
+  <p>Duas novidades aí. O <code>#f5f7fa</code> é uma cor em código hexadecimal — o "CPF da cor": # + seis caracteres que descrevem a mistura exata de vermelho, verde e azul. Nomes como blue são apelidos limitados; o hex dá QUALQUER cor. Não decore códigos: todo seletor de cor gera eles para você. E o <code>.lembrete</code> com ponto na frente... é o gancho da class que deixamos no HTML — a seção C6 explica direitinho. Olhe o navegador: o aviso "Levar exames de sangue" virou um alerta de verdade.</p>
+
+  <h3>Grupo 2 — Tipografia</h3>
+  <div class="caixa pratique">
+    <span class="rotulo">✏️ Pratique</span>
+    <div><p>Amplie a regra do body:</p></div>
+  </div>
+<pre><code>body {
+  background-color: #f5f7fa;
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 16px;
+}</code></pre>
+
+  <p><code>font-family</code> escolhe a fonte — e olha o momento: <span class="hl">'Inter' é a fonte que importamos do Google Fonts lá na primeira aula de HTML</span>. O link estava no head esperando; agora ela entra em cena. A lista com vírgulas é o plano B do plano B: se a Inter falhar, usa Arial; se nem Arial, qualquer fonte "sans-serif" — sem serifa, aquelas letras retinhas sem pezinho. <code>font-size</code> é o tamanho, e <code>font-weight</code> o peso: 400 normal, 700 negrito — os mesmos números 400;600;700 da URL do Google Fonts, não é coincidência.</p>
+
+  <h3>Grupos 3 e 4 — Espaçamento e bordas (a ponte para o Box Model)</h3>
+  <div class="caixa pratique">
+    <span class="rotulo">✏️ Pratique</span>
+    <div><p>A regra que transforma as consultas em cartões:</p></div>
+  </div>
+<pre><code>.consulta {
+  background-color: white;
+  border: 1px solid #cccccc;
+  padding: 16px;
+  margin: 12px;
+}</code></pre>
+
+  <p><code>border</code> é a moldura: três valores numa linha — espessura (1px), estilo (solid; existem dashed, dotted...) e cor. E agora as duas palavras que confundem TODO iniciante do mundo: <code>padding</code> e <code>margin</code>. As duas criam espaço — mas de lados diferentes da borda. Segure essa dúvida por um minuto: a próxima seção existe exatamente para resolvê-la.</p>
+</section>
+
+<!-- ===================== BLOCO C5 ===================== -->
+<section class="bloco" id="c5">
+  <div class="bloco-head">
+    <span class="bloco-num">C5</span>
+    <h2>O Box Model: todo elemento é uma caixa</h2>
+  </div>
+
+  <p>Se você só levar UMA ideia desta parte para casa, que seja esta: para o navegador, <span class="hl">todo elemento HTML é uma caixa retangular</span>. Título, parágrafo, imagem, botão — tudo caixa. Não existe círculo, não existe forma livre: caixas, caixas, caixas. Aprender CSS de layout é aprender a organizar caixas.</p>
+
+  <p>E toda caixa tem quatro camadas. Analogia do quadro na parede:</p>
+  <ul>
+    <li>O <strong>conteúdo</strong> é a pintura em si — o texto, a imagem.</li>
+    <li>O <strong>padding</strong> é o passe-partout, aquela margem interna branca entre a pintura e a moldura — espaço DENTRO da caixa.</li>
+    <li>A <strong>border</strong> é a moldura — a linha que você já desenhou nos cartões.</li>
+    <li>A <strong>margin</strong> é a distância entre um quadro e o quadro vizinho na parede — espaço FORA da caixa, que afasta os elementos entre si.</li>
+  </ul>
+
+  <div class="caixa nota">
+    <span class="rotulo">📌 Nota</span>
+    <div><p>Macete definitivo para nunca mais confundir: <span class="hl">Padding = Por dentro. Margin = "Mora fora".</span> Padding empurra a borda para longe do conteúdo; margin empurra os VIZINHOS para longe da borda.</p></div>
+  </div>
+
+  <div class="caixa pratique">
+    <span class="rotulo">✏️ Pratique</span>
+    <div><p>Experimento de contraste (o que fixa o conceito de verdade): na regra .consulta, mude <code>padding: 16px</code> para <code>padding: 50px</code> → salve → o cartão INCHA, o texto ganha respiro interno. Volte para 16px. Agora <code>margin: 12px</code> para <code>margin: 50px</code> → os cartões se AFASTAM um do outro, mas cada um continua do mesmo tamanho por dentro. Viu? Padding mexe por dentro, margin mexe na vizinhança.</p></div>
+  </div>
+
+  <div class="caixa pratique">
+    <span class="rotulo">✏️ Pratique</span>
+    <div><p>Cereja: F12 → inspecione um .consulta → no painel, o diagrama colorido do Box Model: conteúdo azul, padding verde, borda, margin laranja. O navegador literalmente desenha as quatro camadas para você. Essa imagem colorida é o mapa que você vai consultar pelos próximos anos.</p></div>
+  </div>
+
+  <div class="caixa teste">
+    <span class="rotulo">🧠 Teste-se</span>
+    <div>
+      <p>Quero afastar a tabela do histórico do título dela: uso padding ou margin? E quero dar respiro interno ao botão de anexar exame: padding ou margin?</p>
+      <details><summary>Ver resposta</summary><p>Afastar do título = espaço entre vizinhos = <code>margin</code>. Respiro interno do botão = espaço entre conteúdo e borda = <code>padding</code>.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== BLOCO C6 ===================== -->
+<section class="bloco" id="c6">
+  <div class="bloco-head">
+    <span class="bloco-num">C6</span>
+    <h2>Seletores básicos: elemento, classe e id</h2>
+  </div>
+
+  <p>Boa notícia: você já usou os três seletores sem saber. Agora eles ganham nome e regra.</p>
+
+  <p><strong>Seletor de elemento</strong> — <code>p { color: gray; }</code> — mira TODAS as tags daquele tipo. É o megafone na praça: "atenção, todos os parágrafos!". Foi o seu h1 e o seu body.</p>
+
+  <p><strong>Seletor de classe</strong> — <code>.destaque</code>, com PONTO na frente — mira os elementos que carregam aquela class no HTML. É chamar por sobrenome: "família Silva, venham cá" — vários atendem. Foi o seu .lembrete e o .consulta. Reutilizável à vontade: dez elementos podem ter class="consulta".</p>
+
+  <p><strong>Seletor de id</strong> — <code>#cabecalho</code>, com CERQUILHA — mira O elemento único que tem aquele id. É chamar por CPF: um, e só um, responde. Lembra da regra do HTML? Id não se repete na página — e o CSS respeita isso.</p>
+
+  <div class="caixa nota">
+    <span class="rotulo">📌 Nota</span>
+    <div><p>Regra de bolso do mercado: <span class="hl">classes para estilos reutilizáveis; ids apenas para elementos únicos e importantes</span> — o cabeçalho, a navegação. Na prática do dia a dia, você vai estilizar 90% das coisas com classe.</p></div>
+  </div>
+
+  <div class="caixa pratique">
+    <span class="rotulo">✏️ Pratique</span>
+    <div><p>Um de cada tipo no Bem-cuidado, para sentir a diferença de alcance:</p></div>
+  </div>
+<pre><code>/* elemento: TODOS os h2 da página de uma vez */
+h2 {
+  color: #2c3e50;
+}
+
+/* classe: só quem tem class="logo" */
+.logo {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+/* id: unicamente a section de próximas consultas */
+#proximas {
+  background-color: #eef3f8;
+  padding: 16px;
+}</code></pre>
+
+  <div class="caixa teste">
+    <span class="rotulo">🧠 Teste-se</span>
+    <div>
+      <p>Quero deixar TODOS os links do menu sem sublinhado: elemento, classe ou id? E para destacar só a seção de anexos? E para criar um estilo "botao-perigo" que várias telas vão reusar?</p>
+      <details><summary>Ver resposta</summary><p>Todos os links → seletor de elemento (<code>a</code>). Só a seção de anexos → id (<code>#anexos</code>), pois ela é única. Estilo reutilizável → classe (<code>.botao-perigo</code>).</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== BLOCO C7 ===================== -->
+<section class="bloco" id="c7">
+  <div class="bloco-head">
+    <span class="bloco-num">C7</span>
+    <h2>Exemplo prático: a primeira identidade visual do Bem-cuidado</h2>
+  </div>
+
+  <p>Antes de codar, leia este par de arquivos e tente EXPLICAR cada regra em voz alta (sério, funciona): o que o body ganha? (fonte Arial, fundo cinza-claro #f0f0f0.) O que a classe .titulo faz? (cor #333, 36px, centralizado — olha o <code>text-align: center</code>, propriedade nova!) E a .texto? (cor, tamanho, padding, margin e borda — o Box Model completo numa regra só.)</p>
+
+<pre><code>/* estilo.css do exemplo */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+}
+
+.titulo {
+  color: #333;
+  font-size: 36px;
+  text-align: center;
+}
+
+.texto {
+  color: #666;
+  font-size: 18px;
+  padding: 20px;
+  margin: 10px;
+  border: 1px solid #ccc;
+}</code></pre>
+
+  <p>Se você conseguiu ler e explicar — parabéns: você está LENDO CSS. Algumas horas atrás isso era grego. Agora, o grande hands-on no projeto:</p>
+
+  <div class="caixa pratique">
+    <span class="rotulo">✏️ Pratique</span>
+    <div><p>Digite cada regra no seu styles.css, sempre salvando e olhando o resultado entre uma e outra:</p></div>
+  </div>
+<pre><code>/* topo do site com identidade */
+.topo {
+  background-color: #2c5f7c;
+  color: white;
+  padding: 16px;
+}
+
+.topo a {
+  color: white;
+}
+
+/* saudação centralizada */
+.saudacao {
+  text-align: center;
+  padding: 24px;
+}
+
+/* tabela do histórico mais legível */
+table {
+  background-color: white;
+  border: 1px solid #dddddd;
+  padding: 8px;
+}
+
+/* botões com cara de botão de verdade */
+button {
+  background-color: #2c5f7c;
+  color: white;
+  padding: 10px 18px;
+  border: 1px solid #1e4258;
+}</code></pre>
+
+  <p>Dois detalhes novos de brinde. O <code>.topo a</code> — seletor composto: "os links QUE ESTÃO DENTRO de .topo" — é um gostinho de como seletores se combinam, tema das próximas aulas. E o <code>padding: 10px 18px</code> com dois valores: o primeiro é vertical (cima/baixo), o segundo horizontal (lados) — atalho que você vai usar todo dia.</p>
+
+  <p>Agora compare com a página de algumas horas atrás. Mesma estrutura, mesmo HTML — outra cara completamente. É a prova viva da separação: <span class="hl">conteúdo de um lado, aparência do outro</span>.</p>
+
+  <div class="caixa pratique">
+    <span class="rotulo">✏️ Pratique</span>
+    <div><p>Exercício livre: personalize UMA coisa do seu jeito — a paleta de cores do topo, o estilo do .lembrete, a borda dos cartões. Não existe resposta errada aqui; existe explorar.</p></div>
+  </div>
+</section>
+
+<!-- ===================== BLOCO C8 ===================== -->
+<section class="bloco" id="c8">
+  <div class="bloco-head">
+    <span class="bloco-num">C8</span>
+    <h2>Boas práticas e a ferramenta secreta: F12</h2>
+  </div>
+
+  <ul>
+    <li><strong>Use sempre arquivo externo</strong> — você já está fazendo: seu styles.css nasceu hoje. O style interno serve para teste rápido; o inline, quase nunca.</li>
+    <li><strong>Nomeie classes com significado</strong> — <code>.botao-primario</code>, <code>.cartao-produto</code>: nomes que contam o que a coisa É. Nunca <code>.classe1</code> ou <code>.azul</code> (e se o azul virar verde amanhã? O nome mente!). Repare que o Bem-cuidado já segue isso: .lembrete, .consulta, .saudacao — dá para entender o site só lendo as classes.</li>
+    <li><strong>Teste no navegador constantemente</strong> — o ciclo salvou-olhou que você repetiu o guia inteiro. Nunca escreva 30 linhas de CSS às cegas para olhar só no final.</li>
+    <li><strong>Comece simples e evolua</strong> — domine seletores, cores e box model antes de layouts complexos (exatamente o cardápio deste guia). Flexbox e Grid vêm na hora certa; ansiedade não acelera aprendizado.</li>
+  </ul>
+
+  <p>E o terceiro item merece capítulo próprio, porque é <span class="hl">a ferramenta mais poderosa para aprender CSS</span>: o Inspecionar Elemento. Aperte F12 (ou botão direito → Inspecionar). Esse painel é o raio-X da página: você clica em qualquer elemento e vê TODO o CSS aplicado nele — inclusive de qualquer site do mundo.</p>
+
+  <div class="caixa pratique">
+    <span class="rotulo">✏️ Pratique</span>
+    <div>
+      <p>Laboratório F12 (5 min): (1) F12 na página do Bem-cuidado → ícone de setinha (canto do painel) → clique no h1 → veja a sua regra listada; (2) no painel Styles, mude a cor AO VIVO, arraste o font-size — a página reage em tempo real; (3) F5 → tudo volta ao normal.</p>
+      <p>O F12 é um rascunho mágico: experimente à vontade, nada é salvo. Achou o valor perfeito? Copie para o styles.css — aí sim vira permanente. E sim: dá para "inspecionar" qualquer site bonito da internet e aprender como fizeram. É estudo, não cola.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== BLOCO C9 ===================== -->
+<section class="bloco" id="c9">
+  <div class="bloco-head">
+    <span class="bloco-num">C9</span>
+    <h2>Resumo, próximos passos e desafio do trio</h2>
+  </div>
+
+  <h3>Revisão relâmpago (complete de cabeça antes de conferir)</h3>
+  <div class="caixa teste">
+    <span class="rotulo">🧠 Teste-se</span>
+    <div>
+      <p>CSS é a linguagem que controla a... ? Toda regra tem seletor, propriedade e... ? Os três seletores básicos: elemento, classe com ponto e id com... ? E todo elemento é uma caixa com conteúdo, padding, border e... ?</p>
+      <details><summary>Ver respostas</summary><p>Aparência. Valor. Cerquilha (#). Margin. Se acertou as quatro, os fundamentos estão de pé.</p></details>
+    </div>
+  </div>
+
+  <p>E os próximos passos são o trailer das cenas dos próximos capítulos: <strong>Flexbox e Grid</strong> para posicionar caixas lado a lado — hoje seus cartões só empilham; em breve você os alinha como quiser. <strong>Transições</strong> para dar movimento suave. E <strong>media queries</strong> para o site se adaptar ao celular. Tudo construído em cima do que você aprendeu aqui.</p>
+
+  <h3>Desafio do trio (fechando o ciclo Git + CSS)</h3>
+  <ul>
+    <li>No repositório do trio, criar o <code>styles.css</code> e estilizar o Bem-cuidado — cada integrante em <strong>sua própria branch</strong>, estilizando a sua parte (mesma divisão do HTML: mídias / tabela e anexos / formulário).</li>
+    <li>Cada um abre um <strong>Pull Request</strong>; outro integrante revisa e faz o merge — <span class="hl">três PRs, três revisões, uma main bonita</span>.</li>
+    <li>Requisitos mínimos de CSS: uma paleta de cores combinada entre o trio, font-family definida no body, cartões .consulta com border/padding/margin, e pelo menos uma regra de cada tipo de seletor (elemento, classe e id).</li>
+    <li>Bônus: usar o F12 para "roubar" (estudar!) uma ideia de estilo de um site real e adaptar.</li>
+  </ul>
+
+  <p>Perceba a jogada: o desafio treina CSS e o fluxo de equipe ao mesmo tempo — porque é assim que você vai trabalhar para sempre. Travou em qualquer passo do Git? Resolva logo ou poste o print do erro no grupo da turma — erro de Git parado vira bola de neve. A casa está pintada... o próximo passo é arrumar os móveis: Flexbox. Bons estudos!</p>
+</section>
+
+</main>
+
+<footer>
+  Guia de estudo do aluno · HTML linha a linha + Git em equipe + Introdução ao CSS
+</footer>
+
+</body>
+</html>
